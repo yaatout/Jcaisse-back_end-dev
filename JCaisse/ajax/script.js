@@ -1,0 +1,13075 @@
+/*
+R�sum�:
+Commentaire:
+version:1.1
+Auteur: Korka
+Date de modification:
+*/
+
+/************** Début chargement container vente*********************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)$("html,body").scrollTop(0);
+
+     $("html,body").animate({scrollTop: 0});
+
+    // $(document).on('click', "#closeInfo", function() {
+    //     // alert(100)
+    //     $("#msg_info_1").attr('class', "modal fade out")
+    //     $(".modal-backdrop").remove();
+    // });
+
+ // $(document).on("keyup", ".codeBarreLigneVt" , function(e) {
+    //     e.preventDefault();
+
+    //     idPanier=$(this).attr('data-idPanier');
+    //     value=$('#panier_'+idPanier).val()
+
+    //     var keycode = (e.keyCode ? e.keyCode : e.which);
+
+    //     if (keycode == '13' && value=="") {
+    //     // $("#loading_gif_modal").modal("show");
+        
+    //     $(".img-load-terminer").show();
+            
+    //     remise=$('#val_remise'+idPanier).val()
+    //     compte=$('#compte'+idPanier).val()
+    //     clientInput=$('#clientInput'+idPanier).val()
+    //     avanceInput=$('#avanceInput'+idPanier).val()
+    //     compteAvance=$('#compteAvance'+idPanier).val()
+    //     versement=$('#versement'+idPanier).val()
+    //     // alert(idPanier+"/"+remise+"/"+compte+"/"+clientInput+"/"+avanceInput+"/"+compteAvance+"/"+versement)
+    //     $.ajax({
+    //         url: "ajax/operationPanierAjax.php",
+    //         method: "POST",
+    //         data: {
+    //             operation: 1,
+    //             idPagnet: idPanier,
+    //             remise: remise,
+    //             compte: compte,
+    //             compteAvance: compteAvance,
+    //             clientInput: clientInput,
+    //             avanceInput: avanceInput,
+    //             versement: versement,
+    //             btnImprimerFacture: 'btnImprimerFacture',
+    //         },
+    //         success: function(data) {
+    //             // alert(data)
+    //             if(data == '1' || data == '') {
+
+    //                 $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+    //                     // $("#addPanier").click();
+    //                     $(".loading-gif").hide();
+    //                     // $("#loading_gif_modal").modal("hide");
+    //                     $(".img-load-terminer").hide();
+    //                 });
+
+    //             }else { 
+
+    //                 $('#msg_info_body').html(data);
+    //                 $('#msg_info_1').modal('show');
+    //                 $(".img-load-terminer").hide();
+                    
+    //                 $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+    //                     // alert(data)
+    //                     $(".loading-gif").hide();
+    //                     // $("#loading_gif_modal").modal("hide");
+    //                 });
+
+    //             }
+                
+    //         },
+    //         error: function() {
+    //             alert("La requête ");
+    //         },
+    //         dataType: "text"
+    //     });
+    //     }
+
+    //     // var avance = $(this).val();        
+    //     // var idPanier = $(this).attr('data-idPanier');        
+    //     // var total = $("#somme_Apayer"+idPanier).text();
+    //     // // console.log(total);
+    //     // // alert(1)
+    //     // if (avance > parseInt(total)) {
+    //     //     // alert(2)
+    //     //     v = $('#avanceInput'+idPanier).val();
+    //     //     // $('#avanceInput'+idPanier).blur();
+    //     //     $('#avanceInput'+idPanier).val(v.substring(0, v.length-1));
+    //     //     $('#msg_info_avance').modal('show');
+
+    //     // }
+// });
+
+    $(document).on("keyup", ".versement, .avanceInput" , function(e) {
+        e.preventDefault();
+
+        idPanier=$(this).attr('data-idPanier');
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+
+        if (keycode == '13') {
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-terminer").show();
+            
+        remise=$('#val_remise'+idPanier).val()
+        compte=$('#compte'+idPanier).val()
+        clientInput=$('#clientInput'+idPanier).val()
+        avanceInput=$('#avanceInput'+idPanier).val()
+        compteAvance=$('#compteAvance'+idPanier).val()
+        versement=$('#versement'+idPanier).val()
+        // alert(idPanier+"/"+remise+"/"+compte+"/"+clientInput+"/"+avanceInput+"/"+compteAvance+"/"+versement)
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                idPagnet: idPanier,
+                remise: remise,
+                compte: compte,
+                compteAvance: compteAvance,
+                clientInput: clientInput,
+                avanceInput: avanceInput,
+                versement: versement,
+                btnImprimerFacture: 'btnImprimerFacture',
+            },
+            success: function(data) {
+                // alert(data)
+                if(data == '1' || data == '') {
+
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // $("#addPanier").click();
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                        $(".img-load-terminer").hide();
+                    });
+
+                }else { 
+
+                    $('#msg_info_body').html(data);
+                    $('#msg_info_1').modal('show');
+                    $(".img-load-terminer").hide();
+                    
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+        }
+
+        // var avance = $(this).val();        
+        // var idPanier = $(this).attr('data-idPanier');        
+        // var total = $("#somme_Apayer"+idPanier).text();
+        // // console.log(total);
+        // // alert(1)
+        // if (avance > parseInt(total)) {
+        //     // alert(2)
+        //     v = $('#avanceInput'+idPanier).val();
+        //     // $('#avanceInput'+idPanier).blur();
+        //     $('#avanceInput'+idPanier).val(v.substring(0, v.length-1));
+        //     $('#msg_info_avance').modal('show');
+
+        // }
+    });
+
+    
+    $(document).on("keyup", ".avanceInput", function() {
+        var avance = $(this).val();        
+        var idPanier = $(this).attr('data-idPanier');        
+        var total = $("#somme_Apayer"+idPanier).text();
+        // console.log(total);
+        // alert(1)
+        if (avance > parseInt(total)) {
+            // alert(2)
+            v = $('#avanceInput'+idPanier).val();
+            // $('#avanceInput'+idPanier).blur();
+            $('#avanceInput'+idPanier).val(v.substring(0, v.length-1));
+            $('#msg_info_avance').modal('show');
+
+        }
+    });
+
+    $(document).on('click', ".modeEditionBtn", function() {
+        
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-editer").show();
+        var id = $(this).attr('id');
+        result = id.split('-');
+        idPanier = result[1]
+        
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 30,
+                idPanier: idPanier
+            },
+            dataType: "text",
+            success: function(data) {
+                // alert(data)
+                // $("#clientInput"+idPanier).val('');
+                // $("#avanceInput"+idPanier).val('');
+                if (data == 1) {
+                    // window.location.reload();
+                    $(".img-load-editer").hide();
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                        // $("#addPanier").click();
+                    });
+                } else {
+                    $('#msg_edit_pagnet').modal('show');
+                    // $("#loading_gif_modal").modal("hide");
+                    $(".img-load-editer").hide();
+                }
+
+            },
+            error: function() {
+                alert("La requête ss");
+            }
+        });
+    });
+
+    // $(document).on('click', ".modeEditionBtnET", function() {
+    //     var id = $(this).attr('id');
+    //     result = id.split('-');
+    //     idPanier = result[1]
+        
+    //     $.ajax({
+    //         url: "ajax/vendreLigneAjax.php",
+    //         method: "POST",
+    //         data: {
+    //             operation: 31,
+    //             idPanier: idPanier
+    //         },
+    //         dataType: "text",
+    //         success: function(data) {
+    //             // alert(data)
+    //             // $("#clientInput"+idPanier).val('');
+    //             // $("#avanceInput"+idPanier).val('');
+    //             if (data == 1) {
+    //                 window.location.reload();
+    //             } else {
+    //                 $('#msg_edit_pagnet').modal('show');
+    //             }
+
+    //         },
+    //         error: function() {
+    //             alert("La requête ss");
+    //         }
+    //     });
+    // });
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $(document).on("keyup", ".inputRetourApres", function(e) {  
+        e.preventDefault();
+        // alert(12354)
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+
+        if (keycode == '13') {
+            // $("#loading_gif_modal").modal("show");
+            $(".img-load-retourApres").show();
+            numligne=$(this).attr('data-numligne');
+            // numligne=$("#numligne").val();
+            idStock=$("#idStock"+numligne).val();
+            designation=$("#designation"+numligne).val();
+            idPagnet=$("#idPagnet"+numligne).val();
+            quantite=$("#quantite"+numligne).val();
+            unitevente=$("#unitevente"+numligne).val();
+            prixunitevente=$("#prixunitevente"+numligne).val();
+            prixtotal=$("#prixtotal"+numligne).val();
+            totalp=$("#totalp"+numligne).val();
+            // alert(numligne+"/"+idStock+"/"+designation+"/"+idPagnet+"/"+quantite+"/"+unitevente+"/"+prixunitevente+"/"+prixtotal+"/"+totalp)
+            $.ajax({
+                url: "ajax/operationPanierAjax.php",
+                method: "POST",
+                data: {
+                    operation: 1,
+                    btnRetourApres: 'btnRetourApres',
+                    numligne: numligne,
+                    idStock: idStock,
+                    designation: designation,
+                    idPagnet: idPagnet,
+                    quantite: quantite,
+                    unitevente: unitevente,
+                    prixunitevente: prixunitevente,
+                    prixtotal: prixtotal,
+                    totalp: totalp
+                },
+                success: function(data) { 
+                    // alert(data)
+                    /********************************* */
+                    if(data == '1') {
+                        // alert(1)
+                        $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                            // alert(data)
+                            $(".loading-gif").hide();
+                            $("#msg_rtrnApres_ligne"+numligne).modal('hide')
+                            $(".modal-backdrop").remove();
+                            $(".img-load-retourApres").hide();
+                            // $("#loading_gif_modal").modal("hide");
+                        });
+
+                    }else {
+
+                        // alert(2)
+                        $("#msg_rtrnApres_ligne"+numligne).modal('hide')
+                        $(".modal-backdrop").remove();
+                        $('#msg_info_body').html(data);
+                        $('#msg_info_1').modal('show');
+                        // $("#loading_gif_modal").modal("hide");
+                        $(".img-load-retourApres").hide();
+
+                    }
+                    
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+        }
+    })
+    
+    $(document).on("click", ".btnRetourApres", function(e) {  
+        
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-retourApres").show();
+        $(".btnRetourApres").attr("disabled","disabled");
+        numligne=$(this).attr('data-numligne');
+        // numligne=$("#numligne").val();
+        idStock=$("#idStock"+numligne).val();
+        designation=$("#designation"+numligne).val();
+        idPagnet=$("#idPagnet"+numligne).val();
+        quantite=$("#quantite"+numligne).val();
+        unitevente=$("#unitevente"+numligne).val();
+        prixunitevente=$("#prixunitevente"+numligne).val();
+        prixtotal=$("#prixtotal"+numligne).val();
+        totalp=$("#totalp"+numligne).val();
+        // alert(numligne+"/"+idStock+"/"+designation+"/"+idPagnet+"/"+quantite+"/"+unitevente+"/"+prixunitevente+"/"+prixtotal+"/"+totalp)
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                btnRetourApres: 'btnRetourApres',
+                numligne: numligne,
+                idStock: idStock,
+                designation: designation,
+                idPagnet: idPagnet,
+                quantite: quantite,
+                unitevente: unitevente,
+                prixunitevente: prixunitevente,
+                prixtotal: prixtotal,
+                totalp: totalp
+            },
+            success: function(data) { 
+                // alert(data)
+                /********************************* */
+                if(data == '1') {
+                    // alert(1)
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        $("#msg_rtrnApres_ligne"+numligne).modal('hide')
+                        $(".modal-backdrop").remove();
+                        $(".img-load-retourApres").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }else {
+
+                    // alert(2)
+                    $("#msg_rtrnApres_ligne"+numligne).modal('hide')
+                    $(".modal-backdrop").remove();
+                    $('#msg_info_body').html(data);
+                    $('#msg_info_1').modal('show');
+                    // $("#loading_gif_modal").modal("hide");
+                    $(".img-load-retourApres").show();
+
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    })
+
+    $(document).on("click", ".btnRetourAvant", function(e) {  
+        
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-retourAvant").show();
+        $(".btnRetourAvant").attr("disabled","disabled");
+        numligne=$(this).attr('data-numligne');
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                btnRetourAvant: 'btnRetourAvant',
+                numligne: numligne
+            },
+            success: function(data) { 
+                // alert(data)
+                /****************msg_rtrnAvant_ligne***************** */
+                if(data == '1'){
+                    // alert('data')
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        $("#msg_rtrnAvant_ligne"+numligne).modal('hide')
+                        $(".modal-backdrop").remove();
+                        $(".img-load-retourAvant").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }else {
+                    
+                    $('#msg_info_body').html("<p>IMPOSSIBLE.</br></br> Erreur lors de la tentative de retour du ligne n° "+numligne+". </br></br></p>");
+                    $('#msg_info_1').modal('show');
+                    $(".img-load-retourAvant").hide();
+
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    })
+
+    $(document).on("click", ".btnRetournerPagnet", function(e) {  
+        
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-retournerPanier").show();
+        $(".btnRetournerPagnet").attr("disabled","disabled");
+        idPanier=$(this).attr('data-idPanier');
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                btnRetournerPagnet: 'btnRetournerPagnet',
+                idPagnet: idPanier,
+            },
+            success: function(data) { 
+                // alert(data)
+                /****************msg_rtrn_pagnet***************** */
+                if(data == '1'){
+
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+
+                        $("#msg_ann_pagnet"+idPanier).modal('hide')
+                        $(".modal-backdrop").remove();
+                        $(".img-load-annulerPanier").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }else {
+                    
+                    $('#msg_info_body').html("<p>IMPOSSIBLE.</br></br> Erreur lors de la tentative de retour du panier n° "+idPanier+". </br></br></p>");
+                    $('#msg_info_1').modal('show');
+                    $(".img-load-retournerPanier").hide();
+
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    })
+
+    $(document).on("click", ".btnAnnulerPagnet", function(e) {  
+        
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-annulerPanier").show();
+        $(".btnAnnulerPagnet").attr("disabled","disabled");
+        idPanier=$(this).attr('data-idPanier');
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                btnAnnulerPagnet: 'btnAnnulerPagnet',
+                idPagnet: idPanier,
+            },
+            success: function(data) { 
+                // alert(data)
+                /****************msg_ann_pagnet***************** */
+                if(data == '1'){
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+
+                        $("#msg_ann_pagnet"+idPanier).modal('hide')
+                        $(".modal-backdrop").remove();
+                        $(".img-load-annulerPanier").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }else {
+                    
+                    $('#msg_info_body').html("<p>IMPOSSIBLE.</br></br> Erreur lors de l'annulation du panier n° "+idPanier+". </br></br></p>");
+                    $('#msg_info_1').modal('show');
+                    $(".img-load-annulerPanier").hide();
+
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    })
+    
+    $(document).on("click", ".btn_Termine_Panier", function(e) {  
+
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load-terminer").show();
+        $(".btn_Termine_Panier").attr("disabled","disabled");
+        idPanier=$(this).attr('data-idPanier');
+        remise=$('#val_remise'+idPanier).val()
+        compte=$('#compte'+idPanier).val()
+        clientInput=$('#clientInput'+idPanier).val()
+        avanceInput=$('#avanceInput'+idPanier).val()
+        compteAvance=$('#compteAvance'+idPanier).val()
+        versement=$('#versement'+idPanier).val()
+        // alert(idPanier+"/"+remise+"/"+compte+"/"+clientInput+"/"+avanceInput+"/"+compteAvance+"/"+versement)
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                idPagnet: idPanier,
+                remise: remise,
+                compte: compte,
+                compteAvance: compteAvance,
+                clientInput: clientInput,
+                avanceInput: avanceInput,
+                versement: versement,
+                btnImprimerFacture: 'btnImprimerFacture',
+            },
+            success: function(data) {
+                result = data.split('<>');
+                if (result[0]=='1') {
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // $("#addPanier").click();
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                        $(".img-load-terminer").hide();
+                    });
+                    var lcd=$("#lcd_Machine").val();
+                    //if(lcd==1){
+                        var quantite=" ";
+                        var prix=result[1];
+                        $.ajax({
+                            url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                            type: "GET", // data type (can be get, post, put, delete)
+                            data: { 
+                                "quantite": quantite, 
+                                "prix": prix,
+                            }, // data in json format
+                            async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                            success: function(response) {
+                                console.log(response);
+                            },
+                        });
+                    //}
+
+                }else { 
+
+                    $('#msg_info_body').html(data);
+                    $('#msg_info_1').modal('show');
+                    $(".img-load-terminer").hide();
+                    
+                    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                        // alert(data)
+                        $(".loading-gif").hide();
+                        // $("#loading_gif_modal").modal("hide");
+                    });
+
+                }
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    }) 
+
+    $(document).on("click", "#addPanier", function(e) {          
+        // $("#loading_gif_modal").modal("show");
+        $(".img-load").show();
+        $("#addPanier").attr("disabled","disabled");
+        
+        $.ajax({
+            url: "ajax/operationPanierAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                btnSavePagnetVente: 'btnSavePagnetVente',
+            },
+            success: function(data) { 
+                // alert(data)
+                $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+                    // alert(data)
+                    $(".loading-gif").hide();
+                    // $("#loading_gif_modal").modal("hide");
+                    $(".img-load").hide();
+                    $(".codeBarreLigneVt").focus();
+                });
+                
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+
+        
+        $("#collapse1").collapse('hide');
+        var lcd=$("#lcd_Machine").val();
+        if(lcd==1){
+            var quantite=" ";
+            var prix=0;
+            $.ajax({
+                url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                type: "GET", // data type (can be get, post, put, delete)
+                data: { 
+                    "quantite": quantite, 
+                    "prix": prix,
+                }, // data in json format
+                async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                success: function(response) {
+                    console.log(response);
+                },
+            });
+        }
+    })    
+
+    $("#venteContent" ).load( "ajax/loadContainerAjax.php", function(data){ //get content from PHP page
+        // alert(data)
+        $(".loading-gif").hide();
+        // $("#addPanier").click();
+    });
+});
+
+/*************** Fin chargement container vente ********************/
+
+/*************** Début lister prix boutique ***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreePrix = $('#nbEntreePrix').val()
+
+    $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":1,"nbEntreePrix":nbEntreePrix,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsPrix").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsPrix").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreePrix = $('#nbEntreePrix').val()
+        query = $('#searchInputPrix').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"page":page,"operation":1,"nbEntreePrix":nbEntreePrix,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"page":page,"operation":1,"nbEntreePrix":nbEntreePrix,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsPrix").load("ajax/listerPrixAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInputPrix').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputPrix').val()
+        nbEntreePrix = $('#nbEntreePrix').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":3,"nbEntreePrix":nbEntreePrix,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":3,"nbEntreePrix":nbEntreePrix,"query":"","cb":t}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":3,"nbEntreePrix":nbEntreePrix,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":3,"nbEntreePrix":nbEntreePrix,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreePrix').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreePrix = $('#nbEntreePrix').val()
+        query = $('#searchInputPrix').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":4,"nbEntreePrix":nbEntreePrix,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":4,"nbEntreePrix":nbEntreePrix,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":4,"nbEntreePrix":nbEntreePrix}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triPrix = 0;
+    $(document).on("click", "#resultsProductsPrix th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputPrix').val();
+        nbEntreePrix = $('#nbEntreePrix').val()
+        // $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":2,"nbEntreePrix":nbEntreePrix,"tri":1, "query":""}); //load initial records
+        
+        if (triPrix == 1) {
+            // alert(triPrix)
+            if (query.length == 0) {
+                $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":2,"nbEntreePrix":nbEntreePrix,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsPrix" ).load( "ajax/listerPrixAjax.php",{"operation":2,"nbEntreePrix":nbEntreePrix,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triPrix = 0;
+            // alert(triPrix)
+            
+        } else {
+            // alert(triPrix)
+            if (query.length == 0) {
+                $("#resultsProductsPrix").load( "ajax/listerPrixAjax.php",{"operation":2,"nbEntreePrix":nbEntreePrix,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsPrix").load( "ajax/listerPrixAjax.php",{"operation":2,"nbEntreePrix":nbEntreePrix,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triPrix = 1;
+            // alert(triPrix)
+        }
+    });
+});
+
+/*************** Fin lister prix boutique ***************/
+
+/*************** Début modification pour les tableaux initialisation ***************/
+
+
+/*************** Début modification boutique***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeBInit = $('#nbEntreeBInit').val()
+    value = $("#catalogue").val();
+
+    $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":1,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":"","nom":value}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsInitB").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsInitB").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeBInit = $('#nbEntreeBInit').val()
+        query = $('#searchInputBInit').val();
+        value = $("#catalogue").val();
+
+        if (query.length == 0) {
+            $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"page":page,"operation":1,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":"","nom":value}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsInitB" ).load("ajax/listerCatalogueAjax.php",{"page":page,"operation":1,"nbEntreeBInit":nbEntreeBInit,"query":query,"cb":"","nom":value}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsInitB").load("ajax/listerCatalogueAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInputBInit').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputBInit').val()
+        nbEntreeBInit = $('#nbEntreeBInit').val()
+        value = $("#catalogue").val();
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":3,"nbEntreeBInit":nbEntreeBInit,"query":query,"cb":t,"nom":value}); //load initial records
+            }else{
+                $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":3,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":t,"nom":value}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":3,"nbEntreeBInit":nbEntreeBInit,"query":query,"cb":t,"nom":value}); //load initial records
+                }else{
+                    $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":3,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":t,"nom":value}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreeBInit').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeBInit = $('#nbEntreeBInit').val()
+        query = $('#searchInputBInit').val();
+        value = $("#catalogue").val();
+
+        if (query.length == 0) {
+            $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":4,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":"","nom":value}); //load initial records
+                
+        }else{
+            $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":4,"nbEntreeBInit":nbEntreeBInit,"query":query,"cb":"","nom":value}); //load initial records
+        }
+            
+        // $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":4,"nbEntreeBInit":nbEntreeBInit}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triBInit = 0;
+    $(document).on("click", "#resultsProductsInitB th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputBInit').val();
+        nbEntreeBInit = $('#nbEntreeBInit').val()
+        value = $("#catalogue").val();
+        // $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":2,"nbEntreeBInit":nbEntreeBInit,"tri":1, "query":""}); //load initial records
+        
+        if (triBInit == 1) {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":2,"nbEntreeBInit":nbEntreeBInit,"tri":1, "query":"","cb":"","nom":value}); //load initial records
+                    
+            }else{
+                $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":2,"nbEntreeBInit":nbEntreeBInit,"tri":1, "query":query,"cb":"","nom":value}); //load initial records
+            }
+
+            triBInit = 0;
+            // alert(triB)
+            
+        } else {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProductsInitB").load( "ajax/listerCatalogueAjax.php",{"operation":2,"nbEntreeBInit":nbEntreeBInit,"tri":0, "query":"","cb":"","nom":value}); //load initial records
+                    
+            }else{
+                $("#resultsProductsInitB").load( "ajax/listerCatalogueAjax.php",{"operation":2,"nbEntreeBInit":nbEntreeBInit,"tri":0, "query":query,"cb":"","nom":value}); //load initial records
+            }
+            
+            triBInit = 1;
+            // alert(triB)
+        }
+    });
+});
+
+/*************** Début modification boutique***************/
+
+
+/*************** Début modification pharmacie***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreePhInit = $('#nbEntreePhInit').val()
+    value = $("#cataloguePH").val();
+
+    $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":1,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":"","nom":value}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsInit").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsInit").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreePhInit = $('#nbEntreePhInit').val()
+        query = $('#searchInputPhInit').val();
+        value = $("#cataloguePH").val();
+
+        if (query.length == 0) {
+            $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":"","nom":value}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsInit" ).load("ajax/listerCatalogue-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreePhInit":nbEntreePhInit,"query":query,"cb":"","nom":value}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsInit").load("ajax/listerCatalogue-PharmacieAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInputPhInit').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputPhInit').val()
+        nbEntreePhInit = $('#nbEntreePhInit').val()
+        value = $("#cataloguePH").val();
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":3,"nbEntreePhInit":nbEntreePhInit,"query":query,"cb":t,"nom":value}); //load initial records
+            }else{
+                $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":3,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":t,"nom":value}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":3,"nbEntreePhInit":nbEntreePhInit,"query":query,"cb":t,"nom":value}); //load initial records
+                }else{
+                    $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":3,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":t,"nom":value}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreePhInit').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreePhInit = $('#nbEntreePhInit').val()
+        query = $('#searchInputPhInit').val();
+        value = $("#cataloguePH").val();
+
+        if (query.length == 0) {
+            $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":4,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":"","nom":value}); //load initial records
+                
+        }else{
+            $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":4,"nbEntreePhInit":nbEntreePhInit,"query":query,"cb":"","nom":value}); //load initial records
+        }
+            
+        // $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":4,"nbEntreePhInit":nbEntreePhInit}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triPhInit = 0;
+    $(document).on("click", "#resultsProductsInit th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputPhInit').val();
+        nbEntreePhInit = $('#nbEntreePhInit').val()
+        value = $("#cataloguePH").val();
+        // $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":2,"nbEntreePhInit":nbEntreePhInit,"tri":1, "query":""}); //load initial records
+        
+        if (triPhInit == 1) {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":2,"nbEntreePhInit":nbEntreePhInit,"tri":1, "query":"","cb":"","nom":value}); //load initial records
+                    
+            }else{
+                $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":2,"nbEntreePhInit":nbEntreePhInit,"tri":1, "query":query,"cb":"","nom":value}); //load initial records
+            }
+
+            triPhInit = 0;
+            // alert(triB)
+            
+        } else {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProductsInit").load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":2,"nbEntreePhInit":nbEntreePhInit,"tri":0, "query":"","cb":"","nom":value}); //load initial records
+                    
+            }else{
+                $("#resultsProductsInit").load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":2,"nbEntreePhInit":nbEntreePhInit,"tri":0, "query":query,"cb":"","nom":value}); //load initial records
+            }
+            
+            triPhInit = 1;
+            // alert(triB)
+        }
+    });
+});
+
+/*************** Début modification pharmacie***************/
+
+/*************** Début modification pour les tableaux initialisation ***************/
+
+/*************** Début modification inventaire boutique ***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeInvD = $('#nbEntreeInvD').val()
+
+    $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":1,"nbEntreeInvD":nbEntreeInvD,"query":"","cb":""}, function(data){ //get content from PHP page
+        $(".loading-div").hide(); //once done, hide loading element
+        // alert(data)
+    });
+    
+    //executes code below when user click on pagination links
+    $("#resultsInventairesD").on( "click", ".pagination a", function (e){
+    // $("#resultsInventairesD").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeInvD = $('#nbEntreeInvD').val()
+        query = $('#searchInputInvD').val();
+
+        if (query.length == 0) {
+            $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"page":page,"operation":1,"nbEntreeInvD":nbEntreeInvD,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+                // alert(data)
+            });
+                
+        }else{
+            $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"page":page,"operation":1,"nbEntreeInvD":nbEntreeInvD,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsInventairesD").load("ajax/listerInventaireAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInputInvD').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputInvD').val()
+        nbEntreeInvD = $('#nbEntreeInvD').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":3,"nbEntreeInvD":nbEntreeInvD,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":3,"nbEntreeInvD":nbEntreeInvD,"query":"","cb":t}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":3,"nbEntreeInvD":nbEntreeInvD,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":3,"nbEntreeInvD":nbEntreeInvD,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreeInvD').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeInvD = $('#nbEntreeInvD').val()
+        query = $('#searchInputInvD').val();
+
+        if (query.length == 0) {
+            $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":4,"nbEntreeInvD":nbEntreeInvD,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":4,"nbEntreeInvD":nbEntreeInvD,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":4,"nbEntreeInvD":nbEntreeInvD}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triBID = 0;
+    $(document).on("click", "#resultsInventairesD th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputInvD').val();
+        nbEntreeInvD = $('#nbEntreeInvD').val()
+        // $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":2,"nbEntreeInvD":nbEntreeInvD,"tri":1, "query":""}); //load initial records
+        
+        if (triBID == 1) {
+            // alert(triBID)
+            if (query.length == 0) {
+                $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":2,"nbEntreeInvD":nbEntreeInvD,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsInventairesD" ).load( "ajax/listerInventaireAjax.php",{"operation":2,"nbEntreeInvD":nbEntreeInvD,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triBID = 0;
+            // alert(triBID)
+            
+        } else {
+            // alert(triBID)
+            if (query.length == 0) {
+                $("#resultsInventairesD").load( "ajax/listerInventaireAjax.php",{"operation":2,"nbEntreeInvD":nbEntreeInvD,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsInventairesD").load( "ajax/listerInventaireAjax.php",{"operation":2,"nbEntreeInvD":nbEntreeInvD,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triBID = 1;
+            // alert(triBID)
+        }
+    });
+});
+
+/*************** Début modification boutique***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $(".loading-divI").show(); //show loading element
+
+    nbEntreeInv = $('#nbEntreeInv').val()
+
+    $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":1,"nbEntreeInv":nbEntreeInv,"query":"","cb":""}, function(){ //get content from PHP page
+        $(".loading-divI").hide(); //once done, hide loading element
+    });
+    
+    //executes code below when user click on pagination links
+    $("#resultsInventaires").on( "click", ".pagination a", function (e){
+    // $("#resultsInventaires").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeInv = $('#nbEntreeInv').val()
+        query = $('#searchInputInv').val();
+
+        if (query.length == 0) {
+            $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"page":page,"operation":1,"nbEntreeInv":nbEntreeInv,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"page":page,"operation":1,"nbEntreeInv":nbEntreeInv,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsInventaires").load("ajax/listerStock-InventaireAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInputInv').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputInv').val()
+        nbEntreeInv = $('#nbEntreeInv').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":3,"nbEntreeInv":nbEntreeInv,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":3,"nbEntreeInv":nbEntreeInv,"query":"","cb":t}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":3,"nbEntreeInv":nbEntreeInv,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":3,"nbEntreeInv":nbEntreeInv,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreeInv').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeInv = $('#nbEntreeInv').val()
+        query = $('#searchInputInv').val();
+
+        if (query.length == 0) {
+            $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":4,"nbEntreeInv":nbEntreeInv,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":4,"nbEntreeInv":nbEntreeInv,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":4,"nbEntreeInv":nbEntreeInv}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triBI = 0;
+    $(document).on("click", "#resultsInventaires th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputInv').val();
+        nbEntreeInv = $('#nbEntreeInv').val()
+        // $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":2,"nbEntreeInv":nbEntreeInv,"tri":1, "query":""}); //load initial records
+        
+        if (triBI == 1) {
+            // alert(triBI)
+            if (query.length == 0) {
+                $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":2,"nbEntreeInv":nbEntreeInv,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsInventaires" ).load( "ajax/listerStock-InventaireAjax.php",{"operation":2,"nbEntreeInv":nbEntreeInv,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triBI = 0;
+            // alert(triBI)
+            
+        } else {
+            // alert(triBI)
+            if (query.length == 0) {
+                $("#resultsInventaires").load( "ajax/listerStock-InventaireAjax.php",{"operation":2,"nbEntreeInv":nbEntreeInv,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsInventaires").load( "ajax/listerStock-InventaireAjax.php",{"operation":2,"nbEntreeInv":nbEntreeInv,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triBI = 1;
+            // alert(triBI)
+        }
+    });
+});
+
+/*************** Début modification boutique***************/
+
+/*************** Fin modification tableaux inventaire ***************/
+
+/*************** Début modification tableaux ajout stock entrepot***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeASEt = $('#nbEntreeASEt').val()
+
+    $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":1,"nbEntreeASEt":nbEntreeASEt,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsASE").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsASE").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeASEt = $('#nbEntreeASEt').val()
+        query = $('#searchInputASEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeASEt":nbEntreeASEt,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeASEt":nbEntreeASEt,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsASE").load("ajax/listeProduit-EntrepotAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputASEt').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputASEt').val()
+        nbEntreeASEt = $('#nbEntreeASEt').val()        
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":3,"nbEntreeASEt":nbEntreeASEt,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":3,"nbEntreeASEt":nbEntreeASEt,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":3,"nbEntreeASEt":nbEntreeASEt,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":3,"nbEntreeASEt":nbEntreeASEt,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeASEt').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeASEt = $('#nbEntreeASEt').val()
+        query = $('#searchInputASEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":4,"nbEntreeASEt":nbEntreeASEt,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":4,"nbEntreeASEt":nbEntreeASEt,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":4,"nbEntreeASEt":nbEntreeASEt}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triASE = 0;
+    $(document).on("click", "#resultsProductsASE th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputASEt').val();
+        nbEntreeASEt = $('#nbEntreeASEt').val()
+        // $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":2,"nbEntreeASEt":nbEntreeASEt,"tri":1, "query":""}); //load initial records
+        // alert(triASE)
+        if (triASE == 1) {
+            // alert(triASE)
+            if (query.length == 0) {
+                $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":2,"nbEntreeASEt":nbEntreeASEt,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsASE" ).load( "ajax/listeProduit-EntrepotAjax.php",{"operation":2,"nbEntreeASEt":nbEntreeASEt,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triASE = 0;
+            // alert(triASE)
+            
+        } else {
+            // alert(triASE)
+            if (query.length == 0) {
+                $("#resultsProductsASE").load( "ajax/listeProduit-EntrepotAjax.php",{"operation":2,"nbEntreeASEt":nbEntreeASEt,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsASE").load( "ajax/listeProduit-EntrepotAjax.php",{"operation":2,"nbEntreeASEt":nbEntreeASEt,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triASE = 1;
+            // alert(triASE)
+        }
+        // alert(triASE)
+    });
+});
+
+/*************** Fin modification tableaux ajout stock entrepot***************/
+
+/*************** Début modification tableaux stock***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeSEt = $('#nbEntreeSEt').val()
+
+    $("#resultsProductsSE" ).load("ajax/listerStock-EntrepotAjax.php",{"operation":1,"nbEntreeSEt":nbEntreeSEt,"query":"","cb":""}, function (data){
+        // alert(data)
+    }); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsSE").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsSE").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeSEt = $('#nbEntreeSEt').val()
+        query = $('#searchInputSEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeSEt":nbEntreeSEt,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeSEt":nbEntreeSEt,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsSE").load("ajax/listerStock-EntrepotAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputSEt').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputSEt').val()
+        nbEntreeSEt = $('#nbEntreeSEt').val()        
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":3,"nbEntreeSEt":nbEntreeSEt,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":3,"nbEntreeSEt":nbEntreeSEt,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":3,"nbEntreeSEt":nbEntreeSEt,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":3,"nbEntreeSEt":nbEntreeSEt,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeSEt').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeSEt = $('#nbEntreeSEt').val()
+        query = $('#searchInputSEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":4,"nbEntreeSEt":nbEntreeSEt,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":4,"nbEntreeSEt":nbEntreeSEt,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":4,"nbEntreeSEt":nbEntreeSEt}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triSE = 0;
+    $(document).on("click", "#resultsProductsSE th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputSEt').val();
+        nbEntreeSEt = $('#nbEntreeSEt').val()
+        // $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":2,"nbEntreeSEt":nbEntreeSEt,"tri":1, "query":""}); //load initial records
+        // alert(triSE)
+        if (triSE == 1) {
+            // alert(triSE)
+            if (query.length == 0) {
+                $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":2,"nbEntreeSEt":nbEntreeSEt,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsSE" ).load( "ajax/listerStock-EntrepotAjax.php",{"operation":2,"nbEntreeSEt":nbEntreeSEt,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triSE = 0;
+            // alert(triSE)
+            
+        } else {
+            // alert(triSE)
+            if (query.length == 0) {
+                $("#resultsProductsSE").load( "ajax/listerStock-EntrepotAjax.php",{"operation":2,"nbEntreeSEt":nbEntreeSEt,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsSE").load( "ajax/listerStock-EntrepotAjax.php",{"operation":2,"nbEntreeSEt":nbEntreeSEt,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triSE = 1;
+            // alert(triSE)
+        }
+        // alert(triSE)
+    });
+});
+
+/*************** Fin modification tableaux stock entrepot***************/
+
+/*************** Début modification tableaux ajout stock pharmacie***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeASPh = $('#nbEntreeASPh').val()
+
+    $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":1,"nbEntreeASPh":nbEntreeASPh,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsASPh").on( "click", ".pagination a", function (e){
+    // $("#resultsASPh").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeASPh = $('#nbEntreeASPh').val()
+        query = $('#searchInputASPh').val();
+
+        if (query.length == 0) {
+            $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreeASPh":nbEntreeASPh,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreeASPh":nbEntreeASPh,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsASPh").load("ajax/listeProduit-PharmacieAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputASPh').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputASPh').val()
+        nbEntreeASPh = $('#nbEntreeASPh').val()        
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":3,"nbEntreeASPh":nbEntreeASPh,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":3,"nbEntreeASPh":nbEntreeASPh,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":3,"nbEntreeASPh":nbEntreeASPh,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":3,"nbEntreeASPh":nbEntreeASPh,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeASPh').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeASPh = $('#nbEntreeASPh').val()
+        query = $('#searchInputASPh').val();
+
+        if (query.length == 0) {
+            $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":4,"nbEntreeASPh":nbEntreeASPh,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":4,"nbEntreeASPh":nbEntreeASPh,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":4,"nbEntreeASPh":nbEntreeASPh}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triASP = 0;
+    $(document).on("click", "#resultsASPh th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputASPh').val();
+        nbEntreeASPh = $('#nbEntreeASPh').val()
+        // $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":2,"nbEntreeASPh":nbEntreeASPh,"tri":1, "query":""}); //load initial records
+        // alert(triASP)
+        if (triASP == 1) {
+            // alert(triASP)
+            if (query.length == 0) {
+                $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":2,"nbEntreeASPh":nbEntreeASPh,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsASPh" ).load( "ajax/listeProduit-PharmacieAjax.php",{"operation":2,"nbEntreeASPh":nbEntreeASPh,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triASP = 0;
+            // alert(triASP)
+            
+        } else {
+            // alert(triASP)
+            if (query.length == 0) {
+                $("#resultsASPh").load( "ajax/listeProduit-PharmacieAjax.php",{"operation":2,"nbEntreeASPh":nbEntreeASPh,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsASPh").load( "ajax/listeProduit-PharmacieAjax.php",{"operation":2,"nbEntreeASPh":nbEntreeASPh,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triASP = 1;
+            // alert(triASP)
+        }
+        // alert(triASP)
+    });
+});
+
+/*************** Fin modification tableaux ajout stock***************/
+
+/*************** Début modification tableaux stock***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeSPh = $('#nbEntreeSPh').val()
+
+    $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":1,"nbEntreeSPh":nbEntreeSPh,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsStockPh").on( "click", ".pagination a", function (e){
+    // $("#resultsStockPh").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeSPh = $('#nbEntreeSPh').val()
+        query = $('#searchInputSPh').val();
+
+        if (query.length == 0) {
+            $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreeSPh":nbEntreeSPh,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreeSPh":nbEntreeSPh,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsStockPh").load("ajax/listerStock-PharmacieAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputSPh').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputSPh').val()
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":3,"nbEntreeSPh":nbEntreeSPh,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":3,"nbEntreeSPh":nbEntreeSPh,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":3,"nbEntreeSPh":nbEntreeSPh,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":3,"nbEntreeSPh":nbEntreeSPh,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeSPh').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeSPh = $('#nbEntreeSPh').val()
+        query = $('#searchInputSPh').val();
+
+        if (query.length == 0) {
+            $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":4,"nbEntreeSPh":nbEntreeSPh,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":4,"nbEntreeSPh":nbEntreeSPh,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":4,"nbEntreeSPh":nbEntreeSPh}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triSP = 0;
+    $(document).on("click", "#resultsStockPh th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputSPh').val();
+        nbEntreeSPh = $('#nbEntreeSPh').val()
+        // $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":2,"nbEntreeSPh":nbEntreeSPh,"tri":1, "query":""}); //load initial records
+        // alert(triSP)
+        if (triSP == 1) {
+            // alert(triSP)
+            if (query.length == 0) {
+                $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":2,"nbEntreeSPh":nbEntreeSPh,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsStockPh" ).load( "ajax/listerStock-PharmacieAjax.php",{"operation":2,"nbEntreeSPh":nbEntreeSPh,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triSP = 0;
+            // alert(triSP)
+            
+        } else {
+            // alert(triSP)
+            if (query.length == 0) {
+                $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":2,"nbEntreeSPh":nbEntreeSPh,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsStockPh").load( "ajax/listerStock-PharmacieAjax.php",{"operation":2,"nbEntreeSPh":nbEntreeSPh,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triSP = 1;
+            // alert(triSP)
+        }
+        // alert(triSP)
+    });
+});
+
+/*************** Fin modification tableaux stock pharmacie***************/
+/*************** Début modification tableaux ajout stock boutique***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntree = $('#nbEntreeAS').val()
+
+    $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":1,"nbEntree":nbEntree,"query":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsAS").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsAS").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntree = $('#nbEntreeAS').val()
+        query = $('#searchInputAS').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"page":page,"operation":1,"nbEntree":nbEntree,"query":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"page":page,"operation":1,"nbEntree":nbEntree,"query":query}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsAS").load("ajax/listeProduitAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputAS').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputAS').val()
+        nbEntree = $('#nbEntreeAS').val()
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeAS').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntree = $('#nbEntreeAS').val()
+        query = $('#searchInputAS').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":4,"nbEntree":nbEntree,"query":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":4,"nbEntree":nbEntree,"query":query}); //load initial records
+        }
+            
+        // $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":4,"nbEntree":nbEntree}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triAS = 0;
+    $(document).on("click", "#resultsProductsAS th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputAS').val();
+        nbEntree = $('#nbEntreeAS').val()
+        // $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":""}); //load initial records
+        // alert(triAS)
+        if (triAS == 1) {
+            // alert(triAS)
+            if (query.length == 0) {
+                $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsAS" ).load( "ajax/listeProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":query}); //load initial records
+            }
+
+            triAS = 0;
+            // alert(triAS)
+            
+        } else {
+            // alert(triAS)
+            if (query.length == 0) {
+                $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":0, "query":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsAS").load( "ajax/listeProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":0, "query":query}); //load initial records
+            }
+            
+            triAS = 1;
+            // alert(triAS)
+        }
+        // alert(triAS)
+    });
+});
+
+/*************** Fin modification tableaux ajout stock***************/
+
+/*************** Début modification tableaux stock***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeS = $('#nbEntreeS').val()
+
+    $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":1,"nbEntreeS":nbEntreeS,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsS").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsS").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeS = $('#nbEntreeS').val()
+        query = $('#searchInputS').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"page":page,"operation":1,"nbEntreeS":nbEntreeS,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"page":page,"operation":1,"nbEntreeS":nbEntreeS,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsS").load("ajax/listerStockAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    $('#searchInputS').on("keyup", function(e) {
+        e.preventDefault();
+
+        query = $('#searchInputS').val()
+        nbEntreeS = $('#nbEntreeS').val()
+        
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // alert(1111)
+                t = 1; // code barre
+                
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":"","cb":t}); //load initial records
+                }
+            }else{
+                // alert(2222)
+                t = 0; // no code barre
+                setTimeout(() => {
+                    if (query.length > 0) {
+                        
+                        $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":query,"cb":t}); //load initial records
+                    }else{
+                        $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":3,"nbEntreeS":nbEntreeS,"query":"","cb":t}); //load initial records
+                    }
+                }, 100);
+            }
+    });
+    
+    $('#nbEntreeS').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeS = $('#nbEntreeS').val()
+        query = $('#searchInputS').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":4,"nbEntreeS":nbEntreeS,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":4,"nbEntreeS":nbEntreeS,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":4,"nbEntreeS":nbEntreeS}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triS = 0;
+    $(document).on("click", "#resultsProductsS th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInputS').val();
+        nbEntreeS = $('#nbEntreeS').val()
+        // $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":2,"nbEntreeS":nbEntreeS,"tri":1, "query":""}); //load initial records
+        // alert(triS)
+        if (triS == 1) {
+            // alert(triS)
+            if (query.length == 0) {
+                $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":2,"nbEntreeS":nbEntreeS,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsS" ).load( "ajax/listerStockAjax.php",{"operation":2,"nbEntreeS":nbEntreeS,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triS = 0;
+            // alert(triS)
+            
+        } else {
+            // alert(triS)
+            if (query.length == 0) {
+                $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":2,"nbEntreeS":nbEntreeS,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsS").load( "ajax/listerStockAjax.php",{"operation":2,"nbEntreeS":nbEntreeS,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triS = 1;
+            // alert(triS)
+        }
+        // alert(triS)
+    });
+});
+/*************** Fin modification tableaux stock boutique***************/
+
+
+/*************** Début modification pour les tableaux references ***************/
+
+/*************** Début modification boutique***************/
+$(document).ready(function() {
+    // alert(1)
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntree = $('#nbEntree').val()
+
+    $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":1,"nbEntree":nbEntree,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProducts").on( "click", ".pagination a", function (e){
+    // $("#resultsProducts").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntree = $('#nbEntree').val()
+        query = $('#searchInput').val();
+
+        if (query.length == 0) {
+            $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"page":page,"operation":1,"nbEntree":nbEntree,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"page":page,"operation":1,"nbEntree":nbEntree,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProducts").load("ajax/listerProduitAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+
+    $('#searchInput').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInput').val()
+        nbEntree = $('#nbEntree').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            
+            if (query.length > 0) {
+                
+                $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":3,"nbEntree":nbEntree,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":3,"nbEntree":nbEntree,"query":"","cb":t}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":3,"nbEntree":nbEntree,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":3,"nbEntree":nbEntree,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntree').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntree = $('#nbEntree').val()
+        query = $('#searchInput').val();
+
+        if (query.length == 0) {
+            $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":4,"nbEntree":nbEntree,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":4,"nbEntree":nbEntree,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":4,"nbEntree":nbEntree}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triB = 0;
+    $(document).on("click", "#tableDesignation th", function(e) {
+        e.preventDefault();
+    //    alert(12)
+        query = $('#searchInput').val();
+        nbEntree = $('#nbEntree').val()
+        // $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":""}); //load initial records
+        
+        if (triB == 1) {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProducts" ).load( "ajax/listerProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triB = 0;
+            // alert(triB)
+            
+        } else {
+            // alert(triB)
+            if (query.length == 0) {
+                $("#resultsProducts").load( "ajax/listerProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProducts").load( "ajax/listerProduitAjax.php",{"operation":2,"nbEntree":nbEntree,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triB = 1;
+            // alert(triB)
+        }
+    });
+});
+
+/*************** Début modification boutique***************/
+
+/*************** Début modification pharmacie***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreePh = $('#nbEntreePh').val()
+
+    $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":1,"nbEntreePh":nbEntreePh,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsP").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsP").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreePh = $('#nbEntreePh').val()
+        query = $('#searchInputPh').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreePh":nbEntreePh,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"page":page,"operation":1,"nbEntreePh":nbEntreePh,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsP").load("ajax/listerProduit-PharmacieAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(4)
+    $('#searchInputPh').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputPh').val()
+        nbEntreePh = $('#nbEntreePh').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            t = 1; // code barre
+            // inputVal = $('#searchInputPh').val();
+            // if ($.isNumeric(inputVal)) {
+            if (query.length > 0) { 
+
+                $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":3,"nbEntreePh":nbEntreePh,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":3,"nbEntreePh":nbEntreePh,"query":"","cb":t}); //load initial records
+            }
+            // }else{
+
+            // }
+            
+        }else{
+            t = 0; // no code barre
+            setTimeout(() => {
+                
+                if (query.length > 0) {
+                    // alert(2222)                
+                    $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":3,"nbEntreePh":nbEntreePh,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":3,"nbEntreePh":nbEntreePh,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreePh').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreePh = $('#nbEntreePh').val()
+        query = $('#searchInputPh').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":4,"nbEntreePh":nbEntreePh,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":4,"nbEntreePh":nbEntreePh,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":4,"nbEntreePh":nbEntreePh}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triPH = 0;
+    $(document).on("click", "#resultsProductsP th", function(e) {
+        e.preventDefault();
+    // alert(12)
+        query = $('#searchInputPh').val();
+        nbEntreePh = $('#nbEntreePh').val()
+        // $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":2,"nbEntreePh":nbEntreePh,"tri":1, "query":""}); //load initial records
+        
+        if (triPH == 1) {
+            // alert(triPH)
+            if (query.length == 0) {
+                $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":2,"nbEntreePh":nbEntreePh,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsP" ).load( "ajax/listerProduit-PharmacieAjax.php",{"operation":2,"nbEntreePh":nbEntreePh,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triPH = 0;
+            // alert(triPH)
+            
+        } else {
+            // alert(triPH)
+            if (query.length == 0) {
+                $("#resultsProductsP").load( "ajax/listerProduit-PharmacieAjax.php",{"operation":2,"nbEntreePh":nbEntreePh,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsP").load( "ajax/listerProduit-PharmacieAjax.php",{"operation":2,"nbEntreePh":nbEntreePh,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triPH = 1;
+            // alert(triPH)
+        }
+    });
+});
+
+/*************** Début modification pharmacie***************/
+
+/*************** Début modification entrepot***************/
+$(document).ready(function() {
+    // alert(100)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    
+    nbEntreeEt = $('#nbEntreeEt').val()
+
+    $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":1,"nbEntreeEt":nbEntreeEt,"query":"","cb":""}); //load initial records
+    
+    //executes code below when user click on pagination links
+    $("#resultsProductsE").on( "click", ".pagination a", function (e){
+    // $("#resultsProductsE").on( "click", function (e){
+        e.preventDefault();
+        $(".loading-div").show(); //show loading element
+        // page = page+1; //get page number from link
+        page = $(this).attr("data-page"); //get page number from link
+        //  alert(page)
+
+        nbEntreeEt = $('#nbEntreeEt').val()
+        query = $('#searchInputEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeEt":nbEntreeEt,"query":"","cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+                
+        }else{
+            $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"page":page,"operation":1,"nbEntreeEt":nbEntreeEt,"query":query,"cb":""}, function(){ //get content from PHP page
+                $(".loading-div").hide(); //once done, hide loading element
+            });
+        }
+        // $("#resultsProductsE").load("ajax/listerProduit-EntrepotAjax.php",{"page":page,"operation":1}
+    });
+});
+
+/********   RECHERCHE et NOMBRE D'ENTREES   ******/
+$(document).ready(function() {
+    // alert(1)
+    // var page = 0;
+    // $(document).on("click", "th", function() {
+    //     alert( "Handler for .click() called." );
+    // });
+    $('#searchInputEt').on("keyup", function(e) {
+        e.preventDefault();
+        
+        query = $('#searchInputEt').val()
+        nbEntreeEt = $('#nbEntreeEt').val()
+
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            // alert(1111)
+            t = 1; // code barre
+            inputVal = $('#searchInputEt').val();
+            
+            if (query.length > 0) {
+                
+                $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":3,"nbEntreeEt":nbEntreeEt,"query":query,"cb":t}); //load initial records
+            }else{
+                $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":3,"nbEntreeEt":nbEntreeEt,"query":"","cb":t}); //load initial records
+            }
+        }else{
+            // alert(2222)
+            t = 0; // no code barre
+            setTimeout(() => {
+                if (query.length > 0) {
+                    
+                    $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":3,"nbEntreeEt":nbEntreeEt,"query":query,"cb":t}); //load initial records
+                }else{
+                    $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":3,"nbEntreeEt":nbEntreeEt,"query":"","cb":t}); //load initial records
+                }
+            }, 100);
+        }
+    });
+    
+    $('#nbEntreeEt').on("change", function(e) {
+        e.preventDefault();
+
+        nbEntreeEt = $('#nbEntreeEt').val()
+        query = $('#searchInputEt').val();
+
+        if (query.length == 0) {
+            $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":4,"nbEntreeEt":nbEntreeEt,"query":"","cb":""}); //load initial records
+                
+        }else{
+            $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":4,"nbEntreeEt":nbEntreeEt,"query":query,"cb":""}); //load initial records
+        }
+            
+        // $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":4,"nbEntreeEt":nbEntreeEt}); //load initial records
+    });
+
+});
+
+/*************    TRI    ******************/
+$(document).ready(function() {
+    // alert(1500)
+    // var page = 0;
+    //executes code below when user click on pagination links
+    //1=croissant et 0=decroissant
+    triET = 0;
+    $(document).on("click", "#resultsProductsE th", function(e) {
+        e.preventDefault();
+    // alert(12)
+        query = $('#searchInputEt').val();
+        nbEntreeEt = $('#nbEntreeEt').val()
+        // $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":2,"nbEntreeEt":nbEntreeEt,"tri":1, "query":""}); //load initial records
+        
+        if (triET == 1) {
+            // alert(triET)
+            if (query.length == 0) {
+                $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":2,"nbEntreeEt":nbEntreeEt,"tri":1, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsE" ).load( "ajax/listerProduit-EntrepotAjax.php",{"operation":2,"nbEntreeEt":nbEntreeEt,"tri":1, "query":query,"cb":""}); //load initial records
+            }
+
+            triET = 0;
+            // alert(triET)
+            
+        } else {
+            // alert(triET)
+            if (query.length == 0) {
+                $("#resultsProductsE").load( "ajax/listerProduit-EntrepotAjax.php",{"operation":2,"nbEntreeEt":nbEntreeEt,"tri":0, "query":"","cb":""}); //load initial records
+                    
+            }else{
+                $("#resultsProductsE").load( "ajax/listerProduit-EntrepotAjax.php",{"operation":2,"nbEntreeEt":nbEntreeEt,"tri":0, "query":query,"cb":""}); //load initial records
+            }
+            
+            triET = 1;
+            // alert(triET)
+        }
+    });
+});
+
+/*************** Fin modification entrepot***************/
+
+/*************** Début modification pour les tableaux references ***************/
+
+$(function() {
+    typeClient = '';
+    idMutuellePagnet = 0;
+
+    $(".btn_Termine_Panier").on("click", function() {
+        $('.cache_btn_Terminer').hide();
+        $('.btn_Retourner_Produit').prop('disabled', true);
+
+    });
+});
+
+$(function() {
+    $(".btn_Termine_Panier").on("click", function() {
+        $('.cache_btn_Terminer').hide();
+        $('.btn_Retourner_Produit').prop('disabled', true);
+
+    });
+});
+
+$(function() {
+    $(".btn_Retour_Panier").on("click", function() {
+        $('.modal-footer').hide();
+    });
+});
+
+$(function() {
+    // $("#addPanier").on("click", function() {   
+    //     // $("#addPanier").prop('disabled', true);
+    //     $("#collapse1").collapse('hide');
+    //     var lcd=$("#lcd_Machine").val();
+    //     if(lcd==1){
+    //         var quantite=" ";
+    //         var prix=0;
+    //         $.ajax({
+    //             url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+    //             type: "GET", // data type (can be get, post, put, delete)
+    //             data: { 
+    //                 "quantite": quantite, 
+    //                 "prix": prix,
+    //             }, // data in json format
+    //             async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+    //             success: function(response) {
+    //                 console.log(response);
+    //             },
+    //         });
+    //     }
+        
+    // });
+    $(".addBonPanier").on("click", function() {
+        var lcd=$("#lcd_Machine").val();
+        if(lcd==1){
+            var quantite=" ";
+            var prix=0;
+            $.ajax({
+                url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                type: "GET", // data type (can be get, post, put, delete)
+                data: { 
+                    "quantite": quantite, 
+                    "prix": prix,
+                }, // data in json format
+                async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                success: function(response) {
+                    console.log(response);
+                },
+            });
+        }
+        
+    });
+});
+
+$(function() {
+    var idPagnet = $("#idPagnet").val();
+    // alert(idPagnet)
+    $("#btnImprimerFacture"+idPagnet).click(function() {
+        var lcd=$("#lcd_Machine").val();
+        if(lcd==1){
+            var total = $("#somme_Apayer"+idPagnet).text();
+            var quantite=" ";
+            var prix=0;
+            $.ajax({
+                url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                type: "GET", // data type (can be get, post, put, delete)
+                data: { 
+                    "quantite": quantite, 
+                    "prix": prix,
+                }, // data in json format
+                async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                success: function(response) {
+                    console.log(response);
+                },
+            });
+        }
+    })
+    
+
+});
+
+$(function() {
+    $("#btn_AjoutStock").on("click", function() {
+        $('#AjoutStockModal').on('shown.bs.modal', function() {
+            $("#designationPh").focus();
+        })
+    });
+});
+
+$(function() {
+    $("#btnTableInitiale").on("click", function() {
+        $("#divTableInitiale").toggle();
+    });
+});
+
+$(function() {
+    $("#btnLivreur").on("click", function() {
+        $("#divLivreur").toggle();
+        $(".echeanceDate").show();
+    });
+});
+
+function modif_UniteStock(produit) {
+    tab = produit.split('§');
+    var unitevente = tab[0];
+    var ligne = tab[1];
+    var pagnet = tab[2];
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 150,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            unitevente: unitevente,
+        },
+        success: function(data) {
+            tab1 = data.split('§');
+            //if (tab1[2] == 1) {
+                $("#prixUniteStock" + ligne).val(tab1[0]);
+                $("#somme_Total" + pagnet).text(tab1[1]);
+                $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+                valTotal=tab1[1] - $("#val_remise" + pagnet).val();
+                valApayer=tab1[4] - $("#val_remise" + pagnet).val();
+                $("#somme_TotalCN" + pagnet).text(valTotal.toFixed(2));
+                $("#somme_ApayerCN" + pagnet).text(valApayer.toFixed(2));
+                var lcd=$("#lcd_Machine").val();
+                if(lcd==1){
+                    var nd_Qte=tab1[3];
+                    var nd_Prix=tab1[0];
+                    $.ajax({
+                        url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                        type: "GET", // data type (can be get, post, put, delete)
+                        data: { 
+                            "quantite": nd_Qte, 
+                            "prix": nd_Prix,
+                        }, // data in json format
+                        async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        
+                    });
+                }
+            /*    
+            } else {
+                document.getElementById('default' + ligne).selected = 'selected';
+            }
+            */
+
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+function modif_UniteStockET(produit) {
+    tab = produit.split('§');
+    var unitevente = tab[0];
+    var ligne = tab[1];
+    var pagnet = tab[2];
+    var quantite = tab[3];
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 17,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            unitevente: unitevente,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab1 = data.split('§');
+            $("#prixUniteStock" + ligne).val(tab1[0]);
+            $("#somme_Total" + pagnet).text(tab1[1]);
+            $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+function modif_Depot(produit) {
+    tab = produit.split('§');
+    var depot = tab[0];
+    var ligne = tab[1];
+    var pagnet = tab[2];
+    //alert(depot);
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 18,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            idEntrepot: depot,
+        },
+        success: function(data) {
+            result = data.split('-');
+            reste = result[0] - result[1]
+            if (reste >= 0) {
+                $.ajax({
+                    url: 'ajax/modifierLigneAjax.php',
+                    method: 'POST',
+                    data: {
+                        operation: 19,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        idEntrepot: depot,
+                    },
+                    success: function(data) {},
+                    dataType: 'text'
+                });
+            } else {
+                $("#qte_stockET").text(result[0]);
+                $('#msg_info_jsET').modal('show');
+                window.location.reload();
+            }
+
+            //$("#somme_Total"+pagnet).text(tab1[1]);
+            // $("#somme_Apayer"+pagnet).text(tab1[1] - $("#val_remise"+pagnet).val());
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+
+$(function() {
+
+    /** Debut Autocomplete Stock */
+    $("#designationStock").keyup(function() {
+        var query = $("#designationStock").val();
+        console.log($("#designationStock").val());
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/ajouterStockAjax.php',
+                method: 'POST',
+                data: $("#ajouterStockForm").serialize(),
+                success: function(data) {
+                    $("#reponseS").html(data);
+                },
+                dataType: 'text'
+            });
+        }
+    });
+    $("#designationStock").keyup(function() {
+        var idDesignation = $("#idDesignation").val();
+        if (idDesignation != '') {
+            var designationStock = $("#designationStock").val();
+
+        }
+
+    });
+    $(document).on('click', 'li[class="lic"]', function() {
+        var designation = $(this).text();
+        //tab=designation.split('-');
+        //$("#designationStock").val(tab[0]);
+        $("#designationStock").val(designation);
+        //$("#idD").val(tab[1]);
+        $("#reponseS").html('');
+        $.ajax({
+            url: 'ajax/ajouterStockPrixAjax.php',
+            method: 'POST',
+            data: $("#ajouterStockForm").serialize(),
+            success: function(data2) {
+                tab2 = data2.split('-');
+
+                prix = tab2[0];
+                prixuniteStock = tab2[1];
+                uniteStock = tab2[2];
+                $("#prixunitaire").val(prix);
+                $("#prixuniteStock").val(prixuniteStock);
+                $("#uniteStockId").html(uniteStock);
+
+                console.log(data2);
+            },
+            dataType: 'text'
+        });
+    });
+    /** Fin Autocomplete Stock */
+
+});
+
+/** Debut Autocomplete Categorie Pharmacie*/
+$(function() {
+    $("#categoriePh").keyup(function(e) {            
+        e.preventDefault();
+
+        var query = $("#categoriePh").val();
+
+        if (query.length > 0 || query.length != '') {
+            /*********** Modification **************/
+            $("#categoriePh").typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 18,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+            $("#categoriePh").focus();
+            // $.ajax({
+            //     url: 'ajax/vendreLigneAjax.php',
+            //     method: 'POST',
+            //     data: {
+            //         operation: 18,
+            //         query: query,
+            //     },
+            //     success: function(data) {
+            //         $("#reponseCategorie").html(data);
+            //         //console.log('insertion impo'+data);
+            //     },
+            //     dataType: 'text'
+            // });
+        } 
+
+    });
+    // $(document).on('click', 'li[class="liC_Ph"]', function() {
+    //     var categorie = $(this).text();
+    //     $("#categoriePh").val(categorie);
+    //     $("#reponseCategorie").html(' ');
+    //     //  window.location.href = "insertionLigneLight.php?produit="+tab[0];
+    // });
+});
+/** Fin Autocomplete Categorie Pharmacie*/
+
+/** Debut Autocomplete Forme Pharmacie*/
+$(function() {
+    $("#formePh").keyup(function(e) { 
+        e.preventDefault();
+
+        var query = $("#formePh").val();
+
+        if (query.length > 0 || query.length != '') {
+            /*********** Modification **************/
+            $("#formePh").typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 19,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+            $("#formePh").focus();
+        } 
+
+    });
+    // $(document).on('click', 'li[class="liF_Ph"]', function() {
+    //     var forme = $(this).text();
+    //     $("#formePh").val(forme);
+    //     $("#reponseForme").html(' ');
+    // });
+});
+/** Fin Autocomplete Forme Pharmacie*/
+
+/** Debut Autocomplete Designation Pharmacie*/
+$(function() {
+    $("#designationPh").keyup(function() {
+        var query = $("#designationPh").val();
+        if (query.length > 0 || query.length != '') {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 11,
+                    query: query,
+                },
+                success: function(data) {
+                    $("#reponseDesignation").html(data);
+                    //console.log('insertion impo'+data);
+                },
+                dataType: 'text'
+            });
+        } else {
+            $("#reponseDesignation").html();
+        }
+
+    });
+    $(document).on('click', 'li[class="liD"]', function() {
+        var designation = $(this).text();
+        $("#designationPh").val(designation);
+        $.ajax({
+            url: 'ajax/vendreLigneAjax.php',
+            method: 'POST',
+            data: {
+                operation: 12,
+                designation: designation,
+            },
+            success: function(data) {
+                result = data.split('<>');
+                $("#reponseDesignation").html(' ');
+                if (result[0] == 1) {
+                    $("#idFusion").val(result[1]);
+                    $("#designation").val(result[2]);
+                    $("#categorie2").children("option:selected").text(result[3]);
+                    $("#forme").val(result[4]);
+                    $("#tableau").children("option:selected").text(result[5]);
+                    $("#prixSession").val(result[6]);
+                    $("#prixPublic").val(result[7]);
+                    $("#codeBarre").val(result[8]);
+                }
+                //console.log('insertion impo'+data);
+            },
+            dataType: 'text'
+        });
+        //  window.location.href = "insertionLigneLight.php?produit="+tab[0];
+    });
+});
+/** Fin Autocomplete Designation Pharmacie*/
+
+function effectue_paiement(idPS) {
+    $.ajax({
+        url: "ajax/ajouterPaiementAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            idPS: idPS,
+        },
+        success: function(data) {
+            tab = data.split('+');
+
+            $('#idPS_Rtr').val(tab[0]);
+            $('#idBoutique_Rtr').val(tab[1]);
+            $('#montantFixePayement_Rtr').val(tab[2]);
+            $('#datePS_Rtr').val(tab[3]);
+            $('#refTransf_Rtr').val(tab[4]);
+            $('#numTel_Rtr').val(tab[5]);
+            $('#paiementModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+$(function() {
+    $("#btn_aj_Paiement").click(function() {
+
+        var idPS = $('#idPS_Rtr').val();
+        var datePS = $('#datePS_Rtr').val();
+        var montantFixePayement = $('#montantFixePayement_Rtr').val();
+        var refTransf = $('#refTransf_Rtr').val();
+        var numTel = $('#numTel_Rtr').val();
+        $.ajax({
+            url: "ajax/ajouterPaiementAjax.php",
+            method: "POST",
+            data: {
+                operation: 2,
+                idPS: idPS,
+                refTransf: refTransf,
+                numTel: numTel,
+            },
+            success: function(data) {
+                $('#paiementModal').modal('hide');
+                alert(data + " est remis à jour");
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin envoyer paiement **/
+
+/** Debut Autocomplete Vente Boutique*/
+$(function() {
+
+    $("#codeBarreLigne").keyup(function() {
+        var query = $("#codeBarreLigne").val();
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 1,
+                    query: query,
+                },
+                success: function(data) {
+                    $("#reponseV").html(data);
+                    console.log('insertion impo' + data);
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+    $(document).on('click', 'li[class="licV"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('=>');
+        $("#codeBarreLigne").val(tab[0]);
+        $("#reponseV").html('');
+    });
+});
+
+function retour_ProduitPh(ligne, panier) {
+    $.ajax({
+        url: "ajax/vendreLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 7,
+            idPagnet: panier,
+            numligne: ligne
+        },
+        success: function(data) {
+            // alert(data)
+            result = data.split('<>');
+            if (result[0] == 1) {
+                $("#tablePanier"+panier+' tr').each(function(row, tr) {
+                    reference = $(tr).find('td:eq(0)').text();
+                    // alert(reference)
+                    if (reference != '' && reference == result[2]) {
+                        $(tr).remove();
+                        $(".lic").text('');
+                        $("#codeBarreLignePh").val('');
+                        $("#codeBarreLignePh").focus();
+                        $("#somme_Total" + panier).text(result[6]);
+                        $("#somme_Apayer" + panier).text(result[6] - $("#val_remise" + panier).val());
+                    }
+                });
+            }
+
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/** Fin Autocomplete Vente Boutique*/
+
+/**Debut ajouter Client**/
+$(function() {
+    // alert(111)
+    $("#btn_ajt_Client").click(function() {
+        var prenom = $('#ajtPrenomCL').val();
+        var nom = $('#ajtNomCL').val();
+        var adresse = $('#ajtAdresseCL').val();
+        var telephone = $('#ajtTelephoneCL').val();
+        var personnel = $('#personnel').val();
+        var avoir = $('#check1').val();
+        var montantAvoir = $('#montantAvoir').val();
+        var matp = $('#ajtMatPCL').val();
+        var numCarnet = $('#ajtNumCarnetCL').val();
+
+        if (avoir==1 || avoir==0) {
+            
+            // alert(matp +"/"+numCarnet);
+            $.ajax({
+                url: "ajax/operationAjax_bon.php",
+                method: "POST",
+                data: {
+                    operation: 7,
+                    query: numCarnet
+                },
+                dataType: "text",
+                success: function(data) {
+                    if (data==1) {
+                        $('#numCarnetExt').show()
+                    } else {
+                                        
+                        $.ajax({
+                            url: "ajax/operationAjax_bon.php",
+                            method: "POST",
+                            data: {
+                                operation: 1,
+                                prenom: prenom,
+                                nom: nom,
+                                adresse: adresse,
+                                telephone: telephone,
+                                personnel: personnel,
+                                avoir: avoir,
+                                montantAvoir: montantAvoir,
+                                matp: matp,
+                                numCarnet: numCarnet
+                            },
+                            success: function(data) {
+                                // alert(data)
+                                tab = data.split('<>');
+                                if (tab[0] == 1) {
+                                    /*
+                                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>0</td><td>DESACTIVER</td></tr>";
+                                    $("table.tabClient").prepend(ligne);
+                                    $('#ajtPrenomCL').val('');
+                                    $('#ajtNomCL').val('');
+                                    $('#ajtAdresseCL').val('');
+                                    $('#ajtTelephoneCL').val('');
+                                    $('#personnel').val('');
+                                    */
+                                    $('#ajoutClient').modal('hide');
+                                    window.location.reload();
+                                }
+                            },
+                            error: function() {
+                                alert("La requête ");
+                            },
+                            dataType: "text"
+                        });
+                    }
+                },
+                error: function() {
+                    alert("La requête ss");
+                }
+            });
+        } else {    
+            $.ajax({
+                url: "ajax/operationAjax_bon.php",
+                method: "POST",
+                data: {
+                    operation: 1,
+                    prenom: prenom,
+                    nom: nom,
+                    adresse: adresse,
+                    telephone: telephone,
+                    personnel: personnel,
+                    avoir: avoir,
+                    montantAvoir: montantAvoir,
+                    matp: matp,
+                    numCarnet: numCarnet
+                },
+                success: function(data) {
+                    // alert(data)
+                    tab = data.split('<>');
+                    if (tab[0] == 1) {
+                        /*
+                        var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>0</td><td>DESACTIVER</td></tr>";
+                        $("table.tabClient").prepend(ligne);
+                        $('#ajtPrenomCL').val('');
+                        $('#ajtNomCL').val('');
+                        $('#ajtAdresseCL').val('');
+                        $('#ajtTelephoneCL').val('');
+                        $('#personnel').val('');
+                        */
+                        $('#ajoutClient').modal('hide');
+                        window.location.reload();
+                    }
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+        }
+
+    });
+});
+/**Fin ajouter Client**/
+
+/**Debut Activer Client **/
+function activer_Client(idClient) {
+    $('#btn_Client-'+idClient).prop('disabled', true);
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idClient: idClient,
+            activer : 1,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#btn_Client-'+idClient).prop('disabled', true);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin Activer Client**/
+
+/**Debut Desactiver Client **/
+function desactiver_Client(idClient) {
+    $('#btn_Client-'+idClient).prop('disabled', true);
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idClient: idClient,
+            activer : 0,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#btn_Client-'+idClient).prop('disabled', true);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin Desactiver Client**/
+
+/**Debut archiver Client **/
+function archiver_Client(idClient) {
+    $('#btn_archive-'+idClient).prop('disabled', true);
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 6,
+            idClient: idClient,
+            archiver : 1
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#btn_archive-'+idClient).prop('disabled', true);
+            } 
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin archiver Client**/
+
+/**Debut relancer Client **/
+function relancer_Client(idClient) {
+    $('#btn_relancer-'+idClient).prop('disabled', true);
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 6,
+            idClient: idClient,
+            archiver : 0
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#btn_relancer-'+idClient).prop('disabled', true);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin relancer Client**/
+// alert(111)
+/**Debut Modifier Client**/ 
+function mdf_Client(idClient, ordre) {
+    
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 3,
+            idClient: idClient,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idCL_Mdf').val(tab[1]);
+                $('#ordreCL_Mdf').val(ordre);
+                $('#nomCL_Mdf').val(tab[2]);
+                $('#prenomCL_Mdf').val(tab[3]);
+                $('#adresseCL_Mdf').val(tab[4]);
+                $('#telephoneCL_Mdf').val(tab[5]);
+                // alert(tab[6])
+                if (tab[6]==1) {
+                    $('#check1_Mdf').attr('checked',true);
+                    $('#check1_Mdf').val(1);
+                    $('#montantAvoir_Mdf').val(tab[7]);
+                    $('#ajtMatPCL_Mdf').val(tab[8]);
+                    $('#ajtNumCarnetCL_Mdf').val(tab[9]);
+                    $('#ajtNumCarnetCL_old').val(tab[9]);
+                    $('#personnelDiv_Mdf').hide();
+                    $('#divMontantAvoir_Mdf').show();
+                    $('#divMatP_Mdf').show();
+                    $('#divNumCarnet_Mdf').show();
+                } else {                    
+                    $('#check1_Mdf').attr('checked',false);
+                    $('#divMontantAvoir_Mdf').hide();
+                    $('#divMatP_Mdf').hide();
+                    $('#divNumCarnet_Mdf').hide();
+                    $('#personnelDiv_Mdf').show();
+                }
+                
+                $('#modifierClient').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Client").click(function() {
+        var idClient = $('#idCL_Mdf').val();
+        var ordre = $('#ordreCL_Mdf').val();
+        var nom = $('#nomCL_Mdf').val();
+        var prenom = $('#prenomCL_Mdf').val();
+        var adresse = $('#adresseCL_Mdf').val();
+        var telephone = $('#telephoneCL_Mdf').val();
+        var personnel = $('#personnel_Mdf').val();
+        var avoir = $('#check1_Mdf').val();
+        var montantAvoir = $('#montantAvoir_Mdf').val();
+        var matp = $('#ajtMatPCL_Mdf').val();
+        var numCarnet = $('#ajtNumCarnetCL_Mdf').val();
+        var numCarnetOld = $('#ajtNumCarnetCL_old').val();
+
+        if(avoir==0 || avoir==1){
+            $.ajax({
+                url: "ajax/operationAjax_bon.php",
+                method: "POST",
+                data: {
+                    operation: 7,
+                    query: numCarnet,
+                    action: "modifier",
+                    numCarnetOld : numCarnetOld
+                },
+                dataType: "text",
+                success: function(data) {
+                    if (data==1) {
+                        $('#numCarnetExt_Mdf').show()
+                    } else {
+                        $.ajax({
+                            url: "ajax/operationAjax_bon.php",
+                            method: "POST",
+                            data: {
+                                operation: 4,
+                                idClient: idClient,
+                                nom : nom,
+                                prenom : prenom,
+                                adresse : adresse,
+                                telephone : telephone,
+                                personnel : personnel,
+                                avoir : avoir,
+                                montantAvoir : montantAvoir,
+                                matp : matp,
+                                numCarnet : numCarnet
+                            },
+                            success: function(data) {
+                                $('#idCL_Mdf').val('');
+                                $('#ordreCL_Mdf').val('');
+                                $('#nomCL_Mdf').val('');
+                                $('#prenomCL_Mdf').val('');
+                                $('#adresseCL_Mdf').val('');
+                                $('#telephoneCL_Mdf').val('');
+                                $('#personnel_Mdf').val('');
+                                $('#check1_Mdf').val('');
+                                $('#montantAvoir_Mdf').val('');
+                                $('#ajtMatPCL_Mdf').val('');
+                                $('#ajtNumCarnetCL_Mdf').val('');
+                                $('#ajtNumCarnetCL_old').val('');
+                                $('#modifierClient').modal('hide');
+                                tab = data.split('<>');
+                                if (tab[0] == 1) {
+                                    $('#tableClient tr').each(function(row, tr) {
+                                        fournisseur = $(tr).find('td:eq(0)').text();
+                                        if (fournisseur != '' && fournisseur == ordre) {
+                                            $(tr).find('td:eq(1)').html(tab[2]);
+                                            $(tr).find('td:eq(2)').html(tab[3]);
+                                            $(tr).find('td:eq(3)').html(tab[4]);
+                                            $(tr).find('td:eq(4)').html(tab[5]);
+                                            $(tr).find('td:eq(5)').html(tab[6]);
+                                            $(tr).find('td:eq(6)').html("En cours ...");
+                                        }
+                                    });
+                                }
+                            },
+                            error: function() {
+                                alert("La requête ");
+                            },
+                            dataType: "text"
+                        });
+                    }
+                },
+                error: function() {
+                    alert("La requête ss");
+                }
+            });
+        }else{
+            $.ajax({
+                url: "ajax/operationAjax_bon.php",
+                method: "POST",
+                data: {
+                    operation: 4,
+                    idClient: idClient,
+                    nom : nom,
+                    prenom : prenom,
+                    adresse : adresse,
+                    telephone : telephone,
+                    personnel : personnel,
+                    avoir : avoir,
+                    montantAvoir : montantAvoir,
+                    matp : matp,
+                    numCarnet : numCarnet
+                },
+                success: function(data) {
+                    $('#idCL_Mdf').val('');
+                    $('#ordreCL_Mdf').val('');
+                    $('#nomCL_Mdf').val('');
+                    $('#prenomCL_Mdf').val('');
+                    $('#adresseCL_Mdf').val('');
+                    $('#telephoneCL_Mdf').val('');
+                    $('#personnel_Mdf').val('');
+                    $('#check1_Mdf').val('');
+                    $('#montantAvoir_Mdf').val('');
+                    $('#ajtMatPCL_Mdf').val('');
+                    $('#ajtNumCarnetCL_Mdf').val('');
+                    $('#ajtNumCarnetCL_old').val('');
+                    $('#modifierClient').modal('hide');
+                    tab = data.split('<>');
+                    if (tab[0] == 1) {
+                        $('#tableClient tr').each(function(row, tr) {
+                            fournisseur = $(tr).find('td:eq(0)').text();
+                            if (fournisseur != '' && fournisseur == ordre) {
+                                $(tr).find('td:eq(1)').html(tab[2]);
+                                $(tr).find('td:eq(2)').html(tab[3]);
+                                $(tr).find('td:eq(3)').html(tab[4]);
+                                $(tr).find('td:eq(4)').html(tab[5]);
+                                $(tr).find('td:eq(5)').html(tab[6]);
+                                $(tr).find('td:eq(6)').html("En cours ...");
+                            }
+                        });
+                    }
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+
+        }
+
+    });
+});
+/**Fin Modifier Client**/
+
+/**Debut Supprimer Client**/
+function spm_Client(idClient, ordre) {
+    $.ajax({
+        url: "ajax/operationAjax_bon.php",
+        method: "POST",
+        data: {
+            operation: 3,
+            idClient: idClient,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idCL_Spm').val(tab[1]);
+                $('#ordreCL_Spm').val(ordre);
+                $('#nomCL_Spm').val(tab[2]);
+                $('#prenomCL_Spm').val(tab[3]);
+                $('#adresseCL_Spm').val(tab[4]);
+                $('#telephoneCL_Spm').val(tab[5]);
+                $('#supprimerClient').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Client").click(function() {
+        var idClient = $('#idCL_Spm').val();
+        var ordre = $('#ordreCL_Spm').val();
+        $.ajax({
+            url: "ajax/operationAjax_bon.php",
+            method: "POST",
+            data: {
+                operation: 5,
+                idClient: idClient,
+            },
+            success: function(data) {
+                $('#idCL_Spm').val('');
+                $('#ordreCL_Spm').val('');
+                $('#nomCL_Spm').val('');
+                $('#prenomCL_Spm').val('');
+                $('#adresseCL_Spm').val('');
+                $('#telephoneCL_Spm').val('');
+                $('#supprimerClient').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableClient tr').each(function(row, tr) {
+                        fournisseur = $(tr).find('td:eq(0)').text();
+                        if (fournisseur != '' && fournisseur == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html(tab[4]);
+                            $(tr).find('td:eq(4)').html(tab[5]);
+                            $(tr).find('td:eq(5)').html(tab[6]);
+                            $(tr).find('td:eq(6)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin Supprimer Client**/
+
+/** Debut Autocomplete Bon Client Boutique*/
+$(function() {
+
+    $("#codeBarreLigneC").keyup(function() {
+        var query = $("#codeBarreLigneC").val();
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 2,
+                    query: query,
+                },
+                success: function(data) {
+                    $("#reponseV").html(data);
+                    console.log('insertion impo' + data);
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+    $(document).on('click', 'li[class="lic"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('=>');
+        //$("#designationStock").val(tab[0]);
+        $("#codeBarreLigneC").val(tab[0]);
+
+
+    });
+});
+/** Fin Autocomplete Bon Client Boutique*/
+
+/** Debut Autocomplete Vente Boutique*/
+$(function() {
+    // alert(1)
+    idPanier =0;
+    $(document).on("keyup", ".codeBarreLigneVt",function(e) {
+        e.preventDefault();
+        var tabIdPanier = $(this).attr('id');
+        tab = tabIdPanier.split('_');
+        idPanier = tab[1];
+        var query = $(this).val();
+        if (query.length > 0) {
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 1,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function(err) {
+                            alert("La requête ss");
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            /*********** Quand on tape sur Entrer **************/
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                // alert(keycode)
+                if (keycode == '13') {
+                    inputVal = $(this).val();
+                    
+                    if ($.isNumeric(inputVal)) {
+
+                        designation = $(this).val();
+
+                    } else {
+                        var designation = $("#ajouterProdFormB"+idPanier+" .typeahead li.active").text();
+                        tab = designation.split(' => ');
+                        designation = tab[0];                        
+                    }
+                    // alert(designation)
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 15, 
+                            designation: designation,
+                            idPagnet: idPanier
+                        },
+                        success: function(data) {
+                            result = data.split('<>');  
+                            if (result[0] == 1) {
+                                if (result[7] == 9) {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td>Montant</td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                } 
+                                else {
+            
+                                    if(result[7]!="Article" && result[7]!="article"){
+                                        var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+                                        "<td>" +
+                                            "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                                    "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                                    "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+                                            "</select>"+
+                                        "</td>" +
+                                        "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                    }
+                                    else{
+                                        var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+                                        "<td>" +
+                                            "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                                    "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                            "</select>"+
+                                        "</td>" +
+                                        "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                    }
+            
+                                }
+
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                                var lcd=$("#lcd_Machine").val();
+                                if(lcd==1){
+                                    var nd_Qte=1;
+                                    var nd_Prix=result[4];
+                                     $.ajax({
+                                         url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                         type: "GET", // data type (can be get, post, put, delete)
+                                         data: { 
+                                             "quantite": nd_Qte, 
+                                             "prix": nd_Prix,
+                                         }, // data in json format
+                                         async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                         success: function(response) {
+                                             console.log(response);
+                                         },
+                                        
+                                     });
+                                }
+                            }
+                            if (result[0] == 2) {
+                                $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+                                    reference = $(tr).find('td:eq(0)').text();
+                                    if (reference != '' && reference == result[2]) {
+                                        $(tr).find('td:eq(1)').html("<input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='" + result[9] + "' style='width: 30%' type='number' ></input>");
+                                        // $(".licV").text('');
+                                        $("#panier_"+idPanier).val('');
+                                        $("#somme_Total" + idPanier).text(result[6]);
+                                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                                        var lcd=$("#lcd_Machine").val();
+                                        if(lcd==1){
+                                            var nd_Qte=result[9];
+                                            var nd_Prix=result[4];
+                                             $.ajax({
+                                                 url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                                 type: "GET", // data type (can be get, post, put, delete)
+                                                 data: { 
+                                                     "quantite": nd_Qte, 
+                                                     "prix": nd_Prix,
+                                                 }, // data in json format
+                                                 async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                                 success: function(response) {
+                                                     console.log(response);
+                                                 },
+                                                
+                                             });
+                                        }
+                                    }
+                                });
+                            }
+                            if (result[0] == 3) {
+                                $("#qte_stock").text(result[1]);
+                                $('#msg_info_js').modal('show');
+                                $("#panier_"+idPanier).val('');
+                            }
+                            if(result[0]== 4){
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_QuantiteSD(this.value," + result[5] + "," + idPanier + ")'  id='ligne"+result[5]+"'  value='1' style='width: 30%' type='number' ></input></td>" +
+                                "<td>" +result[7]+ "</td>" +
+                                "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                            }
+                            if(result[0]== 5){
+                                var ligne = "<tr>" +
+                                "<td><input class='form-control' style='width: 100%'  type='text' value='" + result[2] + "' onkeyup='modif_DesignationBon(this.value," + result[5] + "," + idPanier + ")' /></td>" +
+                                // "<td>" + result[2] + "</td>" +
+                                "<td>Montant</td>" +
+                                "<td>Especes</td>" +
+                                "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                            }
+                            if(result[0]== 6){
+                                window.location.reload();
+                            }
+                            if(result[0]== 7){
+                                var ligne = "<tr>" +
+                                "<td><input class='form-control' style='width: 100%'  type='text' value='" + result[2] + "' onkeyup='modif_DesignationBon(this.value," + result[5] + "," + idPanier + ")' /></td>" +
+                                "<td>Montant</td>" +
+                                "<td>Espece</td>" +
+                                "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                            }
+                            if(result[0]== 8){
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td>" +result[4]+ "</td>" +
+                                "<td>" +result[3]+ "</td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                            }
+                            if (result[0] == 10) {
+                                if (result[7] == 9) {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td>Montant</td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                } 
+                                else {
+            
+                                    if(result[7]!="Article" && result[7]!="article"){
+                                        var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+                                        "<td>" +
+                                            "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                                    "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                                    "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+                                            "</select>"+
+                                        "</td>" +
+                                        "<td><input  class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                    }
+                                    else{
+                                        var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+                                        "<td>" +
+                                            "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                                    "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                            "</select>"+
+                                        "</td>" +
+                                        "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                    }
+            
+                                }
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                            }
+                            //console.log(data);
+                        },
+                        error: function() {
+                            alert("La requête ");
+                        },
+                        dataType: "text"
+                    });
+                    // alert('/////////')
+                    // $("#panier_"+idPanier).val('');
+                    idFormParent=$("#panier_"+idPanier).parent().attr("id");
+                    // alert(idFormParent+'/////////')
+                    // setTimeout(() => {            
+                    $('#'+idFormParent+' .typeahead').html('')
+                    // }, 500);
+                }
+            /*********** Fin tape sur Entrer **************/
+        }
+        else{
+            
+            idFormParent=$("#panier_"+idPanier).parent().attr("id");
+            // alert(idFormParent+'/////////')
+            // setTimeout(() => {            
+            $('#'+idFormParent+' .typeahead').html('')
+        }
+    }); 
+});
+
+function retour_Produit(ligne, panier) {
+    $.ajax({
+        url: "ajax/vendreLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 16,
+            idPagnet: panier,
+            numligne: ligne
+        },
+        success: function(data) {
+            // alert(data)
+            result = data.split('<>');
+            if (result[0] == 1) {
+                $("#tablePanier"+panier+' tr').each(function(row, tr) {
+                    reference = $(tr).find('td:eq(0)').text();
+                    unite = $(tr).find('td:eq(2)').text();
+                    if(reference!=null && reference!=''){
+                        result2=result[2]
+                        if (result2.indexOf("&amp;") >= 0){
+                            result2=result2.replace('&amp;','&')
+                        }
+                        if (reference != '' && reference == result2) {
+                            $(tr).remove();
+                            $("#codeBarreLigneVt").val('');
+                            $("#codeBarreLigneVt").focus();
+                            $("#somme_Total" + panier).text(result[6]);
+                            $("#somme_Apayer" + panier).text(result[6] - $("#val_remise" + panier).val());
+                        }
+                    }
+                    else if(unite!=null && unite!=''){
+                        if (unite != '' && unite == result[3]) {
+                            $(tr).remove();
+                            $("#codeBarreLigneVt").val('');
+                            $("#codeBarreLigneVt").focus();
+                            $("#somme_Total" + panier).text(result[6]);
+                            $("#somme_Apayer" + panier).text(result[6] - $("#val_remise" + panier).val());
+                        }
+                    }
+                    
+                });
+            }
+            
+            
+
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/** Fin Autocomplete Vente Boutique*/
+
+/** Debut Autocomplete Vente Pharmacie*/
+$(function() {
+    $(".codeBarreLignePh").keyup(function(e) {
+        e.preventDefault();
+        var tabIdPanier = $(this).attr('id');
+        tab = tabIdPanier.split('_');
+        idPanier = tab[1];
+        var query = $(this).val();
+        if (query.length > 0) {
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 3,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function() {
+                            alert("La requête ss");
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            /*********** Quand on tape sur Entrer **************/
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    // var designation = $("#ajouterProdFormPh"+idPanier+" .typeahead li.active").text();
+                    // tab = designation.split(' => ');
+                    // designation = tab[0] || $(this).val();
+
+                    inputVal = $(this).val();
+                    
+                    if ($.isNumeric(inputVal)) {
+    
+                        designation = $(this).val();
+    
+                    } else {
+                        var designation = $("#ajouterProdFormPh"+idPanier+" .typeahead li.active").text();
+                        tab = designation.split(' => ');
+                        designation = tab[0];                        
+                    }
+
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 6,
+                            designation: designation,
+                            idPagnet: idPanier
+                        },
+                        success: function(data) {
+                            result = data.split('<>');
+                            if (result[0] == 1) {
+                                if (result[7] == 9) {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td>Montant</td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                } else {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                }
+            
+                                $("#tablePanier" + idPanier).prepend(ligne);
+                                // $(".lic").text('');
+                                // $(this).val('');
+                                $("#panier_"+idPanier).val('');
+                                // $(".codeBarreLignePh").val('valueeeeeeeeee');
+                                // $(this).focus();
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                            }
+                            if (result[0] == 2) {
+            
+                                $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+                                    reference = $(tr).find('td:eq(0)').text();
+                                    if (reference != '' && reference == result[2]) {
+                                        $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+                                        $("#panier_"+idPanier).val('');
+                                        $("#somme_Total" + idPanier).text(result[6]);
+                                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                    }
+                                });
+                            }
+                            if (result[0] == 3) {
+                                $("#qte_stock").text(result[1]);
+                                $('#msg_info_js').modal('show');
+                                $("#panier_"+idPanier).val('');
+                            }
+                            if (result[0] == 4) {
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_QuantiteSDP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+            
+                                $("#tablePanier"+idPanier).prepend(ligne);
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                            }
+                        },
+                        error: function() {
+                            alert("La requête ");
+                        },
+                        dataType: "text"
+                    });
+                    idFormParent=$("#panier_"+idPanier).parent().attr("id");
+                    // alert(idFormParent+'/////////')
+                    // setTimeout(() => {            
+                    $('#'+idFormParent+' .typeahead').html('')
+                }
+            /*********** Fin tape sur Entrer **************/
+        }
+        else{
+            
+            idFormParent=$("#panier_"+idPanier).parent().attr("id");
+            // alert(idFormParent+'/////////')
+            // setTimeout(() => {            
+            $('#'+idFormParent+' .typeahead').html('')
+        }
+    });
+});
+$(function() {
+    $("#btnEnregistrerCodeBarreAjaxPh").click(function() {
+        var idPanier = $("#idPagnet").val();
+        var designation = $("#codeBarreLignePh").val();
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 6,
+                designation: designation,
+                idPagnet: idPanier
+            },
+            success: function(data) {
+                result = data.split('<>');
+                if (result[0] == 1) {
+                    var ligne = "<tr>" +
+                        "<td>" + result[2] + "</td>" +
+                        "<td><input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                        "<td>" + result[3] + "</td>" +
+                        "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+                    $("table.tabPanier").prepend(ligne);
+                    $(".lic").text('');
+                    $("#codeBarreLignePh").val('');
+                    $("#codeBarreLignePh").focus();
+                    $("#somme_Total" + idPanier).text(result[6]);
+                    $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                }
+                if (result[0] == 2) {
+
+                    $('#tablePanier tr').each(function(row, tr) {
+                        reference = $(tr).find('td:eq(0)').text();
+                        if (reference != '' && reference == result[2]) {
+                            $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+                            $(".lic").text('');
+                            $("#codeBarreLignePh").val('');
+                            $("#codeBarreLignePh").focus();
+                            $("#somme_Total" + idPanier).text(result[6]);
+                            $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        }
+                    });
+                }
+                if (result[0] == 3) {
+                    $("#qte_stock").text(result[1]);
+                    $('#msg_info_js').modal('show');
+                    $(".lic").text('');
+                    $("#codeBarreLignePh").val('');
+                    $("#codeBarreLignePh").focus();
+                }
+                //console.log(data);
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/** Fin Autocomplete Vente Pharmacie*/
+
+/** Debut Autocomplete Bon Client Pharmacie*/
+$(function() {
+
+    $("#codeBarreLignePhC").keyup(function() {
+        var query = $("#codeBarreLignePhC").val();
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 4,
+                    query: query,
+                },
+                success: function(data) {
+                    $("#reponseV").html(data);
+                    console.log('insertion impo' + data);
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+    $(document).on('click', 'li[class="lic"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('=>');
+        //$("#designationStock").val(tab[0]);
+        $("#codeBarreLignePhC").val(tab[0]);
+    });
+});
+/** Fin Autocomplete Bon Client Pharmacie*/
+
+/** Debut Autocomplete Vente Entrepot*/
+$(function() {
+    $(".codeBarreLigneEt").keyup(function(e) {
+        e.preventDefault();
+        var tabIdPanier = $(this).attr('id');
+        tab = tabIdPanier.split('_');
+        idPanier = tab[1]
+        var query = $(this).val();
+        if (query.length > 0) {
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 13,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function(err) {
+                            alert("la requête ss");
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            
+            /*********** Quand on tape sur Entrer **************/
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                // var designation = $("#ajouterProdFormEt"+idPanier+" .typeahead li.active").text();
+                // tab = designation.split(' => ');
+                // designation = tab[0] || $(this).val();
+                inputVal = $(this).val();
+                
+                if ($.isNumeric(inputVal)) {
+
+                    designation = $(this).val();
+
+                } else {
+                    var designation = $("#ajouterProdFormEt"+idPanier+" .typeahead li.active").text();
+                    tab = designation.split(' => ');
+                    designation = tab[0];                        
+                }
+
+                $.ajax({
+                    url: "ajax/vendreLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 17,
+                        designation: designation,
+                        idPagnet: idPanier
+                    },
+                    success: function(data) {
+                        // alert(data)
+                        result = data.split('<>'); 
+                        if (result[0] == 1) {
+                            var depots = JSON.parse(result[12]);
+                            var options = '';
+                            $.each(depots, function(idx, depot) {
+                                options += "<option value='"+depot[0]+"§"+result[5]+"§"+idPanier+"§1'>"+depot[1]+"</option>";
+                            });
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteET(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 100%' type='number' ></input></td>" +
+                                "<td><select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStockET(this.value)' >" +
+                                            "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"§1'>"+result[7]+"</option>"+
+                                            "<option value='Demi Gros§"+result[5]+"§"+idPanier+"§2'>Demi Gros</option>"+
+                                            "<option value='Piece§"+result[5]+"§"+idPanier+"§1'>Piece</option>"+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 100%' type='number'></input></td>" +
+                                "<td><select id='depot"+result[5]+"' class='form-control' onchange='modif_Depot(this.value)' >" +
+                                            "<option value='"+result[10]+"§"+result[5]+"§"+idPanier+"§1'>"+result[11]+"</option>"+options+""+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                            "</tr>";
+        
+                            $("#tablePanier" + idPanier).prepend(ligne);
+                            $("#panier_"+idPanier).val('');
+                            $("#somme_Total" + idPanier).text(result[6]);
+                            $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        }
+                        if (result[0] == 2) {
+                            window.location.reload();
+                        }
+                        if (result[0] == 3) {
+                            $("#qte_stock").text(result[1]);
+                            $('#msg_info_js').modal('show');
+                            $("#panier_"+idPanier).val('');
+                        }
+        
+                        //console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                idFormParent=$("#panier_"+idPanier).parent().attr("id");
+                // alert(idFormParent+'/////////')
+                // setTimeout(() => {            
+                $('#'+idFormParent+' .typeahead').html('')
+            }
+        }
+        else{
+            
+            idFormParent=$("#panier_"+idPanier).parent().attr("id");
+            // alert(idFormParent+'/////////')
+            // setTimeout(() => {            
+            $('#'+idFormParent+' .typeahead').html('')
+        }
+    });
+});
+/** Fin Autocomplete Vente Entrepot*/
+
+/** Debut Autocomplete Vente Entrepot*/
+$(function() {
+
+});
+/** Fin Autocomplete Vente Entrepot*/
+
+/** Debut Autocomplete Vente Entrepot*/
+$(function() {
+    $("#prenomFactureEt").keyup(function() {
+        var query = $("#prenomFactureEt").val();
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 14,
+                    query: query,
+                },
+                success: function(data) {
+                    $("#reponseF").html(data);
+                    console.log('insertion impo' + data);
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+    $(document).on('click', 'li[class="lifET"]', function() {
+        var client = $(this).text();
+        tab = client.split('<>');
+        $("#prenomFactureEt").val(tab[0]);
+        $("#nomFactureEt").val(tab[1]);
+        $("#adresseFactureEt").val(tab[2]);
+        $("#telephoneFactureEt").val(tab[3]);
+        $("#reponseF").html('');
+    });
+});
+/** Fin Autocomplete Vente Entrepot*/
+
+/** Debut Rechercher Produit Vendu Aujourd'hui*/
+$(function() {
+    // alert(111)
+    $("#produitVendu").keyup(function(e) {
+        e.preventDefault();
+        var query = $("#produitVendu").val();
+        // alert(query)
+
+        if (query.length > 0 || query.length != '') {
+            $("#produitVendu").typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 8,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function() {
+                            alert("La requête ss");
+                        }
+                    });
+                }
+            });
+            $("#produitVendu").focus();            
+            /*********** Quand on tape sur Entrer **************/
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                var designation = $("#searchProdForm .typeahead li.active").text();
+                $("#produitVendu").val(designation);
+                $("#searchProdForm").submit();
+                
+            }
+            $(document).on('click', '#searchProdForm .typeahead li a[class="dropdown-item"]', function(e) {
+                e.preventDefault();
+                
+                var designation = $("#searchProdForm .typeahead li.active").text();
+                $("#produitVendu").val(designation);
+                $("#searchProdForm").submit();
+            });
+        } else {
+            window.location.href = "insertionLigneLight.php";
+        }
+        
+
+    });
+
+    $("#produitVendu").val($("#produitAfter").val());
+});
+/** Fin Rechercher Produit Vendu Aujourd'hui*/
+
+/** Debut Rechercher Produit Vendu avant Aujourd'hui Pharmacie*/
+$(function() {
+    $("#produitVenduAvPh").keyup(function() {
+        var query = $("#produitVenduAvPh").val();
+        var date_jour = $("#dateProduitVendu").val();
+        if (query.length > 0 || query.length != '') {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 9,
+                    query: query,
+                    date_jour: date_jour
+                },
+                success: function(data) {
+                    $("#reponsePV").html(data);
+                },
+                dataType: 'text'
+            });
+        } else {
+            window.location.href = "actualiserVenteP.php?jour=" + date_jour;
+        }
+
+    });
+    $(document).on('click', 'li[class="liVapPh"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('=>');
+        $("#produitVenduAvPh").val(tab[0]);
+        $("#searchProdForm").submit();
+    });
+
+    $("#produitVenduAvPh").val($("#produitAfter").val());
+});
+/** Fin Rechercher Produit Vendu avant Aujourd'hui Pharmacie*/
+
+/** Debut Rechercher Produit Vendu avant Aujourd'hui*/
+$(function() {
+    $("#produitVenduAv").keyup(function() {
+        var query = $("#produitVenduAv").val();
+        var date_jour = $("#dateProduitVendu").val();
+        if (query.length > 0 || query.length != '') {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 9,
+                    query: query,
+                    date_jour: date_jour
+                },
+                success: function(data) {
+                    $("#reponsePV").html(data);
+                },
+                dataType: 'text'
+            });
+        } else {
+            window.location.href = "actualiserVente.php?jour=" + date_jour;
+        }
+
+    });
+    $(document).on('click', 'li[class="liVap"]', function() {
+        var designation = $(this).text();
+        $("#produitVenduAv").val(designation);
+        $("#searchProdForm").submit();
+    });
+
+    $("#produitVenduAv").val($("#produitAfter").val());
+});
+/** Fin Rechercher Produit Vendu avant Aujourd'hui */
+
+/** Debut Rechercher Produit Bon Client*/
+$(function() {
+    $("#produitBon").keyup(function() {
+        var query = $("#produitBon").val();
+        var idClient = $("#clientBon").val();
+        if (query.length > 0 || query.length != '') {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 10,
+                    query: query,
+                    idClient: idClient
+                },
+                success: function(data) {
+                    $("#reponsePV").html(data);
+                },
+                dataType: 'text'
+            });
+        } else {
+            window.location.href = "bonPclient.php?c=" + idClient;
+        }
+
+    });
+    $(document).on('click', 'li[class="liB"]', function() {
+        var designation = $(this).text();
+        $("#produitBon").val(designation);
+        $("#searchProdForm").submit();
+    });
+
+    $("#produitBon").val($("#produitAfter").val());
+});
+/** Fin Rechercher Produit Bon Client */
+
+$(function() {
+    $("#designationInfo").keyup(function() {
+        var query = $("#designationInfo").val();
+        if (query.length > 0) {
+            $.ajax({
+                url: 'ajax/designationInfo.php',
+                method: 'POST',
+                data: $("#formulaireInfo").serialize(),
+                success: function(data) {
+                    $("#reponseS").html(data);
+                    console.log(query);
+                    console.log(data);
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+    $(document).on('click', 'li[class="liInfPH"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('<>');
+        var resultat = tab[0] + " <br>Prix : " + tab[1];
+        //$("#resultatS").html(tab[0]);
+        $("#resultatS").html(resultat);
+
+        //$("#idD").val(tab[1]);
+        $("#reponseS").html('');
+
+    });
+
+    $(document).on('click', 'li[class="liInfET"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('<>');
+        var resultat = tab[0] + " <br>Prix : " + tab[1];
+        //$("#resultatS").html(tab[0]);
+        $("#resultatS").html(resultat);
+
+        //$("#idD").val(tab[1]);
+        $("#reponseS").html('');
+
+    });
+
+    $(document).on('click', 'li[class="liInfETImp"]', function() {
+        var designation = $(this).text();
+        tab = designation.split('<>');
+        var resultat = tab[0] + " <br>Normal : " + tab[1] + "  <br>Livraison : " + tab[2] + "   <br>Jumia : " + tab[3];
+        //$("#resultatS").html(tab[0]);
+        $("#resultatS").html(resultat);
+
+        //$("#idD").val(tab[1]);
+        $("#reponseS").html('');
+
+    });
+});
+
+$(function() {
+    $('#uniteStock').change(function() {
+        var uniteStock = $("#uniteStock").val();
+        var link = document.getElementById('prixuniteStock');
+
+
+        if (uniteStock == "article") {
+            link.setAttribute('disabled', '');
+        } else {
+            console.log("#idD ok " + uniteStock);
+            $(link).removeAttr('disabled');
+        }
+
+
+    });
+
+    $('#typeTrans').change(function() {
+        var value = $(this).val();
+        if (value == 2) {
+            $('#listFacture').show();
+        } else {
+            $('#listFacture').hide();
+        }
+    });
+
+    $('#typePaie').change(function() {
+        var value = $(this).val();
+        if (value == 'Especes') {
+            $('#versement').show();
+        } else {
+            $('#versement').hide();
+        }
+    });
+
+    $('#devise').change(function() {
+        var value = $(this).val();
+        $.ajax({
+            url: "ajax/modifierLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 20,
+                devise: value,
+            },
+            success: function(data) {
+                location.reload();
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+
+    $('#catalogue').change(function() {
+        var value = $(this).val();
+        
+        nbEntreeBInit = $('#nbEntreeBInit').val()
+
+        $("#resultsProductsInitB" ).load( "ajax/listerCatalogueAjax.php",{"operation":1,"nbEntreeBInit":nbEntreeBInit,"query":"","cb":"", "nom":value}); //load initial records
+        $('#searchInputBInit').val('')
+
+        // $.ajax({
+        //     url: "ajax/listerCatalogueAjax.php",
+        //     method: "POST",
+        //     data: {
+        //         nom: value,
+        //     },
+        //     success: function(data) {
+        //         location.reload();
+        //     },
+        //     error: function() {
+        //         alert("La requête ");
+        //     },
+        //     dataType: "text"
+        // });
+    });
+
+    $('#cataloguePH').change(function() {
+        var value = $(this).val();
+        
+        nbEntreePhInit = $('#nbEntreePhInit').val()
+
+        $("#resultsProductsInit" ).load( "ajax/listerCatalogue-PharmacieAjax.php",{"operation":1,"nbEntreePhInit":nbEntreePhInit,"query":"","cb":"", "nom":value}); //load initial records
+        $('#searchInputPhInit').val('')
+        // alert(value)
+        // $.ajax({
+        //     url: "ajax/listerCatalogue-PharmacieAjax.php",
+        //     method: "POST",
+        //     data: {
+        //         nom: value
+        //     },
+        //     success: function(data) {
+        //         // alert(data)
+        //         // location.reload();
+        //     },
+        //     error: function() {
+        //         alert("La requête ");
+        //     },
+        //     dataType: "text"
+        // });
+    });
+
+});
+
+
+$(function() {
+    $("#codeBarrePagnet").keyup(function() {
+        var codeBarre = $("#codeBarrePagnet").val();
+        tab = codeBarre.split('-');
+        console.log("#codeBarre tab length " + tab.length);
+        if (tab.length > 2 && tab[2] != "") {
+
+            var idPagnet = $("#idPagnet").val();
+            $.ajax({
+                url: 'ajax/panierAjax.php',
+                method: 'POST',
+                data: {
+                    ipP: idPagnet,
+                    codB: codeBarre
+                },
+                success: function(data) {
+                    console.log('"data kkkkk"' + data);
+                    console.log('requette succéééééééééé');
+                },
+                error: function() {
+                    console.log('La requête na pas aboutiiiii =>');
+                    //alert("eroooor");
+                },
+                dataType: 'text'
+            });
+        }
+
+    });
+});
+
+
+
+function factureB(par) {
+
+    var idPagnet = par;
+    var id = "#btnImprimerFacture" + par;
+    // var IdTabBonClient="#tabBonClient"+par;
+    // var spanId="#factureFois"+par;
+    // var span=IdTabBonClient+' tbody tr td span[class="factureFois"]'
+    //$(IdTabBonClient+'div ul li[class="factureFois"]')
+    //$(spanId).html('X');
+    $('span.factureFois').html('X');
+    $('div.divFacture').css('display', 'block');
+    window.print();
+    console.log("facture ffgg " + id);
+    $('span.factureFois').html('');
+    $('div.divFacture').css('display', 'none');
+
+}
+
+function factureVer() {
+    $('div.divFacture').css('display', 'block');
+    window.print();
+    console.log("facture ffgg " + id);
+    $('div.divFacture').css('display', 'none');
+
+}
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet**/
+function modif_Quantite(quantite, ligne, pagnet, unitestock, quantiteCourant) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 4,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('-');
+            ligneQte = tab[0] * tab[1];
+            //alert("Quantite : "+ligneQte);
+            restant = quantiteCourant - ((quantite * unitestock) + ligneQte);
+            //alert("Restant : "+restant);
+            if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 1,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        tab1 = data.split('<>');
+                        if(tab1[0]==1){
+                            $("#somme_Total" + pagnet).text(tab1[1]);
+                            $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+                            var lcd=$("#lcd_Machine").val();
+                            if(lcd==1){
+                                var nd_Qte=tab1[2];
+                                var nd_Prix=tab1[3];
+                                $.ajax({
+                                    url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                    type: "GET", // data type (can be get, post, put, delete)
+                                    data: { 
+                                        "quantite": nd_Qte, 
+                                        "prix": nd_Prix,
+                                    }, // data in json format
+                                    async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                    success: function(response) {
+                                        console.log(response);
+                                    },
+                                    
+                                });
+                            }
+                        }
+                        // console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                reste = quantiteCourant - ligneQte;
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 1,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: 1,
+                    },
+                    success: function(data) {
+                        tab1 = data.split('<>');
+                        if(tab1[0]==1){
+                            $("#somme_Total" + pagnet).text(tab1[1]);
+                            $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+                            var lcd=$("#lcd_Machine").val();
+                            if(lcd==1){
+                                var nd_Qte=tab1[2];
+                                var nd_Prix=tab1[3];
+                                $.ajax({
+                                    url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                    type: "GET", // data type (can be get, post, put, delete)
+                                    data: { 
+                                        "quantite": nd_Qte, 
+                                        "prix": nd_Prix,
+                                    }, // data in json format
+                                    async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                    success: function(response) {
+                                        console.log(response);
+                                    },
+                                    
+                                });
+                            }
+                        }
+                        console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                $("#ligne" + ligne).val(1);
+            }
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet**/
+function modif_QuantiteP(quantite, ligne, pagnet, unitestock) {
+    var stock = $("#uniteVente" + ligne).val();
+    tab0 = stock.split('§');
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 9,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('-');
+            ligneQte = tab[0] * tab[1];
+            if (tab0[0] == 'Article' || tab0[0] == 'article') {
+                restant = tab[2] - ((quantite * 1) + ligneQte);
+            } else {
+                restant = tab[2] - ((quantite * tab[3]) + ligneQte);
+            }
+            //if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 10,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        tab1 = data.split('<>');
+                        if(tab1[0]==1){
+                            $("#somme_Total" + pagnet).text(tab1[1]);
+                            $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+                            valTotal=tab1[1] - $("#val_remise" + pagnet).val();
+                            valApayer=tab1[4] - $("#val_remise" + pagnet).val();
+                            $("#somme_TotalCN" + pagnet).text(valTotal.toFixed(2));
+                            $("#somme_ApayerCN" + pagnet).text(valApayer.toFixed(2));
+                            var lcd=$("#lcd_Machine").val();
+                            if(lcd==1){
+                                var nd_Qte=tab1[2];
+                                var nd_Prix=tab1[3];
+                                $.ajax({
+                                    url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                    type: "GET", // data type (can be get, post, put, delete)
+                                    data: { 
+                                        "quantite": nd_Qte, 
+                                        "prix": nd_Prix,
+                                    }, // data in json format
+                                    async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                    success: function(response) {
+                                        console.log(response);
+                                    },
+                                    
+                                });
+                            }
+                        }
+                        console.log(data);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                    dataType: "text"
+                });
+            /*    
+            } else {
+                reste = tab[2] - ligneQte;
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 10,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: 1,
+                    },
+                    success: function(data) {
+                        $("#somme_Total" + pagnet).text(data);
+                        $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                        console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                $("#ligne" + ligne).val(1);
+            }
+            */
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet**/
+function modif_QuantiteET(quantite, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 15,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('-');
+            //alert("Quantite : "+ligneQte);
+            restant = tab[0] - tab[1];
+            if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 16,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        $("#somme_Total" + pagnet).text(data);
+                        $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                        console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                reste = tab[0];
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 16,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: 1,
+                    },
+                    success: function(data) {
+                        $("#somme_Total" + pagnet).text(data);
+                        $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                        console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                $("#ligne" + ligne).val(1);
+            }
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet**/
+function modif_QuantiteSD(quantite, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 8,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            $("#somme_Total" + pagnet).text(data);
+            $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+            // console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet de Retour**/
+function modif_QuantiteRP(quantite, ligne, pagnet, unitestock, quantiteStockinitial) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 4,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('-');
+            ligneQte = tab[0] * tab[1];
+            //alert("Quantite : "+ligneQte);
+            restant = quantiteStockinitial - ((quantite * unitestock) + ligneQte);
+            if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 14,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        $("#somme_Total" + pagnet).text(data);
+                        $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                        console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                reste = quantiteStockinitial - ligneQte;
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                $("#ligne" + ligne).val(1);
+            }
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet de Retour**/
+
+
+/**Debut modifier le prix dans la ligne d'un Pagnet**/
+function modif_Prix(prix, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            prix: prix,
+        },
+        success: function(data) {
+            tab1 = data.split('<>');
+            if(tab1[0]==1){
+                $("#somme_Total" + pagnet).text(tab1[1]);
+                $("#somme_Apayer" + pagnet).text(tab1[1] - $("#val_remise" + pagnet).val());
+                valTotal=tab1[1] - $("#val_remise" + pagnet).val();
+                valApayer=tab1[4] - $("#val_remise" + pagnet).val();
+                $("#somme_TotalCN" + pagnet).text(valTotal.toFixed(2));
+                $("#somme_ApayerCN" + pagnet).text(valApayer.toFixed(2));
+                var lcd=$("#lcd_Machine").val();
+                if(lcd==1){
+                    var nd_Qte=tab1[2];
+                    var nd_Prix=tab1[3];
+                    $.ajax({
+                        url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                        type: "GET", // data type (can be get, post, put, delete)
+                        data: { 
+                            "quantite": nd_Qte, 
+                            "prix": nd_Prix,
+                        }, // data in json format
+                        async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        
+                    });
+                }
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la prix dans la ligne d'un Pagnet**/
+
+/**Debut modifier le prix dans la ligne d'un Pagnet**/
+function modif_Espece(especes, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 22,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            especes: especes,
+        },
+        success: function(data) {
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la prix dans la ligne d'un Pagnet**/
+
+/**Debut modifier la designation d'un Bon ou Depense dans la ligne d'un Pagnet**/
+function modif_DesignationBon(designation, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 23,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            designation: designation,
+        },
+        success: function(data) {
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la designation d'un Bon ou Depense dans la ligne d'un Pagnet**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet Pharmacie**/
+function modif_Quantite_Ph(quantite, ligne, pagnet, quantiteCourant) {
+    // alert(quantite+" "+qu)
+    var restant = quantiteCourant - quantite;
+    if (restant >= 0) {
+        $.ajax({
+            url: "ajax/modifierLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 5,
+                idPagnet: pagnet,
+                numLigne: ligne,
+                quantite: quantite,
+            },
+            success: function(data) {
+                $("#somme_Total" + pagnet).text(data);
+                $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                //console.log(data);
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    } else {
+        //reste = quantiteCourant - quantite;
+        $("#qte_stock").text(quantiteCourant);
+        $('#msg_info_js').modal('show');
+        $.ajax({
+            url: "ajax/modifierLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 5,
+                idPagnet: pagnet,
+                numLigne: ligne,
+                quantite: 1,
+            },
+            success: function(data) {
+                $("#somme_Total" + pagnet).text(data);
+                $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                // console.log(data);
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+        $("#ligne" + ligne).val(1);
+    }
+    console.log(data);
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet Pharmacie**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet Pharmacie**/
+function modif_Quantite_PhP(quantite, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 11,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            result = data.split('<>');
+            ligneQte = result[0];
+            //alert("Quantite : "+ligneQte);
+            restant = ligneQte - quantite;
+            //alert("Restant : "+restant);
+            if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 12,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        $("#somme_Total" + pagnet).text(data);
+                        $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+                        //console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                reste = ligneQte;
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                quantite = 1;
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 120,
+                        idPagnet: pagnet,
+                        numLigne: ligne,
+                        quantite: 1,
+                    },
+                    success: function(data) {
+                        result = data.split('<>');
+                        $("#somme_Total" + pagnet).text(result[1]);
+                        $("#somme_Apayer" + pagnet).text(result[0] - $("#val_remise" + pagnet).val());
+                        $('#tablePanier tr').each(function(row, tr) {
+                            reference = $(tr).find('td:eq(0)').text();
+                            if (reference != '' && reference == result[1]) {
+                                //alert(reference);
+                                $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_PhP(" + quantite + "," + ligne + "," + pagnet + ")' value='1' style='width: 70%' type='number'></input>");
+                                $(".lic").text('');
+                                $("#codeBarreLignePh").val('');
+                                $("#codeBarreLignePh").focus();
+                            }
+                        });
+                        //console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                $("#ligne" + ligne).val(1);
+            }
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet Pharmacie**/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet**/
+function modif_QuantiteSDP(quantite, ligne, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 13,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            $("#somme_Total" + pagnet).text(data);
+            $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+            // console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet**/
+
+/**Debut modifier le prix dans la ligne d'un Pagnet Pharmacie**/
+function modif_Prix_Ph(prix, ligne, pagnet) {
+    //alert(prix+' '+ligne+' '+pagnet);
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 7,
+            idPagnet: pagnet,
+            numLigne: ligne,
+            prix: prix,
+        },
+        success: function(data) {
+            //$('#somme_Pagnet').val(data);
+            $("#somme_Total" + pagnet).text(data);
+            $("#somme_Apayer" + pagnet).text(data - $("#val_remise" + pagnet).val());
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la prix dans la ligne d'un Pagnet Pharmacie**/
+
+/**Debut ajouter ligne dans Pagnet Transfert**/
+function ajt_LigneTransfert(pagnet, transfert) {
+    var compte = $('#compte-' + transfert).val();
+    var caisse = $('#caisse-' + transfert).val();
+    $('#btn_Transfert-' + transfert).prop('disabled', true);
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 21,
+            idPagnet: pagnet,
+            idTransaction: transfert,
+            compte: compte,
+        },
+        success: function(data) {
+            //alert(data);
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr>" +
+                    "<td>" + tab[1] + "</td>" +
+                    "<td>" + tab[2] + "</td>" +
+                    "<td>" + tab[3] + "</td>" +
+                    "<td> </td>" +
+                    "<td>" + tab[4] + "</td>" +
+                    "<td>" +
+                    "<button disabled='true' type='button' class='btn btn-warning pull-right'>" +
+                    "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                    "</button>" +
+                    "</td>" +
+                    "</tr>";
+                $("table.tabPanier").prepend(ligne);
+                $("#somme_Total" + pagnet).text(tab[5]);
+                $("#somme_Apayer" + pagnet).text(tab[5]);
+            } else {
+
+                //alert("Erreur");
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter ligne dans Pagnet Transfert**/
+
+/**<script>**/
+function date_jour(jour) {
+    var x = document.getElementById(jour).value;
+    var tab = x.split('-');
+    var date_jour = tab[2] + '-' + tab[1] + '-' + tab[0];
+    window.location.href = "historiquecaisse.php?dateprevious=" + date_jour;
+}
+/**</script>**/
+
+/**<script>**/
+function date_jour_Vente(jour) {
+    var x = document.getElementById(jour).value;
+    var tab = x.split('-');
+    var date_jour = tab[2] + '-' + tab[1] + '-' + tab[0];
+    window.location.href = "actualiserVente.php?jour=" + date_jour;
+}
+/**</script>**/
+
+/**<script>**/
+function date_jour_VenteP(jour) {
+    var x = document.getElementById(jour).value;
+    var tab = x.split('-');
+    var date_jour = tab[2] + '-' + tab[1] + '-' + tab[0];
+    window.location.href = "actualiserVenteP.php?jour=" + date_jour;
+}
+/**</script>**/
+
+/**<script>**/
+function date_jour_VenteET(jour) {
+    var x = document.getElementById(jour).value;
+    var tab = x.split('-');
+    var date_jour = tab[2] + '-' + tab[1] + '-' + tab[0];
+    window.location.href = "actualiserVenteET.php?jour=" + date_jour;
+}
+/**</script>**/
+
+/**Debut ajouter Fournisseur Pharmacie**/
+$(function() {
+    $("#btn_ajt_Fournisseur").click(function() {
+        var nom = $('#ajtNomFN').val();
+        var adresse = $('#ajtAdresseFN').val();
+        var telephone = $('#ajtTelephoneFN').val();
+        var banque = $('#ajtBanqueFN').val();
+        var numBanque= $('#ajtNumBankFN').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 16,
+                nomFournisseur: nom,
+                adresseFournisseur: adresse,
+                telephoneFournisseur: telephone,
+                banqueFournisseur: banque,
+                numBanqueFournisseur: numBanque
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>0</td><td>En cours ...</td></tr>";
+                    $("table.tabFournisseur").prepend(ligne);
+                    $('#ajtNomFN').val('');
+                    $('#ajtAdresseFN').val('');
+                    $('#ajtTelephoneFN').val('');
+                    $('#ajtBanqueFN').val('');
+                    $('#ajtNumBankFN').val('');
+                    $('#ajoutFournisseur').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Fournisseur Pharmacie**/
+
+/**Debut modifier Fournisseur Pharmacie**/
+function mdf_Fournisseur(idFournisseur, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 18,
+            idFournisseur: idFournisseur,
+        },
+        success: function(data) {
+            tab = data.split('<>'); 
+            if (tab[0] == 1) {
+                $('#idFN_Mdf').val(tab[1]);
+                $('#ordreFN_Mdf').val(ordre);
+                $('#nomFN_Mdf').val(tab[2]);
+                $('#adresseFN_Mdf').val(tab[3]);
+                $('#telephoneFN_Mdf').val(tab[4]);            
+                $('#ajtBanqueFN_Mdf option[value="'+tab[5]+'"]').attr("selected", "selected");  
+                // $('#ajtBanqueFN_Mdf').children("option:selected").text(tab[5]);
+                $('#ajtNumBankFN_Mdf').val(tab[6]);
+                $('#modifierFournisseur').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Fournisseur").click(function() {
+        var idFournisseur = $('#idFN_Mdf').val();
+        var ordre = $('#ordreFN_Mdf').val();
+        var nom = $('#nomFN_Mdf').val();
+        var adresse = $('#adresseFN_Mdf').val();
+        var telephone = $('#telephoneFN_Mdf').val();
+        var banque = $('#ajtBanqueFN_Mdf').val();
+        var numBanque = $('#ajtNumBankFN_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 19,
+                idFournisseur: idFournisseur,
+                nomFournisseur: nom,
+                adresseFournisseur: adresse,
+                telephoneFournisseur: telephone,
+                banqueFournisseur: banque,
+                numBanqueFournisseur: numBanque
+            },
+            success: function(data) {
+                $('#idFN_Mdf').val('');
+                $('#ordreFN_Mdf').val('');
+                $('#nomFN_Mdf').val('');
+                $('#adresseFN_Mdf').val('');
+                $('#telephoneFN_Mdf').val('');
+                $('#ajtBanqueFN_Mdf').val('');
+                $('#ajtNumBankFN_Mdf').val('');
+                $('#modifierFournisseur').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableFournisseur tr').each(function(row, tr) {
+                        fournisseur = $(tr).find('td:eq(0)').text();
+                        if (fournisseur != '' && fournisseur == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html(tab[4]);
+                            $(tr).find('td:eq(4)').html(tab[5]);
+                            $(tr).find('td:eq(5)').html(tab[6]);
+                            $(tr).find('td:eq(6)').html(tab[7]);
+                            $(tr).find('td:eq(7)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Fournisseur Pharmacie**/
+
+/**Debut supprimer Fournisseur Pharmacie**/
+function spm_Fournisseur(idFournisseur, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 18,
+            idFournisseur: idFournisseur,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idFN_Spm').val(tab[1]);
+                $('#ordreFN_Spm').val(ordre);
+                $('#nomFN_Spm').val(tab[2]);
+                $('#adresseFN_Spm').val(tab[3]);
+                $('#telephoneFN_Spm').val(tab[4]);
+                $('#supprimerFournisseur').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Fournisseur").click(function() {
+        var idFournisseur = $('#idFN_Spm').val();
+        var ordre = $('#ordreFN_Spm').val();
+        var nom = $('#nomFN_Spm').val();
+        var adresse = $('#adresseFN_Spm').val();
+        var telephone = $('#telephoneFN_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 20,
+                idFournisseur: idFournisseur
+            },
+            success: function(data) {
+                $('#idFN_Spm').val('');
+                $('#ordreFN_Spm').val('');
+                $('#nomFN_Spm').val('');
+                $('#adresseFN_Spm').val('');
+                $('#telephoneFN_Spm').val('');
+                $('#supprimerFournisseur').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableFournisseur tr').each(function(row, tr) {
+                        fournisseur = $(tr).find('td:eq(0)').text();
+                        if (fournisseur != '' && fournisseur == ordre) {
+                            $(tr).find('td:eq(1)').html(nom);
+                            $(tr).find('td:eq(2)').html(adresse);
+                            $(tr).find('td:eq(3)').html(telephone);
+                            $(tr).find('td:eq(4)').html(0);
+                            $(tr).find('td:eq(5)').html(0);
+                            $(tr).find('td:eq(6)').html(0);
+                            $(tr).find('td:eq(7)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Fournisseur Pharmacie**/
+
+/**Debut ajouter BL Pharmacie**/
+$(function() {
+    $("#btn_ajt_Bl").click(function() {
+        var fournisseur = $('#ajtFournisseurBL').val();
+        var numero = $('#ajtNumeroBL').val();
+        var date = $('#ajtDateBL').val();
+        var montant = $('#ajtMontantBL').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 17,
+                idFournisseur: fournisseur,
+                numeroBl: numero,
+                dateBl: date,
+                montantBl: montant,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td></td><td>En cours ...</td></tr>";
+                    $("table.tabBl").prepend(ligne);
+                    $('#ajtFournisseurBL').val('');
+                    $('#ajtNumeroBL').val('');
+                    $('#ajtDateBL').val('');
+                    $('#ajtMontantBL').val('');
+                    $('#ajoutBl').modal('hide');
+                    window.location.href = "bl.php?id=" + tab[5];
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter BL Pharmacie**/
+
+/**Debut modifier BL Pharmacie**/
+function mdf_Bl(idBl, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 21,
+            idBl: idBl,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idBL_Mdf').val(tab[1]);
+                $('#ordreBL_Mdf').val(ordre);
+                $('#fournisseurBL_Mdf').val(tab[2]);
+                $('#numeroBL_Mdf').val(tab[3]);
+                $('#dateBL_Mdf').val(tab[4]);
+                $('#montantBL_Mdf').val(tab[5]);
+                $('#modifierBl').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Bl").click(function() {
+        var idBl = $('#idBL_Mdf').val();
+        var ordre = $('#ordreBL_Mdf').val();
+        var fournisseur = $('#fournisseurBL_Mdf').val();
+        var numero = $('#numeroBL_Mdf').val();
+        var date = $('#dateBL_Mdf').val();
+        var montant = $('#montantBL_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 22,
+                idBl: idBl,
+                fournisseur: fournisseur,
+                numeroBl: numero,
+                dateBl: date,
+                montantBl: montant,
+            },
+            success: function(data) {
+                $('#idBL_Mdf').val('');
+                $('#ordreBL_Mdf').val('');
+                $('#fournisseurBL_Mdf').val('');
+                $('#numeroBL_Mdf').val('');
+                $('#dateBL_Mdf').val('');
+                $('#montantBL_Mdf').val('');
+                $('#modifierBl').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableBl tr').each(function(row, tr) {
+                        bl = $(tr).find('td:eq(0)').text();
+                        if (bl != '' && bl == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html(tab[4]);
+                            $(tr).find('td:eq(4)').html(tab[5]);
+                            $(tr).find('td:eq(5)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier BL Pharmacie**/
+
+/**Debut supprimer BL Pharmacie**/
+function spm_Bl(idBl, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 21,
+            idBl: idBl,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idBL_Spm').val(tab[1]);
+                $('#ordreBL_Spm').val(ordre);
+                $('#fournisseurBL_Spm').val(tab[2]);
+                $('#numeroBL_Spm').val(tab[3]);
+                $('#dateBL_Spm').val(tab[4]);
+                $('#montantBL_Spm').val(tab[5]);
+                $('#supprimerBl').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Bl").click(function() {
+        var idBl = $('#idBL_Spm').val();
+        var ordre = $('#ordreBL_Spm').val();
+        var fournisseur = $('#fournisseurBL_Spm').val();
+        var numero = $('#numeroBL_Spm').val();
+        var date = $('#dateBL_Spm').val();
+        var montant = $('#montantBL_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 23,
+                idBl: idBl,
+            },
+            success: function(data) {
+                $('#idBL_Spm').val('');
+                $('#ordreBL_Spm').val('');
+                $('#fournisseurBL_Spm').val('');
+                $('#numeroBL_Spm').val('');
+                $('#dateBL_Spm').val('');
+                $('#montantBL_Spm').val('');
+                $('#supprimerBl').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableBl tr').each(function(row, tr) {
+                        bl = $(tr).find('td:eq(0)').text();
+                        if (bl != '' && bl == ordre) {
+                            $(tr).find('td:eq(1)').html(numero);
+                            $(tr).find('td:eq(2)').html(fournisseur);
+                            $(tr).find('td:eq(3)').html(date);
+                            $(tr).find('td:eq(4)').html(montant);
+                            $(tr).find('td:eq(5)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer BL Pharmacie**/
+
+/**Debut ajouter Entrepot**/
+$(function() {
+    $("#btn_ajt_Entrepot").click(function() {
+        var nomEntrepot = $('#ajtNomEntrepot').val();
+        var adresseEntrepot = $('#ajtAdresseEntrepot').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 24,
+                nomEntrepot: nomEntrepot,
+                adresseEntrepot: adresseEntrepot,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>En cours ...</td></tr>";
+                    $("table.tabEntrepot").prepend(ligne);
+                    $('#ajtNomEntrepot').val('');
+                    $('#ajtAdresseEntrepot').val('');
+                    $('#ajoutEntrepot').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Entrepot**/
+
+/**Debut modifier Entrepot**/
+function mdf_Entrepot(idEntrepot, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 25,
+            idEntrepot: idEntrepot,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idEntrepot_Mdf').val(tab[1]);
+                $('#ordreEntrepot_Mdf').val(ordre);
+                $('#nomEntrepot_Mdf').val(tab[2]);
+                $('#adresseEntrepot_Mdf').val(tab[3]);
+                $('#modifierEntrepot').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Entrepot").click(function() {
+        var idEntrepot = $('#idEntrepot_Mdf').val();
+        var ordre = $('#ordreEntrepot_Mdf').val();
+        var nomEntrepot = $('#nomEntrepot_Mdf').val();
+        var adresseEntrepot = $('#adresseEntrepot_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 26,
+                idEntrepot: idEntrepot,
+                nomEntrepot: nomEntrepot,
+                adresseEntrepot: adresseEntrepot
+            },
+            success: function(data) {
+                $('#idEntrepot_Mdf').val('');
+                $('#ordreEntrepot_Mdf').val('');
+                $('#nomEntrepot_Mdf').val('');
+                $('#adresseEntrepot_Mdf').val('');
+                $('#modifierEntrepot').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableEntrepot tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Entrepot**/
+
+/**Debut supprimer Entrepot**/
+function spm_Entrepot(idEntrepot, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 25,
+            idEntrepot: idEntrepot,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idEntrepot_Spm').val(tab[1]);
+                $('#ordreEntrepot_Spm').val(ordre);
+                $('#nomEntrepot_Spm').val(tab[2]);
+                $('#adresseEntrepot_Spm').val(tab[3]);
+                $('#supprimerEntrepot').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Entrepot").click(function() {
+        var idEntrepot = $('#idEntrepot_Spm').val();
+        var ordre = $('#ordreEntrepot_Spm').val();
+        var nomEntrepot = $('#nomEntrepot_Spm').val();
+        var adresseEntrepot = $('#adresseEntrepot_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 27,
+                idEntrepot: idEntrepot,
+            },
+            success: function(data) {
+                $('#idEntrepot_Spm').val('');
+                $('#ordreEntrepot_Spm').val('');
+                $('#nomEntrepot_Spm').val('');
+                $('#adresseEntrepot_Spm').val('');
+                $('#supprimerEntrepot').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableEntrepot tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(nomEntrepot);
+                            $(tr).find('td:eq(2)').html(adresseEntrepot);
+                            $(tr).find('td:eq(3)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Entrepot**/
+
+/**Debut validation 1 Transfert Entrepot **/
+function validerTransfert_1(idEntrepotTransfert,designation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 89,
+            idEntrepotTransfert: idEntrepotTransfert,
+            idDesignation: designation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if(tab[0]==1){
+                $('#btn_ValiderTransfert-'+idEntrepotTransfert).prop('disabled', true);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin validation 1 Transfert Entrepot **/
+
+/**Debut validation 2 Transfert Entrepot **/
+function validerTransfert_2(idEntrepotTransfert,designation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 90,
+            idEntrepotTransfert: idEntrepotTransfert,
+            idDesignation: designation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if(tab[0]==1){
+                $('#btn_ValiderTransfert-'+idEntrepotTransfert).prop('disabled', true);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin validation 2 Transfert Entrepot **/
+
+/**Debut ajouter Transfert Entrepot **/
+function ajt_TransfertStock(idEntrepotTransfert,idEntrepotStock) {
+    var quantite = $('#quantiteTransfert-'+idEntrepotStock).val();
+    $('#btn_TransfertProduit-'+idEntrepotStock).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 82,
+            idEntrepotTransfert: idEntrepotTransfert,
+            idEntrepotStock: idEntrepotStock,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if(tab[0]==1){
+                $("#produitTtl").text(tab[2]);
+                $("#produitRst").text(tab[1] - tab[2]);
+                $("#produitTtl_2").text(tab[2]);
+                $("#produitRst_2").text(tab[1] - tab[2]);
+                $('#quantiteTransfert-'+idEntrepotStock).val(quantite);
+            }
+            
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Transfert Entrepot **/
+
+/**Debut ajouter Stock Entrepot**/
+function ajt_StockDepot_ET(idStock) {
+    $('#ajtStock').val(idStock);
+    $('#ajoutStockModal').modal('show');
+}
+$(function() {
+    $("#btn_ajt_StockEntrepot").click(function() {
+        var idStock = $('#ajtStock').val();
+        var idEntrepot = $('#ajtEntrepot').val();
+        var quantite = $('#ajtQuantite').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 28,
+                idStock: idStock,
+                idEntrepot: idEntrepot,
+                quantite: quantite,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    location.reload();
+                } else {
+                    $('#ajoutStockModal').modal('hide');
+                    $('#msg_info_jsET').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Stock Entrepot**/
+
+/**Debut transfert Stock Entrepot**/
+function transfertDepot_ET(idEntrepotStock) {
+    $('#transfertStock').val(idEntrepotStock);
+    $('#transfertStockModal').modal('show');
+}
+$(function() {
+    $("#btn_tft_StockEntrepot").click(function() {
+        var idEntrepotStock = $('#transfertStock').val();
+        var idEntrepot = $('#tftEntrepot').val();
+        var quantite = $('#tftQuantite').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 38,
+                idEntrepotStock: idEntrepotStock,
+                idEntrepot: idEntrepot,
+                quantite: quantite,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    location.reload();
+                } else if (tab[0] == 3) {
+                    $('#ajoutStockModal').modal('hide');
+                    $('#msg_info_jsDP').modal('show');
+                } else {
+                    $('#ajoutStockModal').modal('hide');
+                    $('#msg_info_jsET').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin transfert Stock Entrepot**/
+
+/**Debut ajouter Transfert Entrepot**/
+function ajt_Transfert(designation) {
+    var entrepot = $('#entrepot-' + designation).val();
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    $('#btn_AjtTransfert-' + designation).prop('disabled', true);
+
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 78,
+            idDesignation: designation,
+            idEntrepot: entrepot,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantite + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>En Cours</td><td></td><td>" + tab[5] + "</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#uniteStock-' + designation).prop('disabled', true);
+                $('#prixuniteStock-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                alert(data);
+                //alert("Erreur");
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Transfert Entrepot**/
+
+/**Debut ajouter Transfert Entrepot**/
+function ajt_TransfertEntrepot(designation) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    $('#btn_AjtTransfert-' + designation).prop('disabled', true);
+
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 78,
+            idDesignation: designation,
+            quantite: quantite,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantite + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>En Cours</td><td></td><td>" + tab[5] + "</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#uniteStock-' + designation).prop('disabled', true);
+                $('#prixuniteStock-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                alert(data);
+                //alert("Erreur");
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Transfert Entrepot**/
+
+/**Debut modifier Transfert Entrepot**/
+function mdf_Transfert(idEntrepotTransfert, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 79,
+            idEntrepotTransfert: idEntrepotTransfert,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idEntrepotTransfert_Mdf').val(idEntrepotTransfert);
+                $('#ordreEntrepotTransfert_Mdf').val(ordre);
+                $('#designation_Mdf').val(tab[1]);
+                $('#uniteStock_Mdf').val(tab[2]);
+                $('#quantite_Mdf').val(tab[3]);
+                $('#modifierEntrepotTransfert').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Transfert").click(function() {
+        var idEntrepotTransfert = $('#idEntrepotTransfert_Mdf').val();
+        var ordre = $('#ordreEntrepotTransfert_Mdf').val();
+        var quantite = $('#quantite_Mdf').val();
+        $('#modifierEntrepotTransfert').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 80,
+                idEntrepotTransfert: idEntrepotTransfert,
+                quantite: quantite
+            },
+            success: function(data) {
+                $('#idEntrepotTransfert_Mdf').val('');
+                $('#ordreEntrepotTransfert_Mdf').val('');
+                $('#designation_Mdf').val('');
+                $('#quantite_Mdf').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableTransfert tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(quantite);
+                            $(tr).find('td:eq(3)').html(quantite);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(' ');
+                            $(tr).find('td:eq(7)').html(' ');
+                            $(tr).find('td:eq(8)').html(tab[5]);
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Transfert Entrepot**/
+
+/**Debut supprimer Transfert Entrepot**/
+function spm_Transfert(idEntrepotTransfert, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 79,
+            idEntrepotTransfert: idEntrepotTransfert,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idEntrepotTransfert_Spm').val(idEntrepotTransfert);
+                $('#ordreEntrepotTransfert_Spm').val(ordre);
+                $('#designation_Spm').val(tab[1]);
+                $('#uniteStock_Spm').val(tab[2]);
+                $('#quantite_Spm').val(tab[3]);
+                $('#supprimerEntrepotTransfert').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Transfert").click(function() {
+        var idEntrepotTransfert = $('#idEntrepotTransfert_Spm').val();
+        var ordre = $('#ordreEntrepotTransfert_Spm').val();
+        var quantite = $('#quantite_Spm').val();
+        $('#supprimerEntrepotTransfert').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 81,
+                idEntrepotTransfert: idEntrepotTransfert
+            },
+            success: function(data) {
+                $('#idEntrepotTransfert_Spm').val('');
+                $('#ordreEntrepotTransfert_Spm').val('');
+                $('#designation_Spm').val('');
+                $('#quantite_Spm').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableTransfert tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(quantite);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(' ');
+                            $(tr).find('td:eq(7)').html(' ');
+                            $(tr).find('td:eq(8)').html(tab[5]);
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Transfert Entrepot**/
+
+/**Debut ajouter Stock Entrepot**/
+function ajt_Stock_ET(designation) {
+
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var uniteStock = $('#uniteStock-' + designation).val();
+    var prixuniteStock = $('#prixuniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 33,
+            idDesignation: designation,
+            quantite: quantite,
+            uniteStock: uniteStock,
+            prixUniteStock: prixuniteStock,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantite + "</td><td></td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#uniteStock-' + designation).prop('disabled', true);
+                $('#prixuniteStock-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                alert(data);
+                //alert("Erreur");
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock Entrepot**/
+
+/**Debut modifier Stock Entrepot**/
+function mdf_StockEntrepot(idEntrepotStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 29,
+            idEntrepotStock: idEntrepotStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStockEntrepot_Mdf').val(tab[1]);
+                $('#ordreStockEntrepot_Mdf').val(ordre);
+                $('#idEntrepot_Mdf').val(tab[2]);
+                $('#quantite_Mdf').val(tab[3]);
+                $('#modifierStockEntrepot').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_StockEntrepot").click(function() {
+        var idEntrepotStock = $('#idStockEntrepot_Mdf').val();
+        var ordre = $('#ordreStockEntrepot_Mdf').val();
+        var idEntrepot = $('#idEntrepot_Mdf').val();
+        var quantite = $('#quantite_Mdf').val();
+        $('#modifierStockEntrepot').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 31,
+                idEntrepot: idEntrepot,
+                idEntrepotStock: idEntrepotStock,
+                quantite: quantite
+            },
+            success: function(data) {
+                $('#idStockEntrepot_Mdf').val('');
+                $('#ordreStockEntrepot_Mdf').val('');
+                $('#idEntrepot_Mdf').val('');
+                $('#quantite_Mdf').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrepot tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(quantite);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[6]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Stock Entrepot**/
+
+/**Debut supprimer Stock Entrepot**/
+function spm_StockEntrepot(idEntrepotStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 29,
+            idEntrepotStock: idEntrepotStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStockEntrepot_Spm').val(tab[1]);
+                $('#ordreStockEntrepot_Spm').val(ordre);
+                $('#idEntrepot_Spm').val(tab[4]);
+                $('#quantite_Spm').val(tab[3]);
+                $('#supprimerStockEntrepot').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_StockEntrepot").click(function() {
+        var idEntrepotStock = $('#idStockEntrepot_Spm').val();
+        var ordre = $('#ordreStockEntrepot_Spm').val();
+        var idEntrepot = $('#idEntrepot_Spm').val();
+        $('#supprimerStockEntrepot').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 32,
+                idEntrepotStock: idEntrepotStock,
+            },
+            success: function(data) {
+                $('#idStockEntrepot_Spm').val('');
+                $('#ordreStockEntrepot_Spm').val('');
+                $('#idEntrepot_Spm').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrepot tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[8]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[6]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Stock Entrepot**/
+
+/**Debut modifier Stock Entrepot**/
+function mdf_Stock_ET(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 34,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStock_Mdf').val(tab[1]);
+                $('#ordre_Mdf').val(ordre);
+                $('#designation_Mdf').val(tab[2]);
+                $('#qteInitiale_Mdf').val(tab[3]);
+                $('#dateStockage_Mdf').val(tab[4]);
+                $('#dateExpiration_Mdf').val(tab[5]);
+                $('#modifierStockModal').modal('show');
+            }
+
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Stock_ET").click(function() {
+        var idStock = $('#idStock_Mdf').val();
+        var ordre = $('#ordre_Mdf').val();
+        var quantite = $('#qteInitiale_Mdf').val();
+        var dateExpiration = $('#dateExpiration_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 35,
+                idStock: idStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                $('#idStock_Mdf').val('');
+                $('#ordre_Mdf').val('');
+                $('#designation_Mdf').val('');
+                $('#qteInitiale_Mdf').val('');
+                $('#dateStockage_Mdf').val('');
+                $('#dateExpiration_Mdf').val('');
+                $('#modifierStockModal').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[5]);
+                            $(tr).find('td:eq(2)').html(tab[1]);
+                            $(tr).find('td:eq(3)').html(tab[2]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Stock Entrepot**/
+
+/**Debut supprimer Stock Entrepot**/
+function spm_Stock_ET(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 34,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStock_Spm').val(tab[1]);
+                $('#ordre_Spm').val(ordre);
+                $('#designation_Spm').val(tab[2]);
+                $('#qteInitial_Spm').val(tab[3]);
+                $('#dateStockage_Spm').val(tab[4]);
+                $('#dateExpiration_Spm').val(tab[5]);
+                $('#supprimerStockModal').modal('show');
+            }
+
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Stock_ET").click(function() {
+        var idStock = $('#idStock_Spm').val();
+        var ordre = $('#ordre_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 36,
+                idStock: idStock,
+            },
+            success: function(data) {
+                $('#idStock_Spm').val('');
+                $('#ordre_Spm').val('');
+                $('#designation_Spm').val('');
+                $('#qteInitiale_Spm').val('');
+                $('#dateStockage_Spm').val('');
+                $('#dateExpiration_Spm').val('');
+                $('#supprimerStockModal').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[5]);
+                            $(tr).find('td:eq(2)').html(tab[1]);
+                            $(tr).find('td:eq(3)').html(tab[2]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Stock Entrepot**/
+
+/**Debut Entrepot Inventaire**/
+function inventaireDepot(designation) {
+    var quantite = $('#quantite-' + designation).val();
+    if (quantite != '' && quantite != null) {
+        $('#quantite-' + designation).prop('disabled', true);
+        $('#btn_InvStock-' + designation).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 51,
+                idDesignation: designation,
+                quantite: quantite,
+            },
+            success: function(data) {},
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    } else {
+        alert('Le Champ est vide');
+    }
+}
+/**Fin Entrepot Inventaire**/
+
+/**Debut Entrepot Inventaire Pharmacie**/
+function inventaireDepot_PH(designation) {
+    var quantite = $('#quantite-' +designation).val();
+    if (quantite != '' && quantite != null) {
+        $('#quantite-' + designation).prop('disabled', true);
+        $('#btn_InvStock-' + designation).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 52,
+                idDesignation: designation,
+                quantite: quantite,
+            },
+            success: function(data) {
+
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    } else {
+        alert('Le Champ est vide');
+    }
+}
+/**Fin Entrepot Inventaire Pharmacie**/
+
+/**Debut Entrepot Inventaire Entrepot**/
+function inventaireDepot_ET(depot, designation) {
+    var quantite = $('#quantite-' + designation).val();
+    if (quantite != '' && quantite != null) {
+        $('#quantite-' + designation).prop('disabled', true);
+        $('#btn_InvStock-' + designation).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 39,
+                idEntrepot: depot,
+                idDesignation: designation,
+                quantite: quantite,
+            },
+            success: function(data) {},
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    } else {
+        alert('Le Champ est vide');
+    }
+}
+/**Fin Entrepot Inventaire Entrepot**/
+
+/**Debut ajouter Stock**/
+function ajt_Stock_Divers(designation) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixAchat = $('#prixAchat-' + designation).val();
+    var prixUniteStock = $('#prixUniteStock-' + designation).val();
+    $('#btn_AjtStock-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 91,
+            idDesignation: designation,
+            quantite: quantite,
+            prixUniteStock: prixUniteStock,
+            prixAchat: prixAchat,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            var ligne = "<tr><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + quantite + "</td><td>Article</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+            $("table.tabStock").prepend(ligne);
+            $('#quantiteAStocke-' + designation).prop('disabled', true);
+            $('#prixAchat-' + designation).prop('disabled', true);
+            $('#prixUniteStock-' + designation).prop('disabled', true);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock**/
+
+/**Debut ajouter Stock**/
+function ajt_Stock(designation) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var uniteStock = $('#uniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 43,
+            idDesignation: designation,
+            quantite: quantite,
+            uniteStock: uniteStock,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            var ligne = "<tr><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + quantite + "</td><td>" + uniteStock + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+            $("table.tabStock").prepend(ligne);
+            $('#quantiteAStocke-' + designation).prop('disabled', true);
+            $('#uniteStock-' + designation).prop('disabled', true);
+            $('#dateExpiration-' + designation).prop('disabled', true);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock**/
+
+/**Debut ajouter Stock Forcer**/
+function ajt_Stock_Forcer(designation) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var uniteStock = $('#uniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 95,
+            idDesignation: designation,
+            quantite: quantite,
+            uniteStock: uniteStock,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            var ligne = "<tr><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + quantite + "</td><td>" + uniteStock + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+            $("table.tabStock").prepend(ligne);
+            $('#quantiteAStocke-' + designation).prop('disabled', true);
+            $('#uniteStock-' + designation).prop('disabled', true);
+            $('#dateExpiration-' + designation).prop('disabled', true);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock Forcer**/
+
+/**Debut modifier Stock**/
+function mdf_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 44,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Mdf').val(idStock);
+            $('#ordre_Mdf').val(ordre);
+            $('#dateStockage_Mdf').val(tab[5]);
+            $('#uniteStock_Mdf').val(tab[3]);
+            $('#qteInitiale_Mdf').val(tab[1]);
+            $('#qteReste_Mdf').val(tab[2]);
+            $('#dateExpiration_Mdf').val(tab[4]);
+            $('#modifierStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Stock").click(function() {
+        var idStock = $('#idStock_Mdf').val();
+        var ordre = $('#ordre_Mdf').val();
+        var dateExpiration = $('#dateExpiration_Mdf').val();
+        var quantite = $('#qteReste_Mdf').val();
+        $('#modifierStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 45,
+                idStock: idStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration
+            },
+            success: function(data) {
+                $('#idStock_Mdf').val('');
+                $('#ordre_Mdf').val('');
+                $('#dateExpiration_Mdf').val('');
+                $('#qteReste_Mdf').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[5]);
+                            $(tr).find('td:eq(6)').html(tab[6]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[8]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Stock**/
+
+/**Debut supprimer Stock**/
+function spm_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 44,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Spm').val(idStock);
+            $('#ordre_Spm').val(ordre);
+            $('#dateStockage_Spm').val(tab[5]);
+            $('#uniteStock_Spm').val(tab[3]);
+            $('#qteInitiale_Spm').val(tab[1]);
+            $('#qteReste_Spm').val(tab[2]);
+            $('#dateExpiration_Spm').val(tab[4]);
+            $('#supprimerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Stock").click(function() {
+        var idStock = $('#idStock_Spm').val();
+        var ordre = $('#ordre_Spm').val();
+        $('#supprimerStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 46,
+                idStock: idStock,
+            },
+            success: function(data) {
+                $('#idStock_Spm').val('');
+                $('#ordre_Spm').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[5]);
+                            $(tr).find('td:eq(6)').html(tab[6]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[8]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Stock**/
+
+function modif_UniteStock_Bl(produit) {
+    tab = produit.split('§');
+    var uniteStock = tab[0];
+    var designation = tab[1];
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 88,
+            uniteStock: uniteStock,
+            idDesignation: designation,
+        },
+        success: function(data) {
+            tab1 = data.split('<>');
+            if (tab1[0] == 1) {
+                $("#prixUniteStock-"+designation).val(tab1[1]);
+            } 
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+/**Debut ajouter Stock BL**/
+function ajt_Stock_Bl(designation, idBl) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var uniteStockConcat = $('#uniteStock-' + designation).val();
+    tab = uniteStockConcat.split('§');
+    var uniteStock = tab[0];
+    var prixUniteStock = $('#prixUniteStock-' + designation).val();
+    var prixAchat = $('#prixAchat-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock_P-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 84,
+            idDesignation: designation,
+            idBl: idBl,
+            quantite: quantite,
+            uniteStock: uniteStock,
+            prixUniteStock: prixUniteStock,
+            prixAchat: prixAchat,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td></td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#stock').css({ 'background-color': 'green' });
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                $('#msg_info_js').modal('show');
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock BL**/
+
+/**Debut modifier Stock BL**/
+function mdf_Stock_Bl(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 85,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStock_Mdf').val(idStock);
+                $('#ordre_Mdf').val(ordre);
+                $('#designation_Mdf').val(tab[1]);
+                $('#uniteStock_Mdf').val(tab[2]);
+                $('#qteInitiale_Mdf').val(tab[3]);
+                $('#prixuniteStock_Mdf').val(tab[4]);
+                $('#prixAchat_Mdf').val(tab[5]);
+                $('#dateExpiration_Mdf').val(tab[6]);
+                $('#modifierStockModal').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Stock_Bl").click(function() {
+        var idStock = $('#idStock_Mdf').val();
+        var ordre = $('#ordre_Mdf').val();
+        var quantite = $('#qteInitiale_Mdf').val();
+        var prixUniteStock = $('#prixuniteStock_Mdf').val();
+        var prixAchat = $('#prixAchat_Mdf').val();
+        var dateExpiration = $('#dateExpiration_Mdf').val();
+        $('#modifierStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 86,
+                idStock: idStock,
+                quantite: quantite,
+                prixUniteStock: prixUniteStock,
+                prixAchat: prixAchat,
+                dateExpiration: dateExpiration
+            },
+            success: function(data) {
+                $('#idStock_Mdf').val('');
+                $('#ordre_Mdf').val('');
+                $('#dateExpiration_Mdf').val('');
+                $('#qteInitiale_Mdf').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(tab[7]);
+                            $(tr).find('td:eq(9)').html(tab[8]);
+                            $(tr).find('td:eq(10)').html("En cours ...");
+                        }
+                    });
+                }
+                if (tab[0] == 2) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(tab[7]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Stock BL**/
+
+/**Debut supprimer Stock BL**/
+function spm_Stock_Bl(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 85,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStock_Spm').val(idStock);
+                $('#ordre_Spm').val(ordre);
+                $('#designation_Spm').val(tab[1]);
+                $('#uniteStock_Spm').val(tab[2]);
+                $('#qteInitiale_Spm').val(tab[3]);
+                $('#prixuniteStock_Spm').val(tab[4]);
+                $('#prixAchat_Spm').val(tab[5]);
+                $('#dateExpiration_Spm').val(tab[6]);
+                $('#supprimerStockModal').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Stock_Bl").click(function() {
+        var idStock = $('#idStock_Spm').val();
+        var ordre = $('#ordre_Spm').val();
+        $('#supprimerStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 87,
+                idStock: idStock,
+            },
+            success: function(data) {
+                $('#idStock_Spm').val('');
+                $('#ordre_Spm').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(tab[7]);
+                            $(tr).find('td:eq(9)').html(tab[8]);
+                            $(tr).find('td:eq(10)').html("En cours ...");
+                        }
+                    });
+                }
+                if (tab[0] == 2) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(tab[7]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Stock BL**/
+
+/**Debut transferer Stock BL**/
+function trf_Stock_Bl(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 85,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idStock_Trf').val(idStock);
+                $('#ordre_Trf').val(ordre);
+                $('#designation_Trf').val(tab[1]);
+                $('#uniteStock_Trf').val(tab[2]);
+                $('#transfererStockModal').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_trf_Stock_Bl").click(function() {
+        var idStock = $('#idStock_Trf').val();
+        var ordre = $('#ordre_Trf').val();
+        var idBl = $('#idBl_Trf').val();
+        $('#transfererStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 97,
+                idStock: idStock,
+                idBl: idBl,
+            },
+            success: function(data) {
+                $('#idStock_Trf').val('');
+                $('#ordre_Trf').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html('');
+                            $(tr).find('td:eq(2)').html('');
+                            $(tr).find('td:eq(3)').html('');
+                            $(tr).find('td:eq(4)').html('');
+                            $(tr).find('td:eq(5)').html('');
+                            $(tr).find('td:eq(6)').html('');
+                            $(tr).find('td:eq(7)').html('');
+                            $(tr).find('td:eq(8)').html('');
+                            $(tr).find('td:eq(9)').html('');
+                            $(tr).find('td:eq(10)').html("");
+                        }
+                    });
+                }
+                if (tab[0] == 2) {
+                    $('#tableStock tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[3]);
+                            $(tr).find('td:eq(5)').html(tab[4]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(tab[7]);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin transferer Stock BL**/
+
+/**Debut retirer Stock**/
+function retirer_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 75,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Rtr').val(idStock);
+            $('#ordre_Rtr').val(ordre);
+            $('#dateStockage_Rtr').val(tab[5]);
+            $('#uniteStock_Rtr').val(tab[3]);
+            $('#qteInitiale_Rtr').val(tab[1]);
+            $('#qteReste_Rtr').val(tab[2]);
+            $('#dateExpiration_Rtr').val(tab[4]);
+            $('#retirerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_retirer_Stock").click(function() {
+        var idStock = $('#idStock_Rtr').val();
+        var ordre = $('#ordre_Rtr').val();
+        var quantite = $('#qteReste_Rtr').val();
+        $('#retirerStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 76,
+                idStock: idStock,
+                quantite: quantite,
+            },
+            success: function(data) {
+                $('#idStock_Rtr').val('');
+                $('#ordre_Rtr').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[5]);
+                            $(tr).find('td:eq(6)').html(tab[6]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[8]);
+                            $(tr).find('td:eq(9)').html(' ');
+                            $(tr).find('td:eq(10)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retirer Stock**/
+
+/**Debut retourner Stock**/
+function retourner_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 75,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Rtn').val(idStock);
+            $('#ordre_Rtn').val(ordre);
+            $('#dateStockage_Rtn').val(tab[5]);
+            $('#uniteStock_Rtn').val(tab[3]);
+            $('#qteInitiale_Rtn').val(tab[1]);
+            $('#qteReste_Rtn').val(tab[2]);
+            $('#dateExpiration_Rtn').val(tab[4]);
+            $('#retournerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_retourner_Stock").click(function() {
+        var idStock = $('#idStock_Rtn').val();
+        var ordre = $('#ordre_Rtn').val();
+        var quantite = $('#qteReste_Rtn').val();
+        $('#retournerStockModal').modal('hide');
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 77,
+                idStock: idStock,
+                quantite: quantite,
+            },
+            success: function(data) {
+                $('#idStock_Rtn').val('');
+                $('#ordre_Rtn').val('');
+                $('#qteReste_Rtn').val('');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[2]);
+                            $(tr).find('td:eq(3)').html(tab[3]);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[5]);
+                            $(tr).find('td:eq(6)').html(tab[6]);
+                            $(tr).find('td:eq(7)').html(tab[7]);
+                            $(tr).find('td:eq(8)').html(tab[8]);
+                            $(tr).find('td:eq(9)').html(' ');
+                            $(tr).find('td:eq(10)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retourner Stock**/
+
+/**Debut imprimer etiquette Stock**/
+function imprimer_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 75,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Imp').val(idStock);
+            $('#ordre_Imp').val(ordre); 
+            $('#designation_Imp').val(tab[0]);
+            $('#uniteStock_Imp').val(tab[3]);
+            $('#prixUnitaire_Imp').val(tab[6]);
+            $('#dateStockage_Imp').val(tab[5]);
+            $('#qte_Imp').val(tab[2]);
+            $('#idDesignation_Imp').val(tab[8]);
+            $('#imprimerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin imprimer etiquette Stock**/
+
+/**Debut imprimer etiquette prix par groupe **/
+// function imprimer_Prix(idStock, ordre) {
+//     $.ajax({
+//         url: "ajax/ajouterLigneAjax.php",
+//         method: "POST",
+//         data: {
+//             operation: 75,
+//             idStock: idStock,
+//         },
+//         success: function(data) {
+//             tab = data.split('<>');
+//             $('#idStock_Imp').val(idStock);
+//             $('#ordre_Imp').val(ordre);
+//             $('#designation_Imp').val(tab[0]);
+//             $('#uniteStock_Imp').val(tab[3]);
+//             $('#prixUnitaire_Imp').val(tab[6]);
+//             $('#dateStockage_Imp').val(tab[5]);
+//             $('#qte_Imp').val(tab[2]);
+//             $('#imprimerStockModal').modal('show');
+//         },
+//         error: function() {
+//             alert("La requête ");
+//         },
+//         dataType: "text"
+//     });
+// }
+/**Fin imprimer etiquette prix par groupe **/
+
+/**Debut imprimer CodeBarre Stock**/
+function imprimerCodeBarre_Stock(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 75,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStockCB_Imp').val(idStock);
+            $('#ordreCB_Imp').val(ordre);
+            $('#designationCB_Imp').val(tab[0]);
+            $('#uniteStockCB_Imp').val(tab[3]);
+            $('#prixUnitaireCB_Imp').val(tab[6]);
+            $('#dateStockageCB_Imp').val(tab[5]);
+            $('#qteCB_Imp').val(tab[2]);
+            $('#codeBarreuniteStockCB_Imp').val(tab[7]);
+            $('#imprimerCodeBarreStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin retirer CodeBarre Stock**/
+
+/**Debut ajouter Stock Pharmacie**/
+function ajt_Stock_P(designation) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixSession = $('#prixSession-' + designation).val();
+    var prixPublic = $('#prixPublic-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    var idBl = $('#idBl').val();
+    $('#btn_AjtStock_P-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 3,
+            idDesignation: designation,
+            idBl: idBl,
+            quantite: quantite,
+            prixSession: prixSession,
+            prixPublic: prixPublic,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr id='stock'><td>0</td><td>" + tab[2] + "</td><td>" + tab[8] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#stock').css({ 'background-color': 'green' });
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                $('#msg_info_js').modal('show');
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock Pharmacie**/
+
+/**Debut ajouter Stock BL Pharmacie**/
+function ajt_Stock_Bl_PH(designation, idBl) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixSession = $('#prixSession-' + designation).val();
+    var prixPublic = $('#prixPublic-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock_P-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 3,
+            idDesignation: designation,
+            idBl: idBl,
+            quantite: quantite,
+            prixSession: prixSession,
+            prixPublic: prixPublic,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr id='stock'><td>0</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + tab[7] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#stock').css({ 'background-color': 'green' });
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                $('#msg_info_js').modal('show');
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock BL Pharmacie**/
+
+/**Debut initialiser Stock**/
+function init_Stock(designation) {
+
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var uniteStock = $('#uniteStock-' + designation).val();
+    var prix = $('#prixUnitaire-' + designation).val();
+    var prixUS = $('#prixuniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    //alert (designation+' '+quantite+' '+uniteStock+' '+prix+' '+prixUS+' '+dateExpiration);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idDesignation: designation,
+            quantite: quantite,
+            uniteStock: uniteStock,
+            prixUnitaire: prix,
+            prixUniteStock: prixUS,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            $('#quantiteAStocke-' + designation).prop('disabled', true);
+            $('#uniteStock-' + designation).prop('disabled', true);
+            $('#prixUnitaire-' + designation).prop('disabled', true);
+            $('#prixuniteStock-' + designation).prop('disabled', true);
+            $('#dateExpiration-' + designation).prop('disabled', true);
+            $('#btn_InitStock-' + designation).prop('disabled', true);
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin initialiser Stock**/
+
+/**Debut ajouter Stock**/
+$(function() {
+    $("#btn_ajt_StockCatalogue").click(function() {
+        var designation = $('#designation_Stock').val();
+        var uniteStock = $('#uniteStock_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 53,
+                designation: designation,
+                uniteStock : uniteStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $("#btn_ajt_StockCatalogue").prop('disabled', false);
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_trm_StockCatalogue").click(function() {
+        var designation = $('#designation_Stock').val();
+        var uniteStock = $('#uniteStock_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 53,
+                designation: designation,
+                uniteStock : uniteStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $('#ajt_Stock').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Stock**/
+
+/**Debut ajouter et terminer Stock**/
+$(function() {
+    $("#btn_trm_StockCatalogue").click(function() {
+        var designation = $('#designation_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+    });
+});
+/**Fin ajouter et terminer Stock**/
+
+/**Debut initialiser Stock Pharmacie**/
+function init_Stock_P(designation) {
+
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixSession = $('#prixSession-' + designation).val();
+    var prixPublic = $('#prixPublic-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    //alert (designation+' '+quantite+' '+uniteStock+' '+prix+' '+prixUS+' '+dateExpiration);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 4,
+            idDesignation: designation,
+            quantite: quantite,
+            prixSession: prixSession,
+            prixPublic: prixPublic,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+            $('#quantiteAStocke-' + designation).prop('disabled', true);
+            $('#prixSession-' + designation).prop('disabled', true);
+            $('#prixPublic-' + designation).prop('disabled', true);
+            $('#dateExpiration-' + designation).prop('disabled', true);
+            $('#btn_InitStock_P-' + designation).prop('disabled', true);
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin initialiser Stock Pharmacie**/
+
+/**Debut ajouter Stock Pharmacie**/
+$(function() {
+    $("#btn_ajt_StockCatalogue_P").click(function() {
+        var designation = $('#designation_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $("#btn_ajt_StockCatalogue_P").prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 40,
+                designation: designation,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                tab = data.split('+');
+                $('#qteInitial_Stock').val('');
+                $('#dateExpiration_Stock').val('');
+                $("#btn_ajt_StockCatalogue_P").prop('disabled', false);
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_ajt_StockCatalogue_Ph").click(function() {
+        var designation = $('#designation_Stock').val();
+        var idBl = $('#idBl_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 400,
+                designation: designation,
+                idBl: idBl,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $("#btn_ajt_StockCatalogue_P").prop('disabled', false);
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Stock Pharmacie**/
+
+/**Debut ajouter et terminer Stock Pharmacie**/
+$(function() {
+    $("#btn_trm_StockCatalogue_P").click(function() {
+        var designation = $('#designation_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $("#btn_trm_StockCatalogue_P").prop('disabled', true);
+
+    });
+});
+$(function() {
+    $("#btn_trm_StockCatalogue_Ph").click(function() {
+        var designation = $('#designation_Stock').val();
+        var idBl = $('#idBl_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 400,
+                designation: designation,
+                idBl: idBl,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $('#ajt_Stock').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter et terminer Stock Pharmacie**/
+
+/**Debut initialiser Produit**/
+function init_Produit(id) {
+    var categorie = $('#categorie-' + id).val();
+    var design = $('#designation-' + id).val();
+    var codeBarre = $('#codeBarre-' + id).val();
+    var nbreArticle = $('#nbreArticleUniteStock-' + id).val();
+    var uniteStock = $('#uniteStock-' + id).val();
+    var prix = $('#prix-' + id).val();
+    var prixUS = $('#prixuniteStock-' + id).val();
+    var prixachat = $('#prixachat-' + id).val();
+    tab = design.split('<>');
+    var designation = tab[0];
+    var idF = tab[1];
+    var quantite = $('#quantite-' + id).val();
+    var dateExpiration = $('#dateExpiration-' + id).val();
+    $('#btn_init_Produit-' + id).prop('disabled', true);
+    $.ajax({
+        url: "ajax/initialiserProduitAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            idDesignation: id,
+            idFusion: idF,
+            categorie: categorie,
+            designation: designation,
+            nbreArticleUniteStock: nbreArticle,
+            uniteStock: uniteStock,
+            prixUnitaire: prix,
+            prixUniteStock: prixUS,
+            prixAchat: prixachat,
+            codeBarreDesignation : codeBarre,
+        },
+        success: function(data) {
+            $('#categorie-' + id).prop('disabled', true);
+            $('#codeBarre-' + id).prop('disabled', true);
+            $('#uniteStock-' + id).prop('disabled', true);
+            $('#nbreArticleUniteStock-' + id).prop('disabled', true);
+            $('#prixuniteStock-' + id).prop('disabled', true);
+            $('#prix-' + id).prop('disabled', true);
+            $('#prixachat-' + id).prop('disabled', true);
+            $.ajax({
+                url: "ajax/ajouterLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 96,
+                    designation: designation,
+                    quantite: quantite,
+                    dateExpiration: dateExpiration,
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        $('#quantite-' + id).prop('disabled', true);
+                        $('#dateExpiration-' + id).prop('disabled', true);
+                    }
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_init_Produit").click(function() {
+        var categorie = $('#categorie').val();
+        var designation = $('#designation').val();
+        var codeBarre = $('#codeBarre').val();
+        var nbreArticle = $('#nbreArticleUniteStock').val();
+        var uniteStock = $('#uniteStock').val();
+        var prix = $('#prix').val();
+        var prixUS = $('#prixuniteStock').val();
+        var prixachat = $('#prixachat').val();
+        var quantite = $('#quantite').val();
+        var dateExpiration = $('#dateExpiration').val();
+        $.ajax({
+            url: "ajax/initialiserProduitAjax.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                idFusion: 0,
+                categorie: categorie,
+                designation: designation,
+                nbreArticleUniteStock: nbreArticle,
+                uniteStock: uniteStock,
+                prixUnitaire: prix,
+                prixUniteStock: prixUS,
+                prixAchat: prixachat,
+                codeBarreDesignation : codeBarre,
+            },
+            success: function(data) {
+                $('#categorie').val('');
+                $('#designation').val('');
+                $('#codeBarre').val('');
+                $('#uniteStock').val('');
+                $('#nbreArticleUniteStock').val('');
+                $('#prixuniteStock').val('');
+                $('#prix').val('');
+                $('#prixachat').val('');
+                $.ajax({
+                    url: "ajax/ajouterLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 96,
+                        designation: designation,
+                        quantite: quantite,
+                        dateExpiration: dateExpiration,
+                    },
+                    success: function(data) {
+                        if (data == 1) {
+                            $('#quantite').val('');
+                            $('#dateExpiration').val('');
+                        }
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin initialiser Produit**/
+
+/**Debut initialiser Produit Pharmacie**/
+function init_ProduitPH(id) {
+    var categorie = $('#categorie-' + id).val();
+    var design = $('#designation-' + id).val();
+    var codeBarre = $('#codeBarre-' + id).val();
+    var prixSessio = $('#prixSession-' + id).val();
+    var prixPubli = $('#prixPublic-' + id).val();
+    var quantite = $('#quantite-' + id).val();
+    var dateExpiration = $('#dateExpiration-' + id).val();
+    tab = design.split('<>');
+    var designation = tab[0];
+    var idF = tab[1];
+    var form = tab[2];
+    var tablea = tab[3];
+    $('#btn_init_ProduitPH-' + id).prop('disabled', true);
+    $.ajax({
+        url: "ajax/initialiserProduitAjax.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idDesignation: id,
+            idFusion: idF,
+            categorie: categorie,
+            designation: designation,
+            forme: form,
+            tableau: tablea,
+            prixSession: prixSessio,
+            prixPublic: prixPubli,
+            codeBarreDesignation: codeBarre,
+        },
+        success: function(data) {
+            $('#categorie-' + id).prop('disabled', true);
+            $('#codeBarre-' + id).prop('disabled', true);
+            $('#prixSession-' + id).prop('disabled', true);
+            $('#prixPublic-' + id).prop('disabled', true);
+            $('#init_ProduitPH-' + id).prop('disabled', true);
+            //console.log(data);
+            $.ajax({
+                url: "ajax/ajouterLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 40,
+                    designation: designation,
+                    quantite: quantite,
+                    dateExpiration: dateExpiration,
+                },
+                success: function(data) {
+                    tab = data.split('+');
+                    $('#quantite-' + id).prop('disabled', true);
+                    $('#dateExpiration-' + id).prop('disabled', true);
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_init_ProduitPH").click(function() {
+        var categorie = $('#categoriePh').val();
+        var design = $('#designation').val();
+        var codeBarre = $('#codeBarre').val();
+        var form = $('#formePh').val();
+        var tablea = $('#tableau').val();
+        var prixSessio = $('#prixSession').val();
+        var prixPubli = $('#prixPublic').val();
+        $.ajax({
+            url: "ajax/initialiserProduitAjax.php",
+            method: "POST",
+            data: {
+                operation: 2,
+                idFusion: 0,
+                categorie: categorie,
+                designation: design,
+                codeBarreDesignation : codeBarre,
+                forme: form,
+                tableau: tablea,
+                prixSession: prixSessio,
+                prixPublic: prixPubli,
+            },
+            success: function(data) {
+                    $('#designation').val('');
+                    $('#categoriePh').val('');
+                    $('#codeBarre').val('');
+                    $('#formePh').val('');
+                    $('#tableau').val('');
+                    $('#prixSession').val('');
+                    $('#prixPublic').val('');
+                    $('#ajt_Stock').modal('show');
+                    $('#designation_Stock').val(design);
+                    $('#categorie_Stock').val(categorie);
+                //console.log(data);
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin initialiser Produit Pharmacie**/
+
+/**Debut ajouter Designation Pharmacie**/
+function ajt_Reference_P() {
+
+    var designation = $('#designationPh').val();
+    var categorie = $('#categorie2').val();
+    var forme = $('#forme').val();
+    var tableau = $('#tableau').val();
+    var prixSession = $('#prixSession').val();
+    var prixPublic = $('#prixPublic').val();
+    var codeBarre = $('#codeBarre').val();
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 6,
+            designation: designation,
+            categorie: categorie,
+            forme: forme,
+            tableau: tableau,
+            prixSession: prixSession,
+            prixPublic: prixPublic,
+            codeBarre : codeBarre
+        },
+        success: function(data) {
+            tab = data.split('+');
+            var ligne = "<tr id='design'><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>En cours ...</td></tr>";
+            $("table.tabDesign").prepend(ligne);
+            $('#design').css({ 'background-color': 'green' });
+            $('#designationPh').val('');
+            $('#forme').val('');
+            $('#tableau').val('');
+            $('#prixSession').val('');
+            $('#prixPublic').val('');
+            $('#AjoutStockModal').modal('hide');
+            $('#ajt_Stock').modal('show');
+            $('#designation_Stock').val(designation);
+            $('#categorie_Stock').val(categorie);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Designation Pharmacie**/
+
+/**Debut modifier Designation Pharmacie**/
+function mdf_Designation_Ph(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 7,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            $('#idDesignation_Mdf').val(tab[0]);
+            $('#designation_Mdf').val(tab[1]);
+            $('#categorie_Mdf').children("option:selected").text(tab[2]);
+            $('#forme_Mdf').children("option:selected").text(tab[3]);
+            $('#tableau_Mdf').children("option:selected").text(tab[4]);
+            $('#prixSession_Mdf').val(tab[5]);
+            $('#prixPublic_Mdf').val(tab[6]);
+            $('#modifierDesignModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Reference_P").click(function() {
+        var idDesignation = $('#idDesignation_Mdf').val();
+        var designation = $('#designation_Mdf').val();
+        var categorie = $('#categorie_Mdf').val();
+        var forme = $('#forme_Mdf').val();
+        var tableau = $('#tableau_Mdf').val();
+        var prixSession = $('#prixSession_Mdf').val();
+        var prixPublic = $('#prixPublic_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 8,
+                idDesignation: idDesignation,
+                designation: designation,
+                categorie: categorie,
+                forme: forme,
+                tableau: tableau,
+                prixSession: prixSession,
+                prixPublic: prixPublic,
+            },
+            success: function(data) {
+                tab = data.split('+');
+                var ligne = "<tr id='design'><td>0</td><td>" + designation + "</td><td> </td><td>" + forme + "</td><td>" + tableau + "</td><td>" + prixSession + "</td><td>" + prixPublic + "</td><td>En cours ...</td></tr>";
+                $("table.tabDesign").prepend(ligne);
+                $('#design').css({ 'background-color': 'yellow' });
+                $('#modifierDesignModal').modal('hide');
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Designation Pharmacie**/
+
+/**Debut ajouter CodeBarre Pharmacie**/
+function mdf_CodeBarreDesign_Ph(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 7,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            $('#modifierCodeBModal').modal('show');
+            tab = data.split('+');
+            $('#idDesignation_CB').val(tab[0]);
+            $('#designation_CB').val(tab[1]);
+            $('#categorie_CB').val(tab[2]);
+            $('#forme_CB').val(tab[3]);
+            $('#tableau_CB').val(tab[4]);
+            $('#prixSession_CB').val(tab[5]);
+            $('#prixPublic_CB').val(tab[6]);
+            if (tab[1] != null) {
+                $('#codeBarreDesignation').val(tab[7]);
+            } else {
+                $('#codeBarreDesignation').focus();
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_CodeBarre_P").click(function() {
+        $('.error').hide();
+        var idDesignation = $('#idDesignation_CB').val();
+        var code = $('#codeBarreDesignation').val();
+        var designation = $('#designation_CB').val();
+        var categorie = $('#categorie_CB').val();
+        var forme = $('#forme_CB').val();
+        var tableau = $('#tableau_CB').val();
+        var prixSession = $('#prixSession_CB').val();
+        var prixPublic = $('#prixPublic_CB').val();
+        //alert(code);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 5,
+                idDesignation: idDesignation,
+                code: code,
+            },
+            success: function(data) {
+                // alert(data);
+                var ligne = "<tr id='design'><td>0</td><td>" + designation + "</td><td>" + code + "</td><td>" + forme + "</td><td>" + tableau + "</td><td>" + prixSession + "</td><td>" + prixPublic + "</td><td>En cours ...</td></tr>";
+                $("table.tabDesign").prepend(ligne);
+                $('#design').css({ 'background-color': 'blue' });
+                $('#modifierCodeBModal').modal('hide');
+                //console.log(data);
+
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+        return false;
+    });
+});
+$(function() {
+    $(".btn_CodeDesign_P").click(function(event) {
+        $('.error').hide();
+        event.preventDefault(); //prevent default action
+        event.stopPropagation();
+        // validate and process form here
+        //alert(123);
+        return false;
+    });
+});
+/**Fin ajouter CodeBarre Pharmacie**/
+
+/**Debut modifier Tva Designation Pharmacie**/
+function mdf_Tva_Ph(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 15,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            var ligne = "<tr id='design'><td>0</td><td>" + tab[1] + "</td><td>" + tab[7] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+            $("table.tabDesign").prepend(ligne);
+            $('#design').css({ 'background-color': 'green' });
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier Tva Designation Pharmacie**/
+
+/**Debut supprimer Designation Pharmacie**/
+function spm_Designation_Ph(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 7,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            $('#idDesignation_Spm').val(tab[0]);
+            $('#designation_Spm').val(tab[1]);
+            $('#categorie_Spm').children("option:selected").text(tab[2]);
+            $('#forme_Spm').val(tab[3]);
+            $('#tableau_Spm').val(tab[4]);
+            $('#prixSession_Spm').val(tab[5]);
+            $('#prixPublic_Spm').val(tab[6]);
+            $('#supprimerDesignModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Reference_P").click(function() {
+        var idDesignation = $('#idDesignation_Spm').val();
+        var designation = $('#designation_Spm').val();
+        var categorie = $('#categorie_Spm').val();
+        var forme = $('#forme_Spm').val();
+        var tableau = $('#tableau_Spm').val();
+        var prixSession = $('#prixSession_Spm').val();
+        var prixPublic = $('#prixPublic_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 9,
+                idDesignation: idDesignation,
+                designation: designation,
+            },
+            success: function(data) {
+                tab = data.split('+');
+                var ligne = "<tr id='design'><td>0</td><td>" + designation + "</td><td> </td><td>" + forme + "</td><td>" + tableau + "</td><td>" + prixSession + "</td><td>" + prixPublic + "</td><td>En cours ...</td></tr>";
+                $("table.tabDesign").prepend(ligne);
+                $('#design').css({ 'background-color': 'red' });
+                $('#supprimerDesignModal').modal('hide');
+
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Designation Pharmacie**/
+
+/**Debut modifier Designation Entrepot**/
+function mdf_Designation_ET(idDesignation, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 37,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#ordre_Mdf').val(ordre);
+            $('#idDesignation_Mdf').val(tab[0]);
+            $('#designation_Mdf').val(tab[1]);
+            $('#categorie_Mdf').children("option:selected").text(tab[2]);
+            $('#uniteStock_Mdf').children("option:selected").text(tab[3]);
+            $('#nbArticleUniteStock_Mdf').val(tab[4]);
+            $('#prixuniteStock_Mdf').val(tab[5]);
+            $('#prixachat_Mdf').val(tab[6]);
+            $('#modifierDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Reference_ET").click(function() {
+        var ordre = $('#ordre_Mdf').val();
+        var idDesignation = $('#idDesignation_Mdf').val();
+        var designation = $('#designation_Mdf').val();
+        var categorie = $('#categorie_Mdf').val();
+        var uniteStock = $('#uniteStock_Mdf').val();
+        var prixUniteStock = $('#prixuniteStock_Mdf').val();
+        var prixAchat = $('#prixachat_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 74,
+                idDesignation: idDesignation,
+                designation: designation,
+                categorie: categorie,
+                uniteStock: uniteStock,
+                prixUniteStock: prixUniteStock,
+                prixAchat: prixAchat,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableDesignation tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(designation);
+                            $(tr).find('td:eq(2)').html(categorie);
+                            $(tr).find('td:eq(3)').html(uniteStock);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(prixUniteStock);
+                            $(tr).find('td:eq(6)').html(prixAchat);
+                            $(tr).find('td:eq(7)').html("En cours ...");
+                        }
+                    });
+                }
+                $('#modifierDesignation').modal('hide');
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Designation Entrepot**/
+
+/**Debut supprimer Designation Entrepot**/
+function spm_Designation_ET(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 37,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idDesignation_Spm').val(tab[0]);
+            $('#designation_Spm').val(tab[1]);
+            $('#categorie_Spm').children("option:selected").text(tab[2]);
+            $('#uniteStock_Spm').children("option:selected").text(tab[3]);
+            $('#nbArticleUniteStock_Spm').val(tab[4]);
+            $('#prixuniteStock_Spm').val(tab[5]);
+            $('#prixachat_Spm').val(tab[6]);
+            $('#supprimerDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin supprimer Designation Entrepot**/
+
+/**Debut ajouter CodeBarre Pharmacie**/
+function mdf_CodeBarreDesign(idDesignation, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 41,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            $('#modifierCodeBModal').modal('show');
+            tab = data.split('<>');
+            $('#ordre_CB').val(ordre);
+            $('#idDesignation_CB').val(idDesignation);
+            if (tab[7] != null) {
+                $('#codeBarreDesignation').val(tab[7]);
+            } else {
+                $('#codeBarreDesignation').focus();
+            }
+            if (tab[8] != null) {
+                $('#codeBarreUniteStock').val(tab[8]);
+            } else {
+                $('#codeBarreUniteStock').focus();
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_CodeBarre").click(function() {
+        $('.error').hide();
+        var ordre = $('#ordre_CB').val();
+        var idDesignation = $('#idDesignation_CB').val();
+        var codeBD = $('#codeBarreDesignation').val();
+        var codeBUS = $('#codeBarreUniteStock').val();
+        //alert(code);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 42,
+                idDesignation: idDesignation,
+                codeBD: codeBD,
+                codeBUS: codeBUS,
+            },
+            success: function(data) {
+                // alert(data);
+                tab = data.split('<>');
+                $('#tableDesignation tr').each(function(row, tr) {
+                    designation = $(tr).find('td:eq(0)').text();
+                    if (designation != '' && designation == ordre) {
+                        $(tr).find('td:eq(1)').html(tab[2]);
+                        $(tr).find('td:eq(2)').html(tab[3]);
+                        $(tr).find('td:eq(3)').html(tab[4]);
+                        $(tr).find('td:eq(4)').html(tab[5]);
+                        $(tr).find('td:eq(5)').html(tab[6]);
+                        $(tr).find('td:eq(6)').html(tab[7]);
+                        $(tr).find('td:eq(7)').html("En cours ...");
+                    }
+                });
+                $('#modifierCodeBModal').modal('hide');
+                //console.log(data);
+
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+        return false;
+    });
+});
+$(function() {
+    $(".btn_CodeDesign").click(function(event) {
+        $('.error').hide();
+        event.preventDefault(); //prevent default action
+        event.stopPropagation();
+        // validate and process form here
+        //alert(123);
+        return false;
+    });
+});
+/**Fin ajouter CodeBarre Pharmacie**/
+
+/**Debut modifier Designation**/
+function mdf_Designation(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 41,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idDesignation_Mdf').val(tab[0]);
+            $('#designation_Mdf').val(tab[1]);
+            $('#categorie_Mdf').children("option:selected").text(tab[2]);
+            $('#uniteStock_Mdf').children("option:selected").text(tab[3]);
+            $('#nbArticleUniteStock_Mdf').val(tab[4]);
+            $('#prixuniteStock_Mdf').val(tab[5]);
+            $('#prix_Mdf').val(tab[6]);
+            $('#prixachat_Mdf').val(tab[9]);
+            $('#modifierDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier Designation Entrepot**/
+
+/**Debut supprimer Designation**/
+function spm_Designation(idDesignation) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 41,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idDesignation_Spm').val(tab[0]);
+            $('#designation_Spm').val(tab[1]);
+            $('#categorie_Spm').children("option:selected").text(tab[2]);
+            $('#uniteStock_Spm').children("option:selected").text(tab[3]);
+            $('#nbArticleUniteStock_Spm').val(tab[4]);
+            $('#prixuniteStock_Spm').val(tab[5]);
+            $('#prix_Spm').val(tab[6]);
+            $('#prixachat_Spm').val(tab[9]);
+            $('#supprimerDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin supprimer Designation **/
+
+/**Debut modifier Stock Pharmacie**/
+function mdf_Stock_Ph0(idStock) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 10,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Mdf0').val(tab[0]);
+            $('#designation_Mdf0').val(tab[1]);
+            $('#numeroBl_Mdf0').val(tab[2]);
+            $('#forme_Mdf0').val(tab[3]);
+            $('#qteInitiale_Mdf0').val(tab[4]);
+            $('#qteReste_Mdf0').val(tab[5]);
+            $('#dateStockage_Mdf0').val(tab[6]);
+            $('#dateExpiration_Mdf0').val(tab[7]);
+            $('#prixSession_Mdf0').val(tab[8]);
+            $('#prixPublic_Mdf0').val(tab[9]);
+            $('#modifierStockModal0').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Stock_P0").click(function() {
+        var idStock = $('#idStock_Mdf0').val();
+        var numeroBl = $('#numeroBl_Mdf0').val();
+        var quantite = $('#qteInitiale_Mdf0').val();
+        var prixSession = $('#prixSession_Mdf0').val();
+        var prixPublic = $('#prixPublic_Mdf0').val();
+        var dateExpiration = $('#dateExpiration_Mdf0').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 11,
+                idStock: idStock,
+                numeroBl: numeroBl,
+                quantite: quantite,
+                prixSession: prixSession,
+                prixPublic: prixPublic,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + tab[7] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                    $("table.tabStock").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'yellow' });
+                    $('#modifierStockModal0').modal('hide');
+                } else {
+                    $('#msg_info_js').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_mdf_Stock_P0BL").click(function() {
+        var idStock = $('#idStock_Mdf0').val();
+        var numeroBl = $('#numeroBl_Mdf0').val();
+        var quantite = $('#qteInitiale_Mdf0').val();
+        var prixSession = $('#prixSession_Mdf0').val();
+        var prixPublic = $('#prixPublic_Mdf0').val();
+        var dateExpiration = $('#dateExpiration_Mdf0').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 101,
+                idStock: idStock,
+                numeroBl: numeroBl,
+                quantite: quantite,
+                prixSession: prixSession,
+                prixPublic: prixPublic,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                    $("table.tabStock").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'yellow' });
+                    $('#modifierStockModal0').modal('hide');
+                } else {
+                    $('#msg_info_js').modal('show');
+                }
+
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+
+function mdf_Stock_Ph(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 10,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#ordre_Mdf').val(ordre);
+            $('#idStock_Mdf').val(tab[0]);
+            $('#designation_Mdf').val(tab[1]);
+            //$('#numeroBl_Mdf').children("option:selected").text(tab[2]);
+            $('#numeroBl_Mdf').val(tab[2]);
+            $('#forme_Mdf').val(tab[3]);
+            $('#qteInitiale_Mdf').val(tab[4]);
+            $('#qteReste_Mdf').val(tab[5]);
+            $('#dateStockage_Mdf').val(tab[6]);
+            $('#dateExpiration_Mdf').val(tab[7]);
+            $('#prixSession_Mdf').val(tab[8]);
+            $('#prixPublic_Mdf').val(tab[9]);
+            $('#modifierStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Stock_PH").click(function() {
+        var ordre = $('#ordre_Mdf').val();
+        var idStock = $('#idStock_Mdf').val();
+        var numeroBl = $('#numeroBl_Mdf').val();
+        var initiale = $('#qteInitiale_Mdf').val();
+        var quantite = $('#qteReste_Mdf').val();
+        var prixSession = $('#prixSession_Mdf').val();
+        var prixPublic = $('#prixPublic_Mdf').val();
+        var dateExpiration = $('#dateExpiration_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 110,
+                idStock: idStock,
+                numeroBl: numeroBl,
+                quantite: quantite,
+                prixSession: prixSession,
+                prixPublic: prixPublic,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[7]);
+                            $(tr).find('td:eq(3)').html(initiale);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[3]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(dateExpiration);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                    $('#modifierStockModal').modal('hide');
+                }
+                if (tab[0] == 2) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[7]);
+                            $(tr).find('td:eq(3)').html(initiale);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[3]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(dateExpiration);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                    $('#modifierStockModal').modal('hide');
+                }
+                if (tab[0] == 0) {
+                    $('#msg_info_js').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_mdf_Stock_PBL").click(function() {
+        var idStock = $('#idStock_Mdf').val();
+        var numeroBl = $('#numeroBl_Mdf').val();
+        var initiale = $('#qteInitiale_Mdf').val();
+        var quantite = $('#qteReste_Mdf').val();
+        var prixSession = $('#prixSession_Mdf').val();
+        var prixPublic = $('#prixPublic_Mdf').val();
+        var dateExpiration = $('#dateExpiration_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 1101,
+                idStock: idStock,
+                numeroBl: numeroBl,
+                quantite: quantite,
+                prixSession: prixSession,
+                prixPublic: prixPublic,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + initiale + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                    $("table.tabStock").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'yellow' });
+                    $('#modifierStockModal').modal('hide');
+                }
+                if (tab[0] == 2) {
+                    var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                    $("table.tabStock").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'yellow' });
+                    $('#modifierStockModal').modal('hide');
+                }
+                if (tab[0] == 0) {
+                    $('#msg_info_js').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+
+    });
+});
+/**Fin modifier Stock Pharmacie**/
+
+/**Debut supprimer Stock Pharmacie**/
+function spm_Stock_Ph(idStock, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 10,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#ordre_Spm').val(ordre);
+            $('#idStock_Spm').val(tab[0]);
+            $('#designation_Spm').val(tab[1]);
+            $('#numeroBl_Spm').val(tab[2]);
+            $('#forme_Spm').val(tab[3]);
+            $('#qteInitial_Spm').val(tab[4]);
+            $('#qteReste_Spm').val(tab[5]);
+            $('#dateStockage_Spm').val(tab[6]);
+            $('#dateExpiration_Spm').val(tab[7]);
+            $('#supprimerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Stock_PH").click(function() {
+        var ordre = $('#ordre_Spm').val();
+        var idStock = $('#idStock_Spm').val();
+        var designation = $('#designation_Spm').val();
+        var numeroBl_Spm = $('#numeroBl_Spm').val();
+        var quantiteI = $('#qteInitial_Spm').val();
+        var dateExpiration = $('#dateExpiration_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 12,
+                idStock: idStock,
+                numeroBl_Spm: numeroBl_Spm,
+                designation: designation,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableStockEntrees tr').each(function(row, tr) {
+                        ligne = $(tr).find('td:eq(0)').text();
+                        if (ligne != '' && ligne == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[1]);
+                            $(tr).find('td:eq(2)').html(tab[7]);
+                            $(tr).find('td:eq(3)').html(quantiteI);
+                            $(tr).find('td:eq(4)').html(tab[4]);
+                            $(tr).find('td:eq(5)').html(tab[3]);
+                            $(tr).find('td:eq(6)').html(tab[5]);
+                            $(tr).find('td:eq(7)').html(tab[6]);
+                            $(tr).find('td:eq(8)').html(dateExpiration);
+                            $(tr).find('td:eq(9)').html("En cours ...");
+                        }
+                    });
+                    $('#supprimerStockModal').modal('hide');
+                } else {
+                    $('#msg_info_js').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_spm_Stock_PBL").click(function() {
+        var idStock = $('#idStock_Spm').val();
+        var designation = $('#designation_Spm').val();
+        var numeroBl_Spm = $('#numeroBl_Spm').val();
+        var forme = $('#forme_Spm').val();
+        var quantiteI = $('#qteInitial_Spm').val();
+        var quantiteR = $('#qteReste_Spm').val();
+        var dateStockage = $('#dateStockage_Spm').val();
+        var dateExpiration = $('#dateExpiration_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 120,
+                idStock: idStock,
+                numeroBl_Spm: numeroBl_Spm,
+                designation: designation,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantiteI + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                    $("table.tabStock").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'red' });
+                    $('#supprimerStockModal').modal('hide');
+                } else {
+                    $('#msg_info_js').modal('show');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Stock Pharmacie**/
+
+/**Debut retirer Stock Pharmacie**/
+function rtr_Stock_P(idStock) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 10,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Rtr').val(tab[0]);
+            $('#designation_Rtr').val(tab[1]);
+            $('#categorie_Rtr').val(tab[2]);
+            // $('#forme_Rtr').val(tab[3]);
+            $('#qteInitial_Rtr').val(tab[4]);
+            $('#qteReste_Rtr').val(tab[5]);
+            //$('#dateStockage_Rtr').val(tab[6]);
+            $('#dateExpiration_Rtr').val(tab[7]);
+            $('#retirerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_rtr_Stock_P").click(function() {
+        var idStock = $('#idStock_Rtr').val();
+        $('#btn_RetirerStock_P-' + idStock).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 13,
+                idStock: idStock,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>RETIRER</td><td>En cours ...</td></tr>";
+                    $("table.tabDate").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'red' });
+                    $('#retirerStockModal').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retirer Stock Pharmacie**/
+
+/**Debut retirer Stock Entrepot**/
+function rtr_Stock_ET(idEntrepotStock) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 47,
+            idEntrepotStock: idEntrepotStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Rtr').val(idEntrepotStock);
+            $('#designation_Rtr').val(tab[2]);
+            $('#qteInitial_Rtr').val(tab[3]);
+            $('#qteReste_Rtr').val(tab[4]);
+            $('#dateExpiration_Rtr').val(tab[1]);
+            $('#entrepot_Rtr').val(tab[5]);
+            $('#retirerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_rtr_Stock_ET").click(function() {
+        var idEntrepotStock = $('#idStock_Rtr').val();
+        $('#btn_RetirerStock_ET-' + idEntrepotStock).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 48,
+                idEntrepotStock: idEntrepotStock,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>RETIRER</td><td>" + tab[4] + "</td><td>En cours ...</td></tr>";
+                    $("table.tabDate").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'red' });
+                    $('#retirerStockModal').modal('hide');
+
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retirer Stock Entrepot**/
+
+/**Debut retirer Stock**/
+function rtr_Stock(idStock) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 49,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#idStock_Rtr').val(idStock);
+            $('#designation_Rtr').val(tab[0]);
+            $('#qteInitial_Rtr').val(tab[1]);
+            $('#qteReste_Rtr').val(tab[2]);
+            $('#dateExpiration_Rtr').val(tab[3]);
+            $('#retirerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_rtr_Stock").click(function() {
+        var idStock = $('#idStock_Rtr').val();
+        var designation = $('#designation_Rtr').val();
+        var quantiteR = $('#qteReste_Rtr').val();
+        $('#btn_RetirerStock-' + idStock).prop('disabled', true);
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 50,
+                idStock: idStock,
+                quantite: quantiteR,
+                designation: designation,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr id='stock'><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>RETIRER</td><td>En cours ...</td></tr>";
+                    $("table.tabDate").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'red' });
+                    $('#retirerStockModal').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retirer Stock**/
+
+/**Debut retirer Stock Pharmacie**/
+function dim_Stock_P(idStock) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 10,
+            idStock: idStock,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            $('#idStock_Dim').val(tab[0]);
+            $('#designation_Dim').val(tab[1]);
+            $('#categorie_Dim').val(tab[2]);
+            // $('#forme_Rtr').val(tab[3]);
+            $('#qteInitial_Dim').val(tab[4]);
+            $('#qteReste_Dim').val(tab[5]);
+            //$('#dateStockage_Rtr').val(tab[6]);
+            $('#dateExpiration_Dim').val(tab[7]);
+            $('#qteRetirer_Dim').val(tab[10]);
+            $('#diminuerStockModal').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_dim_Stock_P").click(function() {
+        var idStock = $('#idStock_Dim').val();
+        var designation = $('#designation_Dim').val();
+        var categorie = $('#categorie_Dim').val();
+        //var forme=$('#forme_Rtr').val();
+        var quantiteI = $('#qteInitial_Dim').val();
+        var quantiteR = $('#qteReste_Dim').val();
+        var quantiteD = $('#qteDiminuer_Dim').val();
+        var dateStockage = $('#dateStockage_Dim').val();
+        var dateExpiration = $('#dateExpiration_Dim').val();
+        var quantite = quantiteR - quantiteD;
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 14,
+                idStock: idStock,
+                quantiteR: quantiteR,
+                quantiteD: quantiteD,
+                designation: designation,
+            },
+            success: function(data) {
+                tab = data.split('+');
+                if (quantiteD != 0 && quantiteD != '') {
+                    var ligne = "<tr id='stock'><td>" + dateExpiration + "</td><td>" + designation + "</td><td>" + categorie + "</td><td>" + quantite + "</td><td>En cours ...</td></tr>";
+                    $("table.tabDate").prepend(ligne);
+                    $('#stock').css({ 'background-color': 'yellow' });
+                    $('#qteDiminuer_Dim').val('');
+                    $('#diminuerStockModal').modal('hide');
+                    $('#btn_DiminuerStock_P-' + idStock).prop('disabled', true);
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin retirer Stock Pharmacie**/
+
+/*************Debut Modification vitrine***************/
+/**Debut supprimer Designation Vitrine**/
+/**Debut ajouter Vitrine**/
+function ajt_vitrine(id) {
+    // alert(1)
+    // var designation=$('#designation-'+id).val();
+    var categorie = $('#categorie-' + id).val();
+    var design = $('#designation-' + id).val();
+    var designJC = $('#designation-' + id).val();
+    var uniteStock = $('#uniteStock-' + id).val();
+    var prix = $('#prixUnitaire-' + id).val();
+    var prixUS = $('#prixuniteStock-' + id).val();
+    var codeBarreDesignat = $('#codeBarreDesignation-' + id).val();
+    var codeBarreuniteSt = $('#codeBarreuniteStock-' + id).val();
+    var idFus = $('#idFusion-' + id).val();
+    //alert (design);
+    $.ajax({
+        url: "ajax/ajouterVitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            idDesignation: id,
+            categorie: categorie,
+            designation: design,
+            designationJC: designJC,
+            uniteStock: uniteStock,
+            prix: prix,
+            prixuniteStock: prixUS,
+            codeBarreDesignation: codeBarreDesignat,
+            codeBarreuniteStock: codeBarreuniteSt,
+            idFusion: idFus,
+        },
+        success: function(data) {
+            // alert(data)
+            tab = data.split('+');
+            var ligne = "<tr><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>En cours ...</td></tr>";
+            $("table.tabVitrine").prepend(ligne);
+            $('#uniteStock-' + id).prop('disabled', true);
+            $('#prixUnitaire-' + id).prop('disabled', true);
+            $('#prixuniteStock-' + id).prop('disabled', true);
+            $('#init_Produit-' + id).prop('disabled', true);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Vitrine**/
+
+/**Debut ajouter Vitrine Pharma**/
+function ajt_vitrinePH(id) {
+    // var designation=$('#designation-'+id).val();
+    var categorie = $('#categorie-' + id).val();
+    var design = $('#designation-' + id).val();
+    var designJC = $('#designation-' + id).val();
+    var forme = $('#forme-' + id).val();
+    var tableau = $('#tableau-' + id).val();
+    var prixPublic = $('#prixPublic-' + id).val();
+    var codeBarreDesignat = $('#codeBarreDesignation-' + id).val();
+    var codeBarreuniteSt = $('#codeBarreuniteStock-' + id).val();
+    var idFus = $('#idFusion-' + id).val();
+    //console.log('data');
+    //alert (design);
+    $.ajax({
+        url: "ajax/ajouterVitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idDesignation: id,
+            categorie: categorie,
+            designation: design,
+            designationJC: designJC,
+            forme: forme,
+            tableau: tableau,
+            prixPublic: prixPublic,
+            codeBarreDesignation: codeBarreDesignat,
+            codeBarreuniteStock: codeBarreuniteSt,
+            idFusion: idFus,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            var ligne = "<tr><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>En cours ...</td></tr>";
+            $("table.tabVitrine").prepend(ligne);
+            $('#uniteStock-' + id).prop('disabled', true);
+            $('#prixUnitaire-' + id).prop('disabled', true);
+            $('#prixuniteStock-' + id).prop('disabled', true);
+            $('#init_Produit-' + id).prop('disabled', true);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Vitrine PHAr**/
+function spm_DesignationVT(id) {
+    //alert(id);
+    $.ajax({
+        url: "ajax/vitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            id: id,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#id_Spm').val(tab[0]);
+            $('#designation_Spm').val(tab[1]);
+            $('#designation_SpmE').val(tab[1]);
+            $('#categorie_Spm').val(tab[2]);
+            $('#uniteStock_Spm').val(tab[3]);
+            $('#prixuniteStock_Spm').val(tab[4]);
+            $('#prix_Spm').val(tab[5]);
+            $('#img_Spm').val(tab[6]);
+            $('#supprimerDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin supprimer Designation Vitrine**/
+/**Debut modification produit Vitrine**/
+function edit_DesignationVT(id) {
+    //alert(id);
+    $.ajax({
+        url: "ajax/vitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            id: id,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#id_edit').val(tab[0]);
+            $('#designation_edit').val(tab[1]);
+            $('#designation_editE').val(tab[2]);
+            $('#categorie_edit').val(tab[3]);
+            $('#uniteStock_edit').val(tab[4]);
+            $('#prixuniteStock_edit').val(tab[5]);
+            $('#prix_edit').val(tab[6]);
+            $('#image_edit').val(tab[7]);
+            $('#modifierDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modification produit Vitrine**/
+
+/**Debut Uploader Image Nouvelle Designation Vitrine**/
+function imgNV_DesignationVT(id) {
+    $.ajax({
+        url: "ajax/vitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            id: id,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#id_Upd_Nv').val(tab[0]);
+            $('#imageNvDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin Uploader Image Nouvelle  Designation Vitrine**/
+
+/**Debut Uploader Image Existante Designation Vitrine**/
+function imgEX_DesignationVT(id) {
+    $.ajax({
+        url: "ajax/vitrineAjax.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            id: id,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#id_Upd_Ex').val(tab[0]);
+            $('#des_Upd_Ex').val(tab[2]);
+            $('#idB_Upd_Ex').val(tab[8]);
+            $('#img_Upd_Ex').val(tab[7]);
+            //$('#imgsrc_Upd').src='uploads/'+tab[6];
+            $('#imgsrc_Upd').attr('src', "uploads/" + tab[7]);
+            $('#imgsrc_Upd').attr('alt', tab[7]);
+            $('#imageExDesignation').modal('show');
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+$(function() {
+    $(".btnRetournerProduit").click(function() {
+        var clicked = $(this)
+        var clicked_id = clicked.attr('id');
+        var splitId = clicked_id.split("_");
+        var idArticle = splitId[0];
+        var idPanier = splitId[1];
+        // alert(clicked_id)
+        var qtCommander = $('#quantite-' + idArticle).val();
+        // alert(qtCommander)
+        $('#qtRetourner-' + idArticle).on('input', function() {
+            var qtRetourner = $('#qtRetourner-' + idArticle).val();
+            // alert(qtCommander)
+            if (parseInt(qtRetourner) > parseInt(qtCommander)) {
+                $('.text-error').text('Attention: la quantité saisie est supérieure à la quantité commandée.');
+                $('.text-error').removeClass('hidden');
+            } else {
+                $('.text-error').text('');
+                $('.text-error').addClass('hidden');
+            }
+        })
+        $(".btnConfRetourProduit-" + clicked_id).click(function() {
+            var qtRetourner = $('#qtRetourner-' + idArticle).val();
+            // alert(qtRetourner)
+            if (parseInt(qtCommander) >= parseInt(qtRetourner)) {
+
+                $.ajax({
+                    url: "ajax/vitrineAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 2,
+                        idArticle: idArticle,
+                        idPanier: idPanier,
+                        qtCommander: qtCommander,
+                        qtRetourner: qtRetourner
+                    },
+                    success: function(data) {
+                        // tab = data.split('<>');
+                        // alert(1)
+                        // console.log(1)
+                        window.location.href = "commande.php"
+                    },
+                    error: function() {
+                        // alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                $('.text-error').text('Attention: la quantité saisie est supérieure à la quantité commandée.');
+                $('.text-error').removeClass('hidden');
+                // alert('Vous ne pouvez pas modifier plus de la quantité commander.')
+
+            }
+        });
+    });
+});
+
+/**Fin Uploader Image Existante Designation Vitrine**/
+/************* Fin Modification vitrine***************/
+
+$(function() {
+
+    /*  $("#form").submit(function(event){
+          event.preventDefault(); //prevent default action
+          var post_url = $(this).attr("action"); //get form action url
+          var request_method = $(this).attr("method"); //get form GET/POST method
+          var form_data = $(this).serialize(); //Encode form elements for submission
+
+          $.ajax({
+              url : post_url,
+              type: request_method,
+              data : form_data
+          }).done(function(response){ //
+              $("#server-results").html(response);
+          });
+      });*/
+
+
+
+});
+
+$("#form").submit(function(event) {
+    event.preventDefault(); // Empêcher le rechargement de la page.
+
+    var formData = new FormData($("#myForm"));
+    alert(formData);
+
+    /* $.ajax({
+       type: "POST",
+       url: "traitement.php",
+       data: formData
+     });*/
+});
+
+
+
+
+function modif_Remise(remise, pagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 3,
+            idPagnet: pagnet,
+            remise: remise,
+        },
+        success: function(data) {
+            //$('#somme_Pagnet').val(data);
+            tab = data.split('<>');
+            $("#somme_Apayer" + pagnet).text(tab[0] - remise);
+            valTotal=tab[0] - $("#val_remise" + pagnet).val();
+            valApayer=tab[1] - $("#val_remise" + pagnet).val();
+            $("#somme_TotalCN" + pagnet).text(valTotal.toFixed(2));
+            $("#somme_ApayerCN" + pagnet).text(valApayer.toFixed(2));
+            var lcd=$("#lcd_Machine").val();
+            if(lcd==1){
+                var nd_Apayer = remise;             
+                if(nd_Apayer!=null && nd_Apayer!=''){
+                    var nd_Qte="-";
+                    var nd_Prix=""+nd_Apayer;
+                    $.ajax({
+                        url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                        type: "GET", // data type (can be get, post, put, delete)
+                        data: { 
+                            "quantite": nd_Qte, 
+                            "prix": nd_Prix,
+                        }, // data in json format
+                        async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        
+                    });
+                }
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+
+function masLigne(par, idpagn) {
+    var idQuantite = "#quantite" + par;
+    var idQuantiteOld = "#quantiteOld" + par;
+    var idPrixunitevente = "#prixunitevente" + par;
+    var idUnitevente = "#unitevente" + par;
+    var idPagnet = idpagn;
+    var numligne = par;
+    var prixunitevente = $(idPrixunitevente).text();
+    var unitevente = $(idUnitevente).text();
+    // var prixunitevente= $(idPrixunitevente).find(".prixunitevente").text();
+
+    $(idQuantite).focusout(function() {
+
+
+        var quantite = $(this).val();
+        var quantiteOld = $(idQuantiteOld).val();
+        var idClient = $("#idClientF").val();
+        console.log("uniteventeSC =" + unitevente);
+        console.log("numligne =" + numligne);
+        console.log("idClient =" + idClient);
+
+        //alert('idPagnet'+idPagnet);
+        //  $('#resultat2').text($(this).attr('id'));
+        if (quantite != quantiteOld) {
+            //alert('testffffffff par'+par);
+            //alert('quantiteOld'+quantiteOld);
+            $.ajax({
+                url: 'ajax/ajouterLigneAjax.php',
+                method: 'POST',
+                data: {
+                    msaLigne: 1,
+                    prm: idPagnet,
+                    idC: idClient,
+                    nligne: numligne,
+                    uVente: unitevente,
+                    prUnitVente: prixunitevente,
+                    qtiteOld: quantiteOld,
+                    qtite: quantite
+                },
+                success: function(data) {
+                    //$(idPrixunitevente).html(data);
+                    console.log('data id $newPrix ' + data);
+                },
+                error: function() {
+                    alert('La requête n\'a pas abouti');
+                },
+                dataType: 'text'
+            });
+        }
+
+
+
+    });
+}
+
+
+
+function remiseB(par) {
+    console.log("remise" + par);
+    var idPagnet = par;
+    var idRemise = "#val_remise" + par;
+    var idVersement = "#versement" + par;
+    var idTotalp = "#totalp" + par;
+    console.log("totalp" + totalp);
+    var remise = $(idRemise).val();
+    var versement = $(idVersement).val();
+    var totalp = $(idTotalp).val();
+    
+    if (versement > 0) {
+        //res += numligne+designation+quantite;
+        // alert(11)
+        console.log("remise" + remise);
+        console.log("versement" + versement);
+        console.log("totalp" + totalp);
+        /*alert(remise);
+        alert(apayerPagnet);*/
+        $.ajax({
+            url: 'ajax/remiseAjax.php',
+            method: 'POST',
+            data: {
+                btnImprimerFacture: 1,
+                prm: idPagnet,
+                rms: remise,
+                aPP: versement,
+                ttp: totalp
+            },
+            success: function(data) {
+
+                // alert(data)
+
+                console.log('data id 1 ' + data);
+                // alert(data);
+            },
+            dataType: 'text'
+        });
+    } else {
+        // alert(22)
+        $.ajax({
+            url: 'ajax/remiseAjax.php',
+            method: 'POST',
+            data: {
+                btnImprimerFacturePagnet: 1,
+                prm: idPagnet,
+                rms: remise,
+                ttp: totalp
+            },
+            success: function(data) {
+                // alert(data)
+                console.log('data id 2' + data);
+                // alert(data);
+            },
+            dataType: 'text'
+        });
+    }
+
+
+    // IMPRIMER
+    /**/
+    var idPanel = "#panel" + par;
+    // $(idPanel).css('display',"block");
+    // alert(idPanel);
+    //window.print();
+    console.log("idPanel" + idPanel);
+}
+
+function remiseBClient(par, clt) {
+    console.log("remise" + par);
+    var idPagnet = par;
+    var idRemise = "#remise" + par;
+    var idTotalp = "#totalp" + par;
+    console.log("remise B Client");
+    var remise = $(idRemise).val();
+    var totalp = $(idTotalp).val();
+    $.ajax({
+        url: 'ajax/remiseAjax.php',
+        method: 'POST',
+        data: {
+            btnImprimerFacturePagnet: 1,
+            prm: idPagnet,
+            idClient: clt,
+            rms: remise,
+            ttp: totalp
+        },
+        success: function(data) {
+
+            console.log('data id ' + data);
+        },
+        dataType: 'text'
+    });
+
+}
+
+
+
+/*function remiseB(par){
+	  console.log("remise"+par);
+      var idPagnet=par;
+      var idRemise="#remise"+par;
+      var idVersement="#versement"+par;
+      var idTotalp="#totalp"+par;
+
+		//alert('idRemise=='+idRemise);
+           var remise= $(idRemise).val();
+           var versement= $(idVersement).val();
+           var totalp= $(idTotalp).val();
+		   //alert('hhhh'+remise);
+
+           if (versement>0) {
+			    if (remise < totalp) {
+					   //res += numligne+designation+quantite;
+
+				   console.log("remise"+remise);
+				   console.log("versement"+versement);
+				   console.log("totalp"+totalp);
+				   //alert(remise);
+				   //alert(apayerPagnet);
+						 $.ajax({
+							 url:'ajax/remiseAjax.php',
+							 method:'POST',
+							 data:{
+							   btnImprimerFacture:1,
+							   prm : idPagnet ,
+							   rms : remise,
+							   aPP : versement,
+							   ttp : totalp
+							 },
+							 success: function (data) {
+
+								 console.log('data id '+data);
+								  //alert(data);
+							 },
+							 dataType:'text'
+						});
+				}
+				else{
+					remise=0;
+				   console.log("remise"+remise);
+				   console.log("versement"+versement);
+				   console.log("totalp"+totalp);
+				   //alert(remise);
+				   //alert(apayerPagnet);
+						 $.ajax({
+							 url:'ajax/remiseAjax.php',
+							 method:'POST',
+							 data:{
+							   btnImprimerFacture:1,
+							   prm : idPagnet ,
+							   rms : remise,
+							   aPP : versement,
+							   ttp : totalp
+							 },
+							 success: function (data) {
+
+								 console.log('data id '+data);
+								  //alert(data);
+							 },
+							 dataType:'text'
+						});
+				}
+
+           }else {
+				   if (remise < totalp) {
+						$.ajax({
+							 url:'ajax/remiseAjax.php',
+							 method:'POST',
+							 data:{
+							   btnImprimerFacturePagnet:1,
+							   prm : idPagnet ,
+							   rms : remise,
+							   ttp : totalp
+							 },
+							 success: function (data) {
+
+								 console.log('data id '+data);
+								  //alert(data);
+							 },
+							 dataType:'text'
+						});
+				   }
+				   else{
+						   remise=0;
+						   $.ajax({
+								 url:'ajax/remiseAjax.php',
+								 method:'POST',
+								 data:{
+								   btnImprimerFacturePagnet:1,
+								   prm : idPagnet ,
+								   rms : remise,
+								   ttp : totalp
+								 },
+								 success: function (data) {
+
+									 console.log('data id '+data);
+									 // alert(data);
+								 },
+								 dataType:'text'
+							});
+				   }
+           }
+
+
+           // IMPRIMER
+         //  var idPanel="#panel"+par;
+          // $(idPanel).css('display',"block");
+          // alert(idPanel);
+           //window.print();
+}*/
+function display(idPagnet) {
+    var idPanel = "#panel" + idPagnet;
+    var idItem = "#item" + idPagnet;
+
+    /*$('.panel').css('display',"none");
+    $(idPanel).css('display',"block");*/
+
+    $('.panel').attr('class', "panel panel-info noImpr");
+    $('.panel-collapse').attr('class', "panel-collapse collapse");
+
+    $(idPanel).attr('class', "panel panel-info");
+
+
+    // $(idItem).attr('class',"panel-collapse collapse in");
+
+
+}
+
+function displayVersement(idVersement) {
+    var idPanel = "#panel" + idVersement;
+    var idItem = "#item2" + idVersement;
+
+
+    $('.panel').attr('class', "panel panel-info noImpr");
+    $('.panel-collapse').attr('class', "panel-collapse collapse");
+
+    $(idPanel).attr('class', "panel panel-info");
+
+
+
+
+
+}
+$(function() {
+
+    $('#formulaireAjouterPagnet').submit(function() {
+
+        resultat = true;
+        if ($('#idPagnetClientActiver').val() == 0) {
+
+            $('#helpActiver').text('Operation impossible: ce client est desactivé');
+            resultat = false;
+        }
+        return resultat;
+
+    });
+});
+$(function() {
+
+    $("#btnImprimerCB").click(function() {
+
+
+        $('div[id*="demo"]').each(function() {
+            var idR = $(this).attr('id');
+            /* var content = document.getElementById(idR).innerHTML;
+             var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+             mywindow.document.write('<html><head><title>Print</title>');
+             mywindow.document.write('</head><body >');
+             mywindow.document.write(content);
+             mywindow.document.write('</body></html>');
+
+             mywindow.document.close();
+             mywindow.focus()
+             mywindow.print();
+             mywindow.close();
+             return true;*/
+
+            var restorepage = document.body.innerHTML;
+            var printcontent = document.getElementById(idR).innerHTML;
+            document.body.innerHTML = printcontent;
+            window.print();
+            document.body.innerHTML = restorepage;
+            window.close();
+        });
+
+        //alert("il y a "+nombreDiv+" div commençant par txt_value_");
+
+    });
+});
+
+function printElem(divId) {
+    var content = document.getElementById(divId).innerHTML;
+    var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+    mywindow.document.write('<html><head><title>Print</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(content);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus()
+    mywindow.print();
+    mywindow.close();
+    return true;
+}
+
+/**Debut supprimer Designation Vitrine**/
+
+/**Fin Uploader Image Existante Designation Vitrine**/
+
+/**Debut ajouter Stock BL Entrepot**/
+function ajt_Stock_Bl_ET(designation, idBl) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixAchat = $('#prixAchat-' + designation).val();
+    var prixUniteStock = $('#prixUniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock_P-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 54,
+            idDesignation: designation,
+            idBl: idBl,
+            quantite: quantite,
+            prixAchat: prixAchat,
+            prixUniteStock: prixUniteStock,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantite + "</td><td>" + quantite + "</td><td>" + prixAchat + "</td><td>" + prixUniteStock + "</td><td>" + tab[3] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#stock').css({ 'background-color': 'green' });
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                $('#msg_info_js').modal('show');
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock BL Entrepot**/
+
+/**Debut ajouter Stock BL Entrepot Import-Export**/
+function ajt_Stock_Bl_ET_IE(designation, idBl) {
+    var quantite = $('#quantiteAStocke-' + designation).val();
+    var prixAchat = $('#prixAchat-' + designation).val();
+    var prixUniteStock = $('#prixUniteStock-' + designation).val();
+    var dateExpiration = $('#dateExpiration-' + designation).val();
+    $('#btn_AjtStock_P-' + designation).prop('disabled', true);
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 55,
+            idDesignation: designation,
+            idBl: idBl,
+            quantite: quantite,
+            prixAchat: prixAchat,
+            prixUniteStock: prixUniteStock,
+            dateExpiration: dateExpiration,
+        },
+        success: function(data) {
+
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                var ligne = "<tr id='stock'><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + quantite + "</td><td>" + quantite + "</td><td>" + prixAchat + "</td><td>" + prixUniteStock + "</td><td>" + tab[3] + "</td><td>" + dateExpiration + "</td><td>En cours ...</td></tr>";
+                $("table.tabStock").prepend(ligne);
+                $('#stock').css({ 'background-color': 'green' });
+                $('#quantiteAStocke-' + designation).prop('disabled', true);
+                $('#dateExpiration-' + designation).prop('disabled', true);
+            } else {
+                $('#msg_info_js').modal('show');
+            }
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Stock BL Entrepot  Import-Export**/
+
+/**Debut ajouter Voyage**/
+$(function() {
+    $("#btn_ajt_Voyage").click(function() {
+        var destination = $('#ajtDestination').val();
+        var motif = $('#ajtMotif').val();
+        var dateVoyage = $('#ajtDateVoyage').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 70,
+                destination: destination,
+                motif: motif,
+                dateVoyage: dateVoyage,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>En cours ...</td></tr>";
+                    $("table.tabVoyage").prepend(ligne);
+                    $('#ajtDestination').val('');
+                    $('#ajtMotif').val('');
+                    $('#ajtDateVoyage').val('');
+                    $('#ajoutVoyage').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Voyage**/
+
+/**Debut modifier Voyage**/
+function mdf_Voyage(idVoyage, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 71,
+            idVoyage: idVoyage,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idVY_Mdf').val(tab[1]);
+                $('#ordreVY_Mdf').val(ordre);
+                $('#destinationVY_Mdf').val(tab[2]);
+                $('#motifVY_Mdf').val(tab[3]);
+                $('#dateVY_Mdf').val(tab[4]);
+                $('#modifierVoyage').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Voyage").click(function() {
+        var idVoyage = $('#idVY_Mdf').val();
+        var ordre = $('#ordreVY_Mdf').val();
+        var destination = $('#destinationVY_Mdf').val();
+        var motif = $('#motifVY_Mdf').val();
+        var dateVoyage = $('#dateVY_Mdf').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 72,
+                idVoyage: idVoyage,
+                destination: destination,
+                motif: motif,
+                dateVoyage: dateVoyage,
+            },
+            success: function(data) {
+                $('#idVY_Mdf').val('');
+                $('#ordreVY_Mdf').val('');
+                $('#destinationVY_Mdf').val('');
+                $('#motifVY_Mdf').val('');
+                $('#dateVY_Mdf').val('');
+                $('#modifierVoyage').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableVoyage tr').each(function(row, tr) {
+                        fournisseur = $(tr).find('td:eq(0)').text();
+                        if (fournisseur != '' && fournisseur == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html(tab[4]);
+                            $(tr).find('td:eq(4)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Voyage**/
+
+/**Debut supprimer Voyage**/
+function spm_Voyage(idVoyage, ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 71,
+            idVoyage: idVoyage,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idVY_Spm').val(tab[1]);
+                $('#ordreVY_Spm').val(ordre);
+                $('#destinationVY_Spm').val(tab[2]);
+                $('#motifVY_Spm').val(tab[3]);
+                $('#dateVY_Spm').val(tab[4]);
+                $('#supprimerVoyage').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Voyage").click(function() {
+        var idVoyage = $('#idVY_Spm').val();
+        var ordre = $('#ordreVY_Spm').val();
+        var destination = $('#destinationVY_Spm').val();
+        var motif = $('#motifVY_Spm').val();
+        var dateVoyage = $('#dateVY_Spm').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 73,
+                idVoyage: idVoyage
+            },
+            success: function(data) {
+                $('#idVY_Spm').val('');
+                $('#ordreVY_Spm').val('');
+                $('#destinationVY_Spm').val('');
+                $('#motifVY_Spm').val('');
+                $('#dateVY_Spm').val('');
+                $('#supprimerVoyage').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableVoyage tr').each(function(row, tr) {
+                        fournisseur = $(tr).find('td:eq(0)').text();
+                        if (fournisseur != '' && fournisseur == ordre) {
+                            $(tr).find('td:eq(1)').html(destination);
+                            $(tr).find('td:eq(2)').html(motif);
+                            $(tr).find('td:eq(3)').html(dateVoyage);
+                            $(tr).find('td:eq(4)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Voyage**/
+
+
+/*$('#autocomplete').autocomplete({
+    serviceUrl: 'ajouterStock.php'
+
+});*/
+
+$(document).ready( function($){
+    $('#numTel').mask("99 999 99 99");
+    $('#refTransf').mask("AANNNNNN.NNNN.ANNNNN",{translation:  {
+                                A: {pattern: /[A-Za-z]/},
+                                N: {pattern: /[0-9]/}
+                         }});
+    $('#dateTransfert').mask('00/00/0000');
+
+    $("#refTransf").keyup( function(){
+        var query = $("#refTransf").val();
+        if (query.length >=2) {
+            //var text=query.charAt(0).toUpperCase();
+            console.log('fff'+query.toUpperCase());
+            //$("#refTransf").html();
+            $("#refTransf").val(query.toUpperCase());
+        }
+        else{
+        }
+    });
+
+    $('#refTransf_Rtr').mask("AANNNNNN.NNNN.ANNNNN",{translation:  {
+        A: {pattern: /[A-Za-z]/},
+        N: {pattern: /[0-9]/}
+    }});
+    $("#refTransf_Rtr").keyup( function(){
+        var query = $("#refTransf_Rtr").val();
+        if (query.length >=2) {
+            //var text=query.charAt(0).toUpperCase();
+            console.log('fff'+query.toUpperCase());
+            //$("#refTransf").html();
+            $("#refTransf_Rtr").val(query.toUpperCase());
+        }
+        else{
+        }
+    });
+
+});
+
+function masqueSaisieDate(obj) {
+    var ch;
+    var ch_gauche, ch_droite;
+    ch = obj.value;
+    ch.toString(); 
+    if ( ( (ch.slice(2,3)) != ("-") ) && (ch.length >= 3) ){
+        ch_gauche = ch.slice(0,2);
+        ch_droite = ch.slice(2);
+        if( 31 >= ch_gauche){
+            if(1 >=ch_droite){
+                obj.value = ch_gauche + "-" + ch_droite;
+            }
+            else{
+                obj.value = ch_gauche + "-1";
+            }
+        }
+        else{
+            if(1 >=ch_droite){
+                obj.value = "31-" + ch_droite;
+            }
+            else{
+                obj.value = "31-1";
+            }
+        }
+    }
+    if ( ( (ch.slice(5,6)) != ("-") ) && (ch.length >= 6) ){
+        ch_gauche = ch.slice(0,5);
+        ch_droite = ch.slice(5);
+        if(12 >=ch.slice(3,5)){
+            obj.value = ch_gauche + "-" + ch_droite;
+        }
+        else{
+            obj.value = ch.slice(0,2) +"-12-" + ch_droite;
+        }
+    }
+    return;
+}
+
+/**Debut ajouter Mutuelle Pharmacie**/
+$(function() {
+    $("#btn_ajt_Mutuelle").click(function() {
+        var nom = $('#ajtNomMT').val();
+        var taux = $('#ajtTauxMT').val();
+        var adresse = $('#ajtAdresseMT').val();
+        var telephone = $('#ajtTelephoneMT').val();
+        $.ajax({
+            url: "ajax/operationAjax_Mutuelle.php",
+            method: "POST",
+            data: {
+                operation: 1,
+                nomMutuelle: nom,
+                tauxMutuelle: taux,
+                adresseMutuelle: adresse,
+                telephoneMutuelle: telephone,
+            },
+            success: function(data) {
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    var ligne = "<tr><td>0</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>0</td><td>En cours ...</td></tr>";
+                    $("table.tabMutuelle").prepend(ligne);
+                    $('#ajtNomMT').val('');
+                    $('#ajtTauxMT').val('');
+                    $('#ajtAdresseMT').val('');
+                    $('#ajtTelephoneMT').val('');
+                    $('#ajoutMutuelle').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Mutuelle Pharmacie**/
+
+/**Debut modifier Mutuelle Pharmacie**/
+function mdf_Mutuelle(idMutuelle, ordre) {
+    $.ajax({
+        url: "ajax/operationAjax_Mutuelle.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idMutuelle: idMutuelle,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idMT_Mdf').val(tab[1]);
+                $('#ordreMT_Mdf').val(ordre);
+                $('#nomMT_Mdf').val(tab[2]);
+                $('#tauxMT_Mdf').val(tab[3]);
+                $('#adresseMT_Mdf').val(tab[4]);
+                $('#telephoneMT_Mdf').val(tab[5]);
+                $('#modifierMutuelle').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_mdf_Mutuelle").click(function() {
+        var idMutuelle = $('#idMT_Mdf').val();
+        var ordre = $('#ordreMT_Mdf').val();
+        var nom = $('#nomMT_Mdf').val();
+        var taux = $('#tauxMT_Mdf').val();
+        var adresse = $('#adresseMT_Mdf').val();
+        var telephone = $('#telephoneMT_Mdf').val();
+        $.ajax({
+            url: "ajax/operationAjax_Mutuelle.php",
+            method: "POST",
+            data: {
+                operation: 3,
+                idMutuelle: idMutuelle,
+                nomMutuelle: nom,
+                tauxMutuelle: taux,
+                adresseMutuelle: adresse,
+                telephoneMutuelle: telephone,
+            },
+            success: function(data) {
+                $('#idMT_Mdf').val('');
+                $('#ordreMT_Mdf').val('');
+                $('#nomMT_Mdf').val('');
+                $('#tauxMT_Mdf').val('');
+                $('#adresseMT_Mdf').val('');
+                $('#telephoneMT_Mdf').val('');
+                $('#modifierMutuelle').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableMutuelle tr').each(function(row, tr) {
+                        mutuelle = $(tr).find('td:eq(0)').text();
+                        if (mutuelle != '' && mutuelle == ordre) {
+                            $(tr).find('td:eq(1)').html(tab[2]);
+                            $(tr).find('td:eq(2)').html(tab[3]);
+                            $(tr).find('td:eq(3)').html(tab[4]);
+                            $(tr).find('td:eq(4)').html(tab[5]);
+                            $(tr).find('td:eq(5)').html(tab[6]);
+                            $(tr).find('td:eq(6)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin modifier Mutuelle Pharmacie**/
+
+/**Debut supprimer Mutuelle Pharmacie**/
+function spm_Mutuelle(idMutuelle, ordre) {
+    $.ajax({
+        url: "ajax/operationAjax_Mutuelle.php",
+        method: "POST",
+        data: {
+            operation: 2,
+            idMutuelle: idMutuelle,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idMT_Spm').val(tab[1]);
+                $('#ordreMT_Spm').val(ordre);
+                $('#nomMT_Spm').val(tab[2]);
+                $('#tauxMT_Spm').val(tab[3]);
+                $('#adresseMT_Spm').val(tab[4]);
+                $('#telephoneMT_Spm').val(tab[5]);
+                $('#supprimerMutuelle').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+$(function() {
+    $("#btn_spm_Mutuelle").click(function() {
+        var idMutuelle = $('#idMT_Spm').val();
+        var ordre = $('#ordreMT_Spm').val();
+        var nom = $('#nomMT_Spm').val();
+        var taux = $('#tauxMT_Spm').val();
+        var adresse = $('#adresseMT_Spm').val();
+        var telephone = $('#telephoneMT_Spm').val();
+        $.ajax({
+            url: "ajax/operationAjax_Mutuelle.php",
+            method: "POST",
+            data: {
+                operation: 4,
+                idMutuelle: idMutuelle
+            },
+            success: function(data) {
+                $('#idMT_Spm').val('');
+                $('#ordreMT_Spm').val('');
+                $('#nomMT_Spm').val('');
+                $('#tauxMT_Spm').val('');
+                $('#adresseMT_Spm').val('');
+                $('#telephoneMT_Spm').val('');
+                $('#supprimerMutuelle').modal('hide');
+                tab = data.split('<>');
+                if (tab[0] == 1) {
+                    $('#tableMutuelle tr').each(function(row, tr) {
+                        mutuelle = $(tr).find('td:eq(0)').text();
+                        if (mutuelle != '' && mutuelle == ordre) {
+                            $(tr).find('td:eq(1)').html(nom);
+                            $(tr).find('td:eq(2)').html(taux);
+                            $(tr).find('td:eq(3)').html(adresse);
+                            $(tr).find('td:eq(4)').html(telephone);
+                            $(tr).find('td:eq(5)').html(0);
+                            $(tr).find('td:eq(6)').html("En cours ...");
+                        }
+                    });
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin supprimer Mutuelle Pharmacie**/
+
+/** Debut Autocomplete Mutuelle Pharmacie*/
+$(function() {
+    $(".codeBarreLigneMutuelle").keyup(function(e) {
+        e.preventDefault();
+        var tabIdPanier = $(this).attr('id');
+        tab = tabIdPanier.split('_');
+        idMutuellePagnet = tab[1];
+        var query = $(this).val();
+        if (query.length > 0) {
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 20,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function() {
+                            alert("La requête ss");
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            /*********** Quand on tape sur Entrer **************/
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    inputVal = $(this).val();
+                    
+                    if ($.isNumeric(inputVal)) {
+
+                        designation = $(this).val();
+
+                    } else {
+                        var designation = $("#ajouterProdFormMutuelle"+idMutuellePagnet+" .typeahead li.active").text();
+                        tab = designation.split(' => ');
+                        designation = tab[0];                        
+                    }
+                    // var designation = $("#ajouterProdFormMutuelle"+idMutuellePagnet+" .typeahead li.active").text();
+                    // tab = designation.split(' => ');
+                    // designation = tab[0] || $("#panier_"+idMutuellePagnet).val();
+
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 21,
+                            designation: designation,
+                            idMutuellePagnet: idMutuellePagnet
+                        },
+                        success: function(data) {
+                            result = data.split('<>');
+                            if (result[0] == 1) {
+                                if (result[7] == 9) {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td>Montant</td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                } else {
+                                    var ligne = "<tr>" +
+                                        "<td>" + result[2] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                                        "<td>" + result[3] + "</td>" +
+                                        "<td><input class='form-control' onkeyup='modif_Prix_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                        "<td>" +
+                                        "<button type='button' onclick='retour_Produit_Mutuelle(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+                                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                        "</button>" +
+                                        "</td>" +
+                                        "</tr>";
+                                }
+            
+                                $('#tableMutuelle'+idMutuellePagnet).prepend(ligne);
+                                $("#panier_"+idMutuellePagnet).val('');
+                                $("#somme_Total" + idMutuellePagnet).text(result[6]);
+                                $("#somme_Apayer" + idMutuellePagnet).text(result[6]/2);
+                                $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[7]) /100 ));
+                            }
+                            if (result[0] == 2) {
+            
+                                $('#tableMutuelle'+idMutuellePagnet+' tr').each(function(row, tr) {
+                                    reference = $(tr).find('td:eq(0)').text();
+                                    if (reference != '' && reference == result[2]) {
+                                        $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+                                        $("#panier_"+idMutuellePagnet).val('');
+                                        $("#somme_Total" + idMutuellePagnet).text(result[6]);
+                                        $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[8]) /100 ));
+                                    }
+                                });
+                            }
+                            if (result[0] == 3) {
+                                $("#qte_stock").text(result[1]);
+                                $('#msg_info_js').modal('show');
+                                $("#panier_"+idMutuellePagnet).val('');
+                            }
+                        },
+                        error: function() {
+                            alert("La requête ");
+                        },
+                        dataType: "text"
+                    });
+                    idFormParent=$("#panier_"+idMutuellePagnet).parent().attr("id");
+                    // alert(idFormParent+'/////////')
+                    // setTimeout(() => {            
+                    $('#'+idFormParent+' .typeahead').html('')
+                }
+                /*********** Fin tape sur Entrer **************/
+        }
+        else{
+            
+            idFormParent=$("#panier_"+idMutuellePagnet).parent().attr("id");
+            // alert(idFormParent+'/////////')
+            // setTimeout(() => {            
+            $('#'+idFormParent+' .typeahead').html('')
+        }
+    });
+});
+/** Fin Autocomplete Mutuelle Pharmacie*/
+
+/**Debut modifier la quantite dans la ligne d'un Pagnet Mutuelle Pharmacie**/
+function modif_Quantite_Mutuelle(quantite, ligne, idMutuellePagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 25,
+            idMutuellePagnet: idMutuellePagnet,
+            numLigne: ligne,
+            quantite: quantite,
+        },
+        success: function(data) {
+            result = data.split('<>');
+            ligneQte = result[0];
+            //alert("Quantite : "+ligneQte);
+            restant = ligneQte - quantite;
+            //alert("Restant : "+restant);
+            if (restant >= 0) {
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 26,
+                        idMutuellePagnet: idMutuellePagnet,
+                        numLigne: ligne,
+                        quantite: quantite,
+                    },
+                    success: function(data) {
+                        tab1 = data.split('<>');
+                        if (tab1[0] == 1) {
+                            $("#tauxMutuelle" + idMutuellePagnet).val(tab1[1]+" %");
+                            $("#somme_Total" + idMutuellePagnet).text(tab1[2]);
+                            $("#somme_Apayer" + idMutuellePagnet).text(tab1[2] - ((tab1[2] * tab1[1]) /100 ));
+                        }
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+            } else {
+                reste = ligneQte;
+                $("#qte_stock").text(reste);
+                $('#msg_info_js').modal('show');
+                quantite = 1;
+                $.ajax({
+                    url: "ajax/modifierLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 27,
+                        idMutuellePagnet: idMutuellePagnet,
+                        numLigne: ligne,
+                        quantite: 1,
+                    },
+                    success: function(data) {
+                        tab1 = data.split('<>');
+                        if (tab1[0] == 1) {
+                            $("#tauxMutuelle" + idMutuellePagnet).val(tab1[1]+" %");
+                            $("#somme_Total" + idMutuellePagnet).text(tab1[2]);
+                            $("#somme_Apayer" + idMutuellePagnet).text(tab1[2] - ((tab1[2] * tab1[1]) /100 ));
+                            $('#tableMutuelle tr').each(function(row, tr) {
+                                reference = $(tr).find('td:eq(0)').text();
+                                if (reference != '' && reference == tab1[3]) {
+                                    //alert(reference);
+                                    $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_Mutuelle(" + quantite + "," + ligne + "," + idMutuellePagnet + ")' value='1' style='width: 70%' type='number'></input>");
+                                    $(".licM").text('');
+                                    $("#codeBarreLigneMutuelle").val('');
+                                    $("#codeBarreLigneMutuelle").focus();
+                                }
+                            });
+                        }
+                        //console.log(data);
+                    },
+                    error: function() {
+                        alert("La requête ");
+                    },
+                    dataType: "text"
+                });
+                $("#ligne" + ligne).val(1);
+            }
+            console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+
+}
+/**Fin modifier la quantite dans la ligne d'un Pagnet Mutuelle Pharmacie**/
+
+/**Debut modifier le prix dans la ligne d'un Pagnet Mutuelle Pharmacie**/
+function modif_Prix_Mutuelle(prix, ligne, idMutuellePagnet) {
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 24,
+            idMutuellePagnet: idMutuellePagnet,
+            numLigne: ligne,
+            prix: prix,
+        },
+        success: function(data) {
+            tab1 = data.split('<>');
+            if (tab1[0] == 1) {
+                $("#tauxMutuelle" + idMutuellePagnet).val(tab1[1]+" %");
+                $("#somme_Total" + idMutuellePagnet).text(tab1[2]);
+                $("#somme_Apayer" + idMutuellePagnet).text(tab1[2] - ((tab1[2] * tab1[1]) /100 ));
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier la prix dans la ligne d'un Pagnet Mutuelle Pharmacie**/
+
+/**Debut retour d'un produit dans Pagnet Mutuelle Pharmacie**/
+function retour_Produit_Mutuelle(ligne, idMutuellePagnet) {
+    $.ajax({
+        url: "ajax/vendreLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 22,
+            idMutuellePagnet: idMutuellePagnet,
+            numligne: ligne
+        },
+        success: function(data) {
+            result = data.split('<>');
+            if (result[0] == 1) {
+                $('#tableMutuelle tr').each(function(row, tr) {
+                    reference = $(tr).find('td:eq(0)').text();
+                    if (reference != '' && reference == result[2]) {
+                        $(tr).remove();
+                        $(".licM").text('');
+                        $("#codeBarreLigneMutuelle").val('');
+                        $("#codeBarreLigneMutuelle").focus();
+                        $("#somme_Total" + idMutuellePagnet).text(result[6]);
+                        $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[7]) /100 ));
+                    }
+                });
+            }
+
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin retour d'un produit dans Pagnet Mutuelle Pharmacie**/
+
+/** Debut modifier le nom du Client d'un Pagnet Mutuelle Pharmacie*/
+$(function() {
+    $(".clientMutuelleInput").keyup(function(e) {
+        e.preventDefault();
+        typeClient = 'mutuelle';
+        var query = $(this).val();         
+        var idMutuellePagnet = $(this).attr('data-idPanier');
+        if (query.length > 0) {
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 23,
+                            query: query,
+                            idMutuellePagnet: idMutuellePagnet
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function() {
+                            alert("La requête ss");
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            /*********** Quand on tape sur Entrer **************/
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    var client = $("#ajouterProdFormMutuelle"+idMutuellePagnet+" .reponseClient .typeahead li.active").text();
+                    $.ajax({
+                        url: 'ajax/vendreLigneAjax.php',
+                        method: 'POST',
+                        data: {
+                            operation: 24,
+                            client: client,
+                            idMutuellePagnet : idMutuellePagnet
+                        },
+                        success: function(data) {
+                            $(this).val(client);
+                        },
+                        dataType: 'text'
+                    });
+                    typeClient = '';
+                    
+                }
+                /*********** Fin tape sur Entrer **************/
+        }
+    });
+});
+/** Fin modifier le nom du Client d'un Pagnet Mutuelle Pharmacie*/
+
+/** Debut modifier le code Adherant du Client d'un Pagnet Mutuelle Pharmacie*/
+$(function() {
+    $("#codeAdherantMutuelle").keyup(function() {
+        var idMutuellePagnet = $("#idMutuellePagnet").val();
+        var query = $("#codeAdherantMutuelle").val();
+        if (query.length > 0 || query.length != '') {
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 25,
+                    codeAdherant: query,
+                    idMutuellePagnet : idMutuellePagnet,
+                },
+                success: function(data) {
+                },
+                dataType: 'text'
+            });
+        } 
+    });
+});
+/** Fin modifier le code Adherant du Client d'un Pagnet Mutuelle Pharmacie*/
+
+/**Debut modifier la mutuelle d'un Pagnet Mutuelle Pharmacie**/
+function modif_MutuellePagnet(mutuelle) {
+    tab = mutuelle.split('§');
+    var idMutuelle = tab[0];
+    var idMutuellePagnet = tab[1];
+    $.ajax({
+        url: "ajax/modifierLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 29,
+            idMutuelle: idMutuelle,
+            idMutuellePagnet: idMutuellePagnet,
+        },
+        success: function(data) {
+            tab1 = data.split('<>');
+            if (tab1[0] == 1) {
+                $("#tauxMutuelle" + idMutuellePagnet).val(tab1[1]+" %");
+                $("#somme_Total" + idMutuellePagnet).text(tab1[2]);
+                $("#somme_Apayer" + idMutuellePagnet).text(tab1[2] - ((tab1[2] * tab1[1]) /100 ));
+            } 
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Debut modifier la mutuelle d'un Pagnet Mutuelle Pharmacie**/
+
+/**Debut ajouter Designation Boutique**/
+function ajt_Reference() {
+    var designation = $('#designation').val();
+    var categorie = $('#categorie2').val();
+    var uniteStock = $('#uniteStock').val();
+    var nbreArticleUniteStock = $('#nbArticleUniteStock').val();
+    var prixUniteStock = $('#prixuniteStock').val();
+    var prixUnitaire = $('#prix').val();
+    var prixAchat = $('#prixachat').val();
+    var codeBarre = $('#codeBarre').val();
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 92,
+            designation: designation,
+            categorie: categorie,
+            uniteStock: uniteStock,
+            nbreArticleUniteStock: nbreArticleUniteStock,
+            prixUniteStock: prixUniteStock,
+            prixUnitaire: prixUnitaire,
+            prixAchat: prixAchat,
+            codeBarre: codeBarre,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            var ligne = "<tr id='design'><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>" + tab[6] + "</td><td>En cours ...</td></tr>";
+            $("table.tabDesign").prepend(ligne);
+            $('#design').css({ 'background-color': 'green' });
+            $('#designation').val('');
+            $('#categorie2').val('');
+            $('#uniteStock').val('');
+            $('#nbArticleUniteStock').val('');
+            $('#prixuniteStock').val('');
+            $('#prix').val('');
+            $('#prixachat').val('');
+            $('#codeBarre').val('');
+            $('#AjoutStockModal').modal('hide');
+            $('#ajt_Stock').modal('show');
+            $('#designation_Stock').val(designation);
+            $('#uniteStock_Stock_Option').text(uniteStock);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Designation Boutique**/
+
+/**Debut ajouter Designation Entrepot**/
+function ajt_Reference_E() {
+    var designation = $('#designation').val();
+    var categorie = $('#categorie2').val();
+    var uniteStock = $('#uniteStock').val();
+    var uniteDetails = $('#uniteDetails').val();
+    var nbreArticleUniteStock = $('#nbArticleUniteStock').val();
+    var prixUniteStock = $('#prixuniteStock').val();
+    var prixAchat = $('#prixachat').val();
+   // var codeBarre = $('#codeBarre').val();
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 93,
+            designation: designation,
+            categorie: categorie,
+            uniteStock: uniteStock,
+            uniteDetails: uniteDetails,
+            nbreArticleUniteStock: nbreArticleUniteStock,
+            prixUniteStock: prixUniteStock,
+            prixAchat: prixAchat,
+        },
+        success: function(data) {
+            tab = data.split('+');
+            var ligne = "<tr id='design'><td>0</td><td>" + tab[0] + "</td><td>" + tab[1] + "</td><td>" + tab[2] + "</td><td>" + tab[3] + "</td><td>" + tab[4] + "</td><td>" + tab[5] + "</td><td>En cours ...</td></tr>";
+            $("table.tabDesign").prepend(ligne);
+            $('#design').css({ 'background-color': 'green' });
+            $('#designation').val('');
+            $('#categorie2').val('');
+            $('#uniteStock').val('');
+            $('#uniteDetails').val('');
+            $('#nbArticleUniteStock').val('');
+            $('#prixuniteStock').val('');
+            $('#prixachat').val('');
+            $('#AjoutStockModal').modal('hide');
+            $('#ajt_Stock').modal('show');
+            $('#designation_Stock').val(designation);
+            $('#uniteStock_Stock_Option').text(uniteStock);
+            //console.log(data);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin ajouter Designation Boutique**/
+
+/**Debut ajouter Stock Entrepot**/
+$(function() {
+    $("#btn_ajt_StockCatalogue_Et").click(function() {
+        var designation = $('#designation_Stock').val();
+        var uniteStock = $('#uniteStock_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 94,
+                designation: designation,
+                uniteStock : uniteStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $("#btn_ajt_StockCatalogue").prop('disabled', false);
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+$(function() {
+    $("#btn_trm_StockCatalogue_Et").click(function() {
+        var designation = $('#designation_Stock').val();
+        var uniteStock = $('#uniteStock_Stock').val();
+        var quantite = $('#qteInitial_Stock').val();
+        var dateExpiration = $('#dateExpiration_Stock').val();
+        $.ajax({
+            url: "ajax/ajouterLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 94,
+                designation: designation,
+                uniteStock : uniteStock,
+                quantite: quantite,
+                dateExpiration: dateExpiration,
+            },
+            success: function(data) {
+                if (data == 1) {
+                    $('#qteInitial_Stock').val('');
+                    $('#dateExpiration_Stock').val('');
+                    $('#ajt_Stock').modal('hide');
+                }
+            },
+            error: function() {
+                alert("La requête ");
+            },
+            dataType: "text"
+        });
+    });
+});
+/**Fin ajouter Stock Entrepot**/
+
+/**Debut modifier Categorie**/
+function mdf_Categorie(idCategorie, ordre) {
+    $.ajax({
+        url: "ajax/operationAjax_Categorie.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            idCategorie: idCategorie,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#modifierCategorie').modal('show');
+                $('#idCategorie_Mdf').val(tab[1]);
+                $('#ordreCT_Mdf').val(ordre);
+                $('#categorie_Mdf').val(tab[2]);
+                $('#categorieParent_Mdf').val(tab[3]);
+                $('#nomParent_Mdf').text(tab[4]);
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier Categorie**/
+
+/**Debut supprimer Categorie**/
+function spm_Categorie(idCategorie, ordre) {
+    $.ajax({
+        url: "ajax/operationAjax_Categorie.php",
+        method: "POST",
+        data: {
+            operation: 1,
+            idCategorie: idCategorie,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('#idCategorie_Spm').val(tab[1]);
+                $('#ordreCT_Mdf').val(ordre);
+                $('#categorie_Spm').val(tab[2]);
+                $('#supprimerCategorie').modal('show');
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin supprimer Categorie**/
+
+
+/**Debut select categorie par click**/
+    function selectionCategorie(idDesignation){
+        var action=$('#categorie-'+idDesignation+'  option').length;
+        console.log(action);
+        if(action==1){
+            $.ajax({
+                url: "ajax/operationAjax_Categorie.php",
+                method: "POST",
+                data: {
+                    operation: 2,
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    var taille = data.length;
+                        for( var i = 0; i<taille; i++){
+                            var tab = data[i].split('<>');
+                            name=tab[1];
+                            $('#categorie-'+idDesignation).append("<option value='"+name+"'>"+name+"</option>");
+                        }
+                },
+                error: function() {
+                    alert("La requête 3"); },
+                dataType:"text"
+            }); 
+        }
+    }
+
+    function choisirCategorie(idDesignation){
+        var parent=$('#categorie-'+idDesignation).val();
+        $.ajax({
+            url: "ajax/operationAjax_Categorie.php",
+            method: "POST",
+            data: {
+                operation: 3,
+                parent: parent,
+            },
+            success: function (data) {
+                // tab=data.split('<>');
+                $('#sousCategorie-'+idDesignation).html('');
+                $('#sousCategorie-'+idDesignation).append("<option></option>");
+                var data = JSON.parse(data);
+                    var taille = data.length;
+                        for( var i = 0; i<taille; i++){
+                            var name = data[i];
+                            $('#sousCategorie-'+idDesignation).append("<option value='"+name+"'>"+name+"</option>");
+                        }
+            },
+            error: function() {
+                alert("La requête 3"); },
+            dataType:"text"
+        });
+    }
+/**Fin select categorie par click **/
+
+/**Debut modifier categorie Designation**/
+function chg_CategorieDesign(idDesignation, ordre) {
+    var designation=$('#designation-'+idDesignation).val();
+    var sousCategorie=$('#sousCategorie-'+idDesignation).val();
+    var categorie=$('#categorie-'+idDesignation).val();
+    var prixUS=$('#prixUS-'+idDesignation).val();
+    var prixUN=$('#prixUN-'+idDesignation).val();
+    var prixAC=$('#prixAC-'+idDesignation).val();
+    $.ajax({
+        url: "ajax/operationAjax_Categorie.php",
+        method: "POST",
+        data: {
+            operation: 4,
+            idDesignation: idDesignation,
+            designation: designation,
+            nom : sousCategorie,
+            parent : categorie,
+            prixUniteStock : prixUS,
+            prixUnitaire : prixUN,
+            prixAchat : prixAC,
+        },
+        success: function(data) {
+            tab = data.split('<>');
+            $('#tableCategorie tr').each(function(row, tr) {
+                fournisseur = $(tr).find('td:eq(0)').text();
+                if (fournisseur != '' && fournisseur == ordre) {
+                    $(tr).find('td:eq(1)').html(designation);
+                    $(tr).find('td:eq(2)').html(categorie);
+                    $(tr).find('td:eq(3)').html(sousCategorie);
+                    $(tr).find('td:eq(6)').html(prixUS);
+                    $(tr).find('td:eq(7)').html(prixUN);
+                    $(tr).find('td:eq(8)').html(prixAC);
+                }
+            });
+            $('#btn_ChgCateg-'+idDesignation).prop('disabled', true);
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier categorie Designation**/
+
+$(function() {
+    // alert(77)
+    $(document).on("change", ".compte", function() {
+        compte = $(this).val();
+        idPanier = $(this).attr('data-idPanier');
+
+        typeDataC = $(this).attr('data-type');
+        // alert(typeDataC)
+
+        if (typeDataC && typeDataC=='mutuelle') {
+            typeDataC='mutuelle'
+        } else {
+            
+            typeDataC='simple'
+        }
+
+        if (compte == 2) {
+            $("#clientInput"+idPanier).show();
+            $("#avanceInput"+idPanier).show();
+            $("#compteAvance"+idPanier).show();
+            $("#versement").hide()
+            $("#clientInput"+idPanier).focus();
+            $("#clientInput"+idPanier).prop('required',true);
+            
+            $(".btn_Termine_Panier").on("click", function() {
+                // window.location.reload();           
+                $("#clientInput"+idPanier).focus();  
+                $('.cache_btn_Terminer').show();   
+                // $('#msg_info_ClientRequired').modal('show')                  
+            });
+            
+        } else {                
+            if (compte == '1') {
+                $("#versement").removeAttr('disabled');
+                $("#versement").attr('placeholder','Espèces...');
+                $("#clientInput"+idPanier).hide();
+                $("#clientInput"+idPanier).prop('required',false);
+                $("#avanceInput"+idPanier).hide();
+                $("#compteAvance"+idPanier).hide();
+                $("#versement").show();
+            } else {
+                // alert('ci else bi')
+                $("#versement").attr('disabled','disabled');
+                $("#versement").removeAttr('placeholder','');
+                $("#clientInput"+idPanier).hide();
+                $("#clientInput"+idPanier).prop('required',false);
+                $("#avanceInput"+idPanier).hide();
+                $("#compteAvance"+idPanier).hide();
+                $("#versement").show();
+            }
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 27,
+                    idClient: 0,
+                    idPanier: idPanier,
+                    typeData: typeDataC
+                },
+                dataType: "text",
+                success: function(data) {
+                    // alert(data)
+                    $("#clientInput"+idPanier).val('');
+                    $("#avanceInput"+idPanier).val('');
+                },
+                error: function() {
+                    alert("La requête ss");
+                }
+            });
+        }
+    });
+
+    if ($(".compte").val() && $(".compte").val() != '1'){
+        // alert(111)
+        $("#versement").attr('disabled','disabled');
+        $("#versement").removeAttr('placeholder','');
+    }
+});
+
+$(function() { 
+    typeData = '';
+    $(document).on("keyup", ".clientInput", function(e) {
+        e.preventDefault();
+        typeClient = 'simple';
+        idPanier = $(this).attr('data-idPanier');
+        typeData = $(this).attr('data-type');
+        var query = $(this).val();
+        if (query.length > 0) {
+            // 
+            /*********** Modification **************/
+            $(this).typeahead({
+                source: function(query, result) {
+                    $.ajax({
+                        url: "ajax/vendreLigneAjax.php",
+                        method: "POST",
+                        data: {
+                            operation: 26,
+                            query: query
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            // alert(data)
+                            result($.map(data, function(item) {
+                                return item;
+                            }))
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+            $(this).focus();
+            /*********** Modification **************/
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+            if (keycode == '13') {
+                var text = $("#factForm .typeahead li.active").text() || $("#factFormM .typeahead li.active").text();
+                tab = text.split(' . ');
+                idClient = tab[0];
+                $.ajax({
+                    url: "ajax/vendreLigneAjax.php",
+                    method: "POST",
+                    data: {
+                        operation: 27,
+                        idClient: idClient,
+                        idPanier: idPanier,
+                        typeData: typeData
+                    },
+                    dataType: "text",
+                    success: function(data) {
+                        $("#clientInput"+idPanier).val(tab[1]);
+                        $("#avanceInput"+idPanier).focus();
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+                typeClient = '';
+            }
+        }
+    });
+    
+    /** Début click sur typeahead*/    
+        // $(document).on('click', 'li[class="active"]', function() {
+        //     typeVente = $("#typeVente").val() || $("#typeVenteM").val();
+        //     if (typeVente == '1' && typeClient == '') {                    
+        //         var designation = $("#ajouterProdFormB"+idPanier+" .typeahead li.active").text();
+        //         tab = designation.split(' => ');
+        //         designation = tab[0] || $("#panier_"+idPanier).val();
+        //         $.ajax({
+        //             url: "ajax/vendreLigneAjax.php",
+        //             method: "POST",
+        //             data: {
+        //                 operation: 15, 
+        //                 designation: designation,
+        //                 idPagnet: idPanier
+        //             },
+        //             success: function(data) {
+        //                 result = data.split('<>');  
+        //                 if (result[0] == 1) {
+        //                     if (result[7] == 9) {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td>Montant</td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     } 
+        //                     else {
+        //                         if(result[7]!="Article" && result[7]!="article"){
+        //                             var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+        //                             "<td>" +
+        //                                 "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+        //                                         "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+        //                                         "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+        //                                 "</select>"+
+        //                             "</td>" +
+        //                             "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                         }
+        //                         else{
+        //                             var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+        //                             "<td>" +
+        //                                 "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+        //                                         "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+        //                                 "</select>"+
+        //                             "</td>" +
+        //                             "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                         }
+        //                     }
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                     var lcd=$("#lcd_Machine").val();
+        //                     if(lcd==1){
+        //                         var nd_Qte=1;
+        //                         var nd_Prix=result[4];
+        //                         $.ajax({
+        //                             url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+        //                             type: "GET", // data type (can be get, post, put, delete)
+        //                             data: { 
+        //                                 "quantite": nd_Qte, 
+        //                                 "prix": nd_Prix,
+        //                             }, // data in json format
+        //                             async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+        //                             success: function(response) {
+        //                                 console.log(response);
+        //                             },
+                                    
+        //                         });
+        //                     }
+        //                 }
+        //                 if (result[0] == 2) {
+        //                     $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+        //                         reference = $(tr).find('td:eq(0)').text();
+        //                         if (reference != '' && reference == result[2]) {
+        //                             $(tr).find('td:eq(1)').html("<input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='" + result[9] + "' style='width: 30%' type='number' ></input>");
+        //                             // $(".licV").text('');
+        //                             $("#panier_"+idPanier).val('');
+        //                             $("#somme_Total" + idPanier).text(result[6]);
+        //                             $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                             var lcd=$("#lcd_Machine").val();
+        //                             if(lcd==1){
+        //                                 var nd_Qte=result[9];
+        //                                 var nd_Prix=result[4];
+        //                                 $.ajax({
+        //                                     url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+        //                                     type: "GET", // data type (can be get, post, put, delete)
+        //                                     data: { 
+        //                                         "quantite": nd_Qte, 
+        //                                         "prix": nd_Prix,
+        //                                     }, // data in json format
+        //                                     async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+        //                                     success: function(response) {
+        //                                         console.log(response);
+        //                                     },
+                                            
+        //                                 });
+        //                             }
+        //                         }
+        //                     });
+        //                 }
+        //                 if (result[0] == 3) {
+        //                     $("#qte_stock").text(result[1]);
+        //                     $('#msg_info_js').modal('show');
+        //                     $("#panier_"+idPanier).val('');
+        //                 }
+        //                 if(result[0]== 4){
+        //                     var ligne = "<tr>" +
+        //                     "<td>" + result[2] + "</td>" +
+        //                     "<td><input class='form-control' onkeyup='modif_QuantiteSD(this.value," + result[5] + "," + idPanier + ")'  id='ligne"+result[5]+"'  value='1' style='width: 30%' type='number' ></input></td>" +
+        //                     "<td>" +result[7]+ "</td>" +
+        //                     "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                     "<td>" +
+        //                     "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                     "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                     "</button>" +
+        //                     "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //                 if(result[0]== 5){
+        //                     var ligne = "<tr>" +
+        //                     "<td>" + result[2] + "</td>" +
+        //                     "<td>Montant</td>" +
+        //                     "<td>Especes</td>" +
+        //                     "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                     "<td>" +
+        //                     "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                     "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                     "</button>" +
+        //                     "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //                 if(result[0]== 6){
+        //                     window.location.reload();
+        //                 }
+        //                 if(result[0]== 7){
+        //                     var ligne = "<tr>" +
+        //                     "<td><input class='form-control' style='width: 100%'  type='text' value='" + result[2] + "' onkeyup='modif_DesignationBon(this.value," + result[5] + "," + idPanier + ")' /></td>" +
+        //                     "<td>Montant</td>" +
+        //                     "<td>Espece</td>" +
+        //                     "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                     "<td>" +
+        //                     "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                     "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                     "</button>" +
+        //                     "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //                 if(result[0]== 8){
+        //                     var ligne = "<tr>" +
+        //                     "<td>" + result[2] + "</td>" +
+        //                     "<td>" +result[4]+ "</td>" +
+        //                     "<td>" +result[3]+ "</td>" +
+        //                     "<td>" +
+        //                     "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                     "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                     "</button>" +
+        //                     "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                 }
+        //                 if (result[0] == 10) {
+        //                     if (result[7] == 9) {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td>Montant</td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     } 
+        //                     else {
+
+        //                         if(result[7]!="Article" && result[7]!="article"){
+        //                             var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+        //                             "<td>" +
+        //                                 "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+        //                                         "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+        //                                         "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+        //                                 "</select>"+
+        //                             "</td>" +
+        //                             "<td><input  class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                         }
+        //                         else{
+        //                             var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+        //                             "<td>" +
+        //                                 "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+        //                                         "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+        //                                 "</select>"+
+        //                             "</td>" +
+        //                             "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                         }
+
+        //                     }
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     // $(".licV").text('');
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //             },
+        //             error: function() {
+        //                 alert("La requête ");
+        //             },
+        //             dataType: "text"
+        //         });
+                
+        //     }
+        //     else if (typeVente == '2' && typeClient == '') {
+        //         var designation = $("#ajouterProdFormEt"+idPanier+" .typeahead li.active").text();
+        //         tab = designation.split(' => ');
+        //         designation = tab[0] || $("#panier_"+idPanier).val();
+        //         $.ajax({
+        //             url: "ajax/vendreLigneAjax.php",
+        //             method: "POST",
+        //             data: {
+        //                 operation: 17,
+        //                 designation: designation,
+        //                 idPagnet: idPanier
+        //             },
+        //             success: function(data) {
+        //                 result = data.split('<>'); 
+        //                 if (result[0] == 1) {
+        //                     var depots = JSON.parse(result[12]);
+        //                     var options = '';
+        //                     $.each(depots, function(idx, depot) {
+        //                         options += "<option value='"+depot[0]+"§"+result[5]+"§"+idPanier+"§1'>"+depot[1]+"</option>";
+        //                     });
+        //                     var ligne = "<tr>" +
+        //                         "<td>" + result[2] + "</td>" +
+        //                         "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteET(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 100%' type='number' ></input></td>" +
+        //                         "<td><select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStockET(this.value)' >" +
+        //                                     "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"§1'>"+result[7]+"</option>"+
+        //                                     "<option value='Demi Gros§"+result[5]+"§"+idPanier+"§2'>Demi Gros</option>"+
+        //                                     "<option value='Piece§"+result[5]+"§"+idPanier+"§1'>Piece</option>"+
+        //                             "</select>"+
+        //                         "</td>" +
+        //                         "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 100%' type='number'></input></td>" +
+        //                         "<td><select id='depot"+result[5]+"' class='form-control' onchange='modif_Depot(this.value)' >" +
+        //                                     "<option value='"+result[10]+"§"+result[5]+"§"+idPanier+"§1'>"+result[11]+"</option>"+options+""+
+        //                             "</select>"+
+        //                         "</td>" +
+        //                         "<td><button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                         "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                         "</button>" +
+        //                         "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier" + idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //                 if (result[0] == 2) {
+        //                     window.location.reload();
+        //                 }
+        //                 if (result[0] == 3) {
+        //                     $("#qte_stock").text(result[1]);
+        //                     $('#msg_info_js').modal('show');
+        //                     $("#panier_"+idPanier).val('');
+        //                 }
+        //             },
+        //             error: function() {
+        //                 alert("La requête ");
+        //             },
+        //             dataType: "text"
+        //         });
+                
+        //     }
+        //     else if (typeVente == '3' && typeClient == '') {
+        //         var designation = $("#ajouterProdFormPh"+idPanier+" .typeahead li.active").text();
+        //         tab = designation.split(' => ');
+        //         designation = tab[0] || $("#panier_"+idPanier).val();
+        //         $.ajax({
+        //             url: "ajax/vendreLigneAjax.php",
+        //             method: "POST",
+        //             data: {
+        //                 operation: 6,
+        //                 designation: designation,
+        //                 idPagnet: idPanier
+        //             },
+        //             success: function(data) {
+        //                 result = data.split('<>');
+        //                 if (result[0] == 1) {
+        //                     if (result[7] == 9) {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td>Montant</td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     } else {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     }
+
+        //                     $("#tablePanier"+idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //                 if (result[0] == 2) {
+
+        //                     $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+        //                         reference = $(tr).find('td:eq(0)').text();
+        //                         if (reference != '' && reference == result[2]) {
+        //                             $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+        //                             $("#panier_"+idPanier).val('');
+        //                             $("#somme_Total" + idPanier).text(result[6]);
+        //                             $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                         }
+        //                     });
+        //                 }
+        //                 if (result[0] == 3) {
+        //                     $("#qte_stock").text(result[1]);
+        //                     $('#msg_info_js').modal('show');
+        //                     $("#panier_"+idPanier).val('');
+        //                 }
+        //                 if (result[0] == 4) {
+        //                     var ligne = "<tr>" +
+        //                     "<td>" + result[2] + "</td>" +
+        //                     "<td><input class='form-control' onkeyup='modif_QuantiteSDP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+        //                     "<td>" + result[3] + "</td>" +
+        //                     "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                     "<td>" +
+        //                     "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+        //                     "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                     "</button>" +
+        //                     "</td>" +
+        //                     "</tr>";
+
+        //                     $("#tablePanier"+idPanier).prepend(ligne);
+        //                     $("#panier_"+idPanier).val('');
+        //                     $("#somme_Total" + idPanier).text(result[6]);
+        //                     $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+        //                 }
+        //             },
+        //             error: function() {
+        //             // alert("La requête ");
+        //             },
+        //             dataType: "text"
+        //         });
+        //     }
+        //     else if (typeVente == '4' && typeClient == '') {
+        //         var designation = $("#ajouterProdFormMutuelle"+idMutuellePagnet+" .typeahead li.active").text();
+        //         tab = designation.split(' => ');
+        //         designation = tab[0] || $("#panier_"+idMutuellePagnet).val();
+        //         $.ajax({
+        //             url: "ajax/vendreLigneAjax.php",
+        //             method: "POST",
+        //             data: {
+        //                 operation: 21,
+        //                 designation: designation,
+        //                 idMutuellePagnet: idMutuellePagnet
+        //             },
+        //             success: function(data) {
+        //                 result = data.split('<>');
+        //                 if (result[0] == 1) {
+        //                     if (result[7] == 9) {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td>Montant</td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     } else {
+        //                         var ligne = "<tr>" +
+        //                             "<td>" + result[2] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+        //                             "<td>" + result[3] + "</td>" +
+        //                             "<td><input class='form-control' onkeyup='modif_Prix_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+        //                             "<td>" +
+        //                             "<button type='button' onclick='retour_Produit_Mutuelle(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+        //                             "<span class='glyphicon glyphicon-remove'></span>Retour" +
+        //                             "</button>" +
+        //                             "</td>" +
+        //                             "</tr>";
+        //                     }
+
+        //                     $('#tableMutuelle'+idMutuellePagnet).prepend(ligne);
+        //                     $("#panier_"+idMutuellePagnet).val('');
+        //                     $("#somme_Total" + idMutuellePagnet).text(result[6]);
+        //                     $("#somme_Apayer" + idMutuellePagnet).text(result[6]/2);
+        //                     $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[7]) /100 ));
+        //                 }
+        //                 if (result[0] == 2) {
+
+        //                     $('#tableMutuelle'+idMutuellePagnet+' tr').each(function(row, tr) {
+        //                         reference = $(tr).find('td:eq(0)').text();
+        //                         if (reference != '' && reference == result[2]) {
+        //                             $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+        //                             $("#panier_"+idMutuellePagnet).val('');
+        //                             $("#somme_Total" + idMutuellePagnet).text(result[6]);
+        //                             $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[8]) /100 ));
+        //                         }
+        //                     });
+        //                 }
+        //                 if (result[0] == 3) {
+        //                     $("#qte_stock").text(result[1]);
+        //                     $('#msg_info_js').modal('show');
+        //                     $("#panier_"+idMutuellePagnet).val('');
+        //                 }
+                    
+        //             },
+        //             error: function() {
+        //                 alert("La requête ");
+        //             },
+        //             dataType: "text"
+        //         });
+                
+        //     }
+
+        //     if(typeClient == 'simple'){
+        //         var text =  $("#factForm .typeahead li.active").text() || $("#factFormM .typeahead li.active").text();
+        //         tab = text.split(' . ');
+        //         idClient = tab[0];
+        //         $.ajax({
+        //             url: "ajax/vendreLigneAjax.php",
+        //             method: "POST",
+        //             data: {
+        //                 operation: 27,
+        //                 idClient: idClient,
+        //                 idPanier: idPanier,
+        //                 typeData: typeData
+        //             },    
+        //             dataType: "text",
+        //             success: function(data) {
+        //                 $("#clientInput"+idPanier).val(tab[1]);
+        //             },
+        //             error: function() {
+        //                 alert("La requête ss");
+        //             }
+        //         });
+        //         typeClient = '';
+
+        //     }else if(typeClient == 'mutuelle'){
+        //         var client = $(this).text();
+        //         $.ajax({
+        //             url: 'ajax/vendreLigneAjax.php',
+        //             method: 'POST',
+        //             data: {
+        //                 operation: 24,
+        //                 client: client,
+        //                 idMutuellePagnet : idMutuellePagnet
+        //             },
+        //             success: function(data) {
+        //                 $("#clientMutuelle"+idMutuellePagnet).val(client);
+        //             },
+        //             dataType: 'text'
+        //         });
+        //         typeClient = '';
+        //     }
+
+        //     // idFormParent=$("#panier_"+idPanier).parent().attr("id");
+        //     // // alert(idFormParent+'/////////')
+        //     // setTimeout(() => {            
+        //     //     $('#'+idFormParent+' .typeahead').remove()
+        //     // }, 500);
+        // });
+    /** Fin click sur typeahead*/
+});
+
+    /** Début click sur typeahead*/    
+    $(document).on('click', '.typeahead li a[class="dropdown-item"]', function(e) {
+        e.preventDefault();
+    // function aClick() {
+        // $('a[class="dropdown-item"]').on('click', function() {
+            // alert(12)
+        typeVente = $("#typeVente").val() || $("#typeVenteM").val();
+        if (typeVente == '1' && typeClient == '') {                    
+            var designation = $("#ajouterProdFormB"+idPanier+" .typeahead li.active").text();
+            tab = designation.split(' => ');
+            designation = tab[0] || $("#panier_"+idPanier).val();
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 15, 
+                    designation: designation,
+                    idPagnet: idPanier
+                },
+                success: function(data) {
+                    result = data.split('<>');  
+                    if (result[0] == 1) {
+                        if (result[7] == 9) {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td>Montant</td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        } 
+                        else {
+                            if(result[7]!="Article" && result[7]!="article"){
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+                                "<td>" +
+                                    "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                            "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                            "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                            }
+                            else{
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+                                "<td>" +
+                                    "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                            "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><input disabled='true' class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                            }
+                        }
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                        var lcd=$("#lcd_Machine").val();
+                        if(lcd==1){
+                            var nd_Qte=1;
+                            var nd_Prix=result[4];
+                            $.ajax({
+                                url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                type: "GET", // data type (can be get, post, put, delete)
+                                data: { 
+                                    "quantite": nd_Qte, 
+                                    "prix": nd_Prix,
+                                }, // data in json format
+                                async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                success: function(response) {
+                                    console.log(response);
+                                },
+                                
+                            });
+                        }
+                    }
+                    if (result[0] == 2) {
+                        $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+                            reference = $(tr).find('td:eq(0)').text();
+                            if (reference != '' && reference == result[2]) {
+                                $(tr).find('td:eq(1)').html("<input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='" + result[9] + "' style='width: 30%' type='number' ></input>");
+                                // $(".licV").text('');
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                                valTotal=result[6] - $("#val_remise" + idPanier).val();
+                                valApayer=result[10] - $("#val_remise" + idPanier).val();
+                                $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                                $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                                var lcd=$("#lcd_Machine").val();
+                                if(lcd==1){
+                                    var nd_Qte=result[9];
+                                    var nd_Prix=result[4];
+                                    $.ajax({
+                                        url : "http://localhost:8080/app.js", // Url of backend (can be python, php, etc..)
+                                        type: "GET", // data type (can be get, post, put, delete)
+                                        data: { 
+                                            "quantite": nd_Qte, 
+                                            "prix": nd_Prix,
+                                        }, // data in json format
+                                        async : false, // enable or disable async (optional, but suggested as false if you need to populate data afterwards)
+                                        success: function(response) {
+                                            console.log(response);
+                                        },
+                                        
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    if (result[0] == 3) {
+                        $("#qte_stock").text(result[1]);
+                        $('#msg_info_js').modal('show');
+                        $("#panier_"+idPanier).val('');
+                    }
+                    if(result[0]== 4){
+                        var ligne = "<tr>" +
+                        "<td>" + result[2] + "</td>" +
+                        "<td><input class='form-control' onkeyup='modif_QuantiteSD(this.value," + result[5] + "," + idPanier + ")'  id='ligne"+result[5]+"'  value='1' style='width: 30%' type='number' ></input></td>" +
+                        "<td>" +result[7]+ "</td>" +
+                        "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                    }
+                    if(result[0]== 5){
+                        var ligne = "<tr>" +
+                        "<td><input class='form-control' style='width: 100%'  type='text' value='" + result[2] + "' onkeyup='modif_DesignationBon(this.value," + result[5] + "," + idPanier + ")' /></td>" +
+                                // "<td>" + result[2] + "</td>" +
+                        "<td>Montant</td>" +
+                        "<td>Especes</td>" +
+                        "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                    }
+                    if(result[0]== 6){
+                        window.location.reload();
+                    }
+                    if(result[0]== 7){
+                        var ligne = "<tr>" +
+                        "<td><input class='form-control' style='width: 100%'  type='text' value='" + result[2] + "' onkeyup='modif_DesignationBon(this.value," + result[5] + "," + idPanier + ")' /></td>" +
+                        "<td>Montant</td>" +
+                        "<td>Espece</td>" +
+                        "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                    }
+                    if(result[0]== 8){
+                        var ligne = "<tr>" +
+                        "<td>" + result[2] + "</td>" +
+                        "<td>" +result[4]+ "</td>" +
+                        "<td>" +result[3]+ "</td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                    }
+                    if (result[0] == 10) {
+                        if (result[7] == 9) {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td>Montant</td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 30%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        } 
+                        else {
+
+                            if(result[7]!="Article" && result[7]!="article"){
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 30%' type='number' ></input></td>" +
+                                "<td>" +
+                                    "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                            "<option id='default"+result[5]+"' value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                            "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"'>"+result[7]+"</option>"+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><input  class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                            }
+                            else{
+                                var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteP(this.value," + result[5] + "," + idPanier + ",1)' value='1' style='width: 30%' type='number' ></input></td>" +
+                                "<td>" +
+                                    "<select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStock(this.value)' >" +
+                                            "<option value='Article§"+result[5]+"§"+idPanier+"'>Article</option>"+
+                                    "</select>"+
+                                "</td>" +
+                                "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                            }
+
+                        }
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        // $(".licV").text('');
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                        valTotal=result[6] - $("#val_remise" + idPanier).val();
+                        valApayer=result[10] - $("#val_remise" + idPanier).val();
+                        $("#somme_TotalCN" + idPanier).text(valTotal.toFixed(2));
+                        $("#somme_ApayerCN" + idPanier).text(valApayer.toFixed(2));
+                    }
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+            // $("#panier_"+idPanier).html('')
+            idFormParent=$("#panier_"+idPanier).parent().attr("id");
+            // alert(idFormParent+'/////////')
+            // setTimeout(() => {            
+            $('#'+idFormParent+' .typeahead').html('')
+        }
+        else if (typeVente == '2' && typeClient == '') {
+            var designation = $("#ajouterProdFormEt"+idPanier+" .typeahead li.active").text();
+            tab = designation.split(' => ');
+            designation = tab[0] || $("#panier_"+idPanier).val();
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 17,
+                    designation: designation,
+                    idPagnet: idPanier
+                },
+                success: function(data) {
+                    result = data.split('<>'); 
+                    if (result[0] == 1) {
+                        var depots = JSON.parse(result[12]);
+                        var options = '';
+                        $.each(depots, function(idx, depot) {
+                            options += "<option value='"+depot[0]+"§"+result[5]+"§"+idPanier+"§1'>"+depot[1]+"</option>";
+                        });
+                        var ligne = "<tr>" +
+                            "<td>" + result[2] + "</td>" +
+                            "<td><input class='form-control' id='ligne"+result[5]+"' onkeyup='modif_QuantiteET(this.value," + result[5] + "," + idPanier + "," + result[8]+" )' value='1' style='width: 100%' type='number' ></input></td>" +
+                            "<td><select id='uniteVente"+result[5]+"' class='form-control' onchange='modif_UniteStockET(this.value)' >" +
+                                        "<option value='"+result[7]+"§"+result[5]+"§"+idPanier+"§1'>"+result[7]+"</option>"+
+                                        "<option value='Demi Gros§"+result[5]+"§"+idPanier+"§2'>Demi Gros</option>"+
+                                        "<option value='Piece§"+result[5]+"§"+idPanier+"§1'>Piece</option>"+
+                                "</select>"+
+                            "</td>" +
+                            "<td><input class='form-control' id='prixUniteStock"+result[5]+"' onkeyup='modif_Prix(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 100%' type='number'></input></td>" +
+                            "<td><select id='depot"+result[5]+"' class='form-control' onchange='modif_Depot(this.value)' >" +
+                                        "<option value='"+result[10]+"§"+result[5]+"§"+idPanier+"§1'>"+result[11]+"</option>"+options+""+
+                                "</select>"+
+                            "</td>" +
+                            "<td><button type='button' onclick='retour_Produit(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                            "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                            "</button>" +
+                            "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier" + idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                    }
+                    if (result[0] == 2) {
+                        window.location.reload();
+                    }
+                    if (result[0] == 3) {
+                        $("#qte_stock").text(result[1]);
+                        $('#msg_info_js').modal('show');
+                        $("#panier_"+idPanier).val('');
+                    }
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+            $("#panier_"+idPanier).html('')
+            
+        }
+        else if (typeVente == '3' && typeClient == '') {
+            var designation = $("#ajouterProdFormPh"+idPanier+" .typeahead li.active").text();
+            tab = designation.split(' => ');
+            designation = tab[0] || $("#panier_"+idPanier).val();
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 6,
+                    designation: designation,
+                    idPagnet: idPanier
+                },
+                success: function(data) {
+                    result = data.split('<>');
+                    if (result[0] == 1) {
+                        if (result[7] == 9) {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td>Montant</td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        } else {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        }
+
+                        $("#tablePanier"+idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                    }
+                    if (result[0] == 2) {
+
+                        $("#tablePanier"+idPanier+" tr").each(function(row, tr) {
+                            reference = $(tr).find('td:eq(0)').text();
+                            if (reference != '' && reference == result[2]) {
+                                $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_PhP(this.value," + result[5] + "," + idPanier + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+                                $("#panier_"+idPanier).val('');
+                                $("#somme_Total" + idPanier).text(result[6]);
+                                $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                            }
+                        });
+                    }
+                    if (result[0] == 3) {
+                        $("#qte_stock").text(result[1]);
+                        $('#msg_info_js').modal('show');
+                        $("#panier_"+idPanier).val('');
+                    }
+                    if (result[0] == 4) {
+                        var ligne = "<tr>" +
+                        "<td>" + result[2] + "</td>" +
+                        "<td><input class='form-control' onkeyup='modif_QuantiteSDP(this.value," + result[5] + "," + idPanier + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                        "<td>" + result[3] + "</td>" +
+                        "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idPanier + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                        "<td>" +
+                        "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idPanier + ")'	 class='btn btn-warning pull-right'>" +
+                        "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>";
+
+                        $("#tablePanier"+idPanier).prepend(ligne);
+                        $("#panier_"+idPanier).val('');
+                        $("#somme_Total" + idPanier).text(result[6]);
+                        $("#somme_Apayer" + idPanier).text(result[6] - $("#val_remise" + idPanier).val());
+                    }
+                },
+                error: function() {
+                // alert("La requête ");
+                },
+                dataType: "text"
+            });
+            $("#panier_"+idPanier).html('')
+        }
+        else if (typeVente == '4' && typeClient == '') {
+            var designation = $("#ajouterProdFormMutuelle"+idMutuellePagnet+" .typeahead li.active").text();
+            tab = designation.split(' => ');
+            designation = tab[0] || $("#panier_"+idMutuellePagnet).val();
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 21,
+                    designation: designation,
+                    idMutuellePagnet: idMutuellePagnet
+                },
+                success: function(data) {
+                    result = data.split('<>');
+                    if (result[0] == 1) {
+                        if (result[7] == 9) {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td>Montant</td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix_Ph(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_ProduitPh(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        } else {
+                            var ligne = "<tr>" +
+                                "<td>" + result[2] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='1' style='width: 70%' type='number' ></input></td>" +
+                                "<td>" + result[3] + "</td>" +
+                                "<td><input class='form-control' onkeyup='modif_Prix_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[4] + "' style='width: 70%' type='number'></input></td>" +
+                                "<td>" +
+                                "<button type='button' onclick='retour_Produit_Mutuelle(" + result[5] + "," + idMutuellePagnet + ")'	 class='btn btn-warning pull-right'>" +
+                                "<span class='glyphicon glyphicon-remove'></span>Retour" +
+                                "</button>" +
+                                "</td>" +
+                                "</tr>";
+                        }
+
+                        $('#tableMutuelle'+idMutuellePagnet).prepend(ligne);
+                        $("#panier_"+idMutuellePagnet).val('');
+                        $("#somme_Total" + idMutuellePagnet).text(result[6]);
+                        $("#somme_Apayer" + idMutuellePagnet).text(result[6]/2);
+                        $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[7]) /100 ));
+                    }
+                    if (result[0] == 2) {
+
+                        $('#tableMutuelle'+idMutuellePagnet+' tr').each(function(row, tr) {
+                            reference = $(tr).find('td:eq(0)').text();
+                            if (reference != '' && reference == result[2]) {
+                                $(tr).find('td:eq(1)').html("<input class='form-control' onkeyup='modif_Quantite_Mutuelle(this.value," + result[5] + "," + idMutuellePagnet + ")' value='" + result[7] + "' style='width: 70%' type='number'></input>");
+                                $("#panier_"+idMutuellePagnet).val('');
+                                $("#somme_Total" + idMutuellePagnet).text(result[6]);
+                                $("#somme_Apayer" + idMutuellePagnet).text(result[6] - ((result[6] * result[8]) /100 ));
+                            }
+                        });
+                    }
+                    if (result[0] == 3) {
+                        $("#qte_stock").text(result[1]);
+                        $('#msg_info_js').modal('show');
+                        $("#panier_"+idMutuellePagnet).val('');
+                    }
+                
+                },
+                error: function() {
+                    alert("La requête ");
+                },
+                dataType: "text"
+            });
+            $("#panier_"+idMutuellePagnet).html('')
+            
+        }
+
+        if(typeClient == 'simple'){
+            var text =  $("#factForm .typeahead li.active").text() || $("#factFormM .typeahead li.active").text();
+            tab = text.split(' . ');
+            idClient = tab[0];
+            $.ajax({
+                url: "ajax/vendreLigneAjax.php",
+                method: "POST",
+                data: {
+                    operation: 27,
+                    idClient: idClient,
+                    idPanier: idPanier,
+                    typeData: typeData
+                },    
+                dataType: "text",
+                success: function(data) {
+                    $("#clientInput"+idPanier).val(tab[1]);
+                    $("#avanceInput"+idPanier).focus();
+                },
+                error: function() {
+                    alert("La requête ss");
+                }
+            });
+            typeClient = '';
+
+        }else if(typeClient == 'mutuelle'){
+            var client = $(this).text();
+            $.ajax({
+                url: 'ajax/vendreLigneAjax.php',
+                method: 'POST',
+                data: {
+                    operation: 24,
+                    client: client,
+                    idMutuellePagnet : idMutuellePagnet
+                },
+                success: function(data) {
+                    $("#clientMutuelle"+idMutuellePagnet).val(client);
+                },
+                dataType: 'text'
+            });
+            typeClient = '';
+        }
+    });
+    /** Fin click sur typeahead*/
+$(function() {
+    $(".terminerMutuelle").on("click", function(e) {
+        e.preventDefault();
+        idMutuellePagnet = $(this).attr('data-idPanier')
+        codeBeneficiaire = $("#codeBeneficiaire").val();
+        numeroRecu = $("#numeroRecu").val();
+        dateRecu = $("#dateRecu").val();
+        nomAdherant = $("#clientMutuelle"+idMutuellePagnet).val();
+        compte = $("#compte"+idMutuellePagnet).val();
+        clientInput=$('#clientInput'+idMutuellePagnet).val()
+        avanceInput=$('#avanceInput'+idMutuellePagnet).val()
+        compteAvance=$('#compteAvance'+idMutuellePagnet).val()
+
+        $.ajax({
+            url: 'ajax/vendreLigneAjax.php',
+            method: 'POST',
+            data: {
+                operation: 28,
+                idMutuellePagnet: idMutuellePagnet,
+                codeBeneficiaire: codeBeneficiaire,
+                numeroRecu : numeroRecu,
+                nomAdherant : nomAdherant,
+                compte : compte,
+                dateRecu : dateRecu,
+                clientInput : clientInput,
+                avanceInput : avanceInput,
+                compteAvance : compteAvance
+            },
+            success: function(data) {
+                if (data == '') {
+                    window.location.reload();
+                } else {                     
+                    $('.codeBarreLigneMutuelle').focus()   
+                    $('.cache_btn_Terminer').show();   
+                    $('#p_msg_info_TerminerImputation').html(data)
+                    $('#msg_info_TerminerImputation').modal('show')                  
+                }
+            },
+            error: function(err) {
+                alert(err)
+            },
+            dataType: 'text'
+        });
+        // alert(idMutuellePagnet+"/88")        
+    });
+});
+
+$(function() {
+    // alert(11111)
+    $(".terminerMutuelleBon").on("click", function(e) {
+        e.preventDefault();
+        idMutuellePagnet = $(this).attr('data-idPanier')
+        nomMutuelle = $("#mutuellePagnet"+idMutuellePagnet).val();
+        codeBeneficiaire = $("#codeBeneficiaire").val();
+        numeroRecu = $("#numeroRecu").val();
+        dateRecu = $("#dateRecu").val();
+        codeAdherant = $("#codeAdherantMutuelle").val();
+        idClientAvoir = $("#idClientAvoir"+idMutuellePagnet).val();
+        nomAdherant = $("#clientMutuelle"+idMutuellePagnet).val();
+        avanceInput=$('#avanceInput'+idMutuellePagnet).val()
+        compteAvance=$('#compteAvance'+idMutuellePagnet).val()
+
+        // alert(codeBeneficiaire+"/"+numeroRecu+"/"+dateRecu+"/"+nomAdherant+"/"+codeAdherant)
+
+        // alert(idClientAvoir)
+        $.ajax({
+            url: 'ajax/vendreLigneAjax.php',
+            method: 'POST',
+            data: {
+                operation: 29,
+                idMutuellePagnet: idMutuellePagnet,
+                nomMutuelle : nomMutuelle,
+                codeBeneficiaire: codeBeneficiaire,
+                codeAdherant : codeAdherant,
+                numeroRecu : numeroRecu,
+                nomAdherant : nomAdherant,
+                idClientAvoir : idClientAvoir,
+                dateRecu : dateRecu,
+                avanceInput : avanceInput,
+                compteAvance : compteAvance
+            },
+            success: function(data) {
+                // alert(data)
+                if (data == '') {
+                    window.location.reload();
+                } else {                       
+                    $('.codeBarreLigneMutuelle').focus()   
+                    $('.cache_btn_Terminer').show();  
+                    $('#p_msg_info_TerminerImputation').html(data)
+                    $('#msg_info_TerminerImputation').modal('show')                    
+                }
+            },
+            error: function(err) {
+                alert(err)
+            },
+            dataType: 'text'
+        });       
+    });
+    
+    $(".avanceInput").keyup(function() {
+        var avance = $(this).val();        
+        var idPanier = $(this).attr('data-idPanier');        
+        var total = $("#somme_Apayer"+idPanier).text();
+        // console.log(total);
+        // alert(1)
+        if (avance > parseInt(total)) {
+            // alert(2)
+            $('#avanceInput'+idPanier).blur();
+            $('#avanceInput'+idPanier).val('');
+            $('#msg_info_avance').modal('show');
+
+        }
+    });
+    
+    $(document).on('click', 'li[class="liC_Ph"]', function() {
+        var categorie = $(this).text();
+        $("#categoriePh").val(categorie);
+        $("#reponseCategorie").html(' ');
+        //  window.location.href = "insertionLigneLight.php?produit="+tab[0];
+    });
+
+    $(".modeEditionBtn").on('click', function() {
+        var id = $(this).attr('id');
+        result = id.split('-');
+        idPanier = result[1]
+        
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 30,
+                idPanier: idPanier
+            },
+            dataType: "text",
+            success: function(data) {
+                // alert(data)
+                // $("#clientInput"+idPanier).val('');
+                // $("#avanceInput"+idPanier).val('');
+                if (data == 1) {
+                    window.location.reload();
+                } else {
+                    $('#msg_edit_pagnet').modal('show');
+                }
+
+            },
+            error: function() {
+                alert("La requête ss");
+            }
+        });
+    });
+
+    $(".modeEditionBtnET").on('click', function() {
+        var id = $(this).attr('id');
+        result = id.split('-');
+        idPanier = result[1]
+        
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 31,
+                idPanier: idPanier
+            },
+            dataType: "text",
+            success: function(data) {
+                // alert(data)
+                // $("#clientInput"+idPanier).val('');
+                // $("#avanceInput"+idPanier).val('');
+                if (data == 1) {
+                    window.location.reload();
+                } else {
+                    $('#msg_edit_pagnet').modal('show');
+                }
+
+            },
+            error: function() {
+                alert("La requête ss");
+            }
+        });
+    });
+
+    $(".modeEditionBtnPh").on('click', function() {
+        var id = $(this).attr('id');
+        result = id.split('-');
+        idPanier = result[1]
+        // alert(idPanier);
+        
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 32,
+                idPanier: idPanier
+            },
+            dataType: "text",
+            success: function(data) {
+                // alert(data)closeShowInfoChange
+                // $("#clientInput"+idPanier).val('');
+                // $("#avanceInput"+idPanier).val('');
+                if (data == 1) {
+                    window.location.reload();
+                } else {
+                    $('#msg_edit_pagnet').modal('show');
+                }
+
+            },
+            error: function() {
+                alert("La requête ss");
+            }
+        });
+    });
+
+    $("#closeShowInfoChange").on('click', function() {
+        
+        // alert(idPanier);
+        
+        $.ajax({
+            url: "ajax/vendreLigneAjax.php",
+            method: "POST",
+            data: {
+                operation: 33
+            },
+            dataType: "text",
+            success: function(data) {
+                // alert(data)
+                // $("#clientInput"+idPanier).val('');
+                // $("#avanceInput"+idPanier).val('');
+                // if (data == 1) {
+                //     window.location.reload();
+                // } else {
+                //     $('#msg_edit_pagnet').modal('show');
+                // }
+
+            },
+            error: function() {
+                alert("La requête ss");
+            }
+        });
+    });
+});
+
+/**Debut modifier Tva Designation Pharmacie**/
+function mdf_Tva(idDesignation,ordre) {
+    $.ajax({
+        url: "ajax/ajouterLigneAjax.php",
+        method: "POST",
+        data: {
+            operation: 15,
+            idDesignation: idDesignation,
+        },
+        success: function(data) {
+            $('#idStock_Spm').val('');
+            $('#ordre_Spm').val('');
+            tab = data.split('<>');
+            if (tab[0] == 1) {
+                $('.tabDesign tr').each(function(row, tr) {
+                    ligne = $(tr).find('td:eq(0)').text();
+                    if (ligne != '' && ligne == ordre) {
+                        $(tr).find('td:eq(1)').html(tab[1]);
+                        $(tr).find('td:eq(2)').html(tab[2]);
+                        $(tr).find('td:eq(3)').html(tab[3]);
+                        $(tr).find('td:eq(4)').html(tab[4]);
+                        $(tr).find('td:eq(5)').html(tab[5]);
+                        $(tr).find('td:eq(6)').html(tab[6]);
+                        $(tr).find('td:eq(7)').html("En cours ...");
+                    }
+                });
+            }
+            if (tab[0] == 2) {
+                $('.tabDesign tr').each(function(row, tr) {
+                    ligne = $(tr).find('td:eq(0)').text();
+                    if (ligne != '' && ligne == ordre) {
+                        $(tr).find('td:eq(1)').html(tab[1]);
+                        $(tr).find('td:eq(2)').html(tab[2]);
+                        $(tr).find('td:eq(3)').html(tab[3]);
+                        $(tr).find('td:eq(4)').html(tab[4]);
+                        $(tr).find('td:eq(5)').html(tab[5]);
+                        $(tr).find('td:eq(6)').html(tab[6]);
+                        $(tr).find('td:eq(7)').html("En cours ...");
+                    }
+                });
+            }
+            if (tab[0] == 3) {
+                $('.tabDesign tr').each(function(row, tr) {
+                    ligne = $(tr).find('td:eq(0)').text();
+                    if (ligne != '' && ligne == ordre) {
+                        $(tr).find('td:eq(1)').html(tab[1]);
+                        $(tr).find('td:eq(2)').html(tab[2]);
+                        $(tr).find('td:eq(3)').html(tab[3]);
+                        $(tr).find('td:eq(4)').html(tab[4]);
+                        $(tr).find('td:eq(5)').html(tab[5]);
+                        $(tr).find('td:eq(6)').html(tab[6]);
+                        $(tr).find('td:eq(7)').html(tab[7]);
+                        $(tr).find('td:eq(8)').html("En cours ...");
+                    }
+                });
+            }
+        },
+        error: function() {
+            alert("La requête ");
+        },
+        dataType: "text"
+    });
+}
+/**Fin modifier Tva Designation Pharmacie**/
+
+$(document).ready(function() {
+    //set initial state.
+    // alert(444)
+    // $('#check1').val($(this).is(':checked'));
+
+    $('#check1').change(function() {
+        if($(this).is(":checked")) {
+            // var returnVal = confirm("Are you sure?");
+            $(this).attr("checked", true);
+            $('#divMontantAvoir').show();
+            $('#montantAvoir').focus();
+            $('#divMatP').show();
+            $('#divNumCarnet').show();
+            $('#personnelDiv').hide();
+            $(this).val(1)
+        }else {
+            $('#divMontantAvoir').hide();
+            $('#divMatP').hide();
+            $('#divNumCarnet').hide();
+            $('#personnelDiv').show();
+            $(this).val(0)
+        }
+        // $('#check1').val($(this).is(':checked'));   
+        // $('#montantAvoir').hide(); 
+        // alert($(this).val())    
+    });
+    $('#check1_Mdf').change(function() {
+        if($(this).is(":checked")) {
+            // var returnVal = confirm("Are you sure?");
+            $(this).attr("checked", true);
+            $('#montantAvoir_Mdf').show();
+            $('#montantAvoir_Mdf').focus();
+            $('#personnelDiv_Mdf').hide();
+            $(this).val(1)
+        }else {
+            $('#montantAvoir_Mdf').hide();
+            $('#personnelDiv_Mdf').show();
+            $(this).val(0)
+        }
+        // $('#check1').val($(this).is(':checked'));   
+        // $('#montantAvoir').hide(); 
+        // alert($(this).val())    
+    });
+    
+    $(".numCarnet").keyup(function(e) {
+        e.preventDefault();
+        
+        
+    });
+});

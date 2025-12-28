@@ -1,0 +1,5 @@
+@media print {
+  span {
+    font-size: 14px;
+  }
+}

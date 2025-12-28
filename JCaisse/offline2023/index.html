@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html> 
+<html>
+    <head>
+
+        <link rel="shortcut icon" href="images/favicon.png">
+        
+        <link rel="stylesheet" href="css/bootstrap.css"/> 
+        
+        <script src="js/jquery-3.1.1.min.js"></script>
+        
+        <script src="js/bootstrap.js"></script>
+
+        <script src="js/script.js"></script>
+        
+        <script type="text/javascript" src="js/crypto-js.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        
+        <title>AUTHENTIFICATION</title>
+        
+        <style class="cp-pen-styles">/* Form */
+            .form {
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            max-width: 500px;
+            margin: 0 auto 100px;
+            padding: 30px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            text-align: center;
+            }
+            .form .thumbnail {
+            background: white;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            padding: 50px 30px;
+            border-top-left-radius: 100%;
+            border-top-right-radius: 100%;
+            border-bottom-left-radius: 100%;
+            border-bottom-right-radius: 100%;
+            border: 2px solid rgb(107, 230, 107);
+            box-sizing: border-box;
+            }
+            .form .thumbnail img {
+            display: block;
+            width: 100%;
+            }
+            .form input {
+            outline: 0;
+            background: #c0c0c0;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border: 2px solid rgb(107, 230, 107);
+            box-sizing: border-box;
+            font-size: 15px;
+            }
+            .form button {
+            outline: 0;
+            background: black;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            color: #FFFFFF;
+            font-size: 15px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+            }
+            .form .message {
+            margin: 15px 0 0;
+            color: #b3b3b3;
+            font-size: 12px;
+            }
+            .form .message a {
+            color: #EF3B3A;
+            text-decoration: none;
+            }
+            .form .register-form {
+            display: none;
+            }
+        
+            .container {
+            position: relative;
+            z-index: 1;
+            max-width: 300px;
+            margin: 0 auto;
+            }
+            .container:before, .container:after {
+            content: "";
+            display: block;
+            clear: both;
+            }
+            .container .info {
+            margin: 50px auto;
+            text-align: center;
+            }
+            .container .info h1 {
+            margin: 0 0 15px;
+            padding: 0;
+            font-size: 36px;
+            font-weight: 300;
+            color: #1a1a1a;
+            }
+            .container .info span {
+            color: #4d4d4d;
+            font-size: 12px;
+            }
+            .container .info span a {
+            color: #000000;
+            text-decoration: none;
+            }
+            .container .info span .fa {
+            color: #EF3B3A;
+            }
+        
+            /* END Form */
+            /* Demo Purposes */
+            body {
+            background: #c0c0c0;
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            }
+            body:before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: block;
+            background: #c0c0c0;
+            width: 100%;
+            height: 100%;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <div id="msg"></div>
+        <div class="container">
+            <div class="info"></div>
+        </div>
+        <div class="form">
+            <div class="thumbnail" style="width: 250px;height: 250px;"><img src="images/jcaisse.jpeg"/></div>
+            <form class="login-form" id="sendform" role="form"  method="post" action="insertionLigneLight.html">
+                <div style="display:none" class="form-group">
+                    <input type="text"  id="lcd" name="lcd" />
+                </div>
+                <input type="text" name="email" id="email" placeholder="Email" maxlength="50"/>
+                <input type="password" name="motdepasse" id="motdepasse" placeholder="Mot de passe" maxlength="20"/>
+                <button type="submit" name="envoyer" data-dismiss="modal" id="connexion">Connexion</button>
+            </form>
+        </div>
+        <div class="modal fade msg_info" role="dialog">
+
+            <div class="modal-dialog">
+
+                
+
+                <div class="modal-content">
+
+                    <div class="modal-header panel-primary">
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        <h4 class="modal-title">Alerte</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>Login ou Mot de passe incorrect</p>
+
+                   </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                    </div>
+
+                    </div>
+
+            </div>
+
+        </div>
+
+        <script>
+            
+            var sendform=document.getElementById('sendform');
+
+            sendform.addEventListener('submit',(e) =>{
+                e.preventDefault();
+                var users=JSON.parse(localStorage.getItem("Boutique"));
+                //var user=[]; 
+
+                for(var i=users.length-1; 0<=i;i--){
+                    ch=users[i].email;
+                    users[i].email=ch.toLowerCase();
+                    
+                }
+                localStorage.setItem("Boutique", JSON.stringify(users)); 
+                
+                emailUser=document.getElementById('email').value;
+                if(emailUser==emailUser.toUpperCase()){
+
+                    emailUser=emailUser.toLowerCase();
+                    pwdlUser=document.getElementById('motdepasse').value;
+
+                    var searchUser=users.find(u=>u.email == emailUser && u.motdepasse == CryptoJS.SHA1(pwdlUser));
+                    if(searchUser){
+                        
+                        sessionStorage.setItem('iduserSession',searchUser.idutilisateur)
+                        //localStorage.setItem('iduser',searchUser.idutilisateur)
+                        sessionStorage.setItem('prenomSession',searchUser.prenom)
+                        sessionStorage.setItem('nomUserSession',searchUser.nom)                   
+                        sessionStorage.setItem('adresseUserSession',searchUser.adresse)
+                        sessionStorage.setItem('emailSession',searchUser.email)
+                        sessionStorage.setItem('telPortableSession',searchUser.telPortable)
+                        sessionStorage.setItem('telFixeSession',searchUser.telFixe)
+                        sessionStorage.setItem('profilSession',searchUser.profil)
+                        sessionStorage.setItem('creationBSession',searchUser.creationB)
+                        sessionStorage.setItem('passwordSession',searchUser.motdepasse)
+
+                        sessionStorage.setItem('idBoutiqueSession',searchUser.idBoutique)
+                        //localStorage.setItem('idBoutique',boutiques[i].idBoutique)
+                        
+                        sessionStorage.setItem('proprietaireSession',searchUser.proprietaire)
+                        sessionStorage.setItem('gerantSession',searchUser.gerant)
+                        sessionStorage.setItem('caissierSession',searchUser.caissier)
+                        sessionStorage.setItem('vendeurSession',searchUser.vendeur)
+                        sessionStorage.setItem('activerSession',searchUser.activer)
+
+                        //searchUser=boutiques.find(b=>b.idBoutique == sessionStorage.idBoutiqueSession);
+                        sessionStorage.setItem('nomBSession',searchUser.nomBoutique)
+                        sessionStorage.setItem('labelBSession',searchUser.labelB)
+                        sessionStorage.setItem('adresseBSession',searchUser.adresseBoutique)
+                        sessionStorage.setItem('typeSession',searchUser.type)
+                        sessionStorage.setItem('categorieSession',searchUser.categorie)
+                        sessionStorage.setItem('dateCBSession',searchUser.datecreation)
+                        sessionStorage.setItem('activerBSession',searchUser.activer)
+                        sessionStorage.setItem('caisseSession',searchUser.caisse)
+                        sessionStorage.setItem('telBoutiqueSession',searchUser.telephone)
+                        //localStorage.setItem('telephoneBoutique',searchUser.telephone)
+                        sessionStorage.setItem('RegistreComSession',searchUser.RegistreCom)
+                        sessionStorage.setItem('NineaSession',searchUser.Ninea)
+                        sessionStorage.setItem('enConfigurationSession',searchUser.enConfiguration)
+                        sessionStorage.setItem('vitrineSession',searchUser.vitrine)
+                        sessionStorage.setItem('importExpSession',searchUser.importExp);
+
+                        
+                        if(sessionStorage.proprietaireSession==1){
+                            window.location.href="/JCaisse/offline/accueil.html";
+                        }else{
+                            window.location.href="/JCaisse/offline/insertionLigneLight.html"; 
+                        }
+                                                    
+                                                                
+                    }
+                    else{
+                
+                    //alert('Erreur!!!!')
+                        $msg_info = "Login ou Mot de passe incorrect";
+
+                        $('.msg_info').modal('show');
+    
+                        document.getElementById('email').value=''
+                        document.getElementById('motdepasse').value=''
+                        
+                    }
+                
+                }else{
+                    emailUser=emailUser.toLowerCase();  
+                    pwdlUser=document.getElementById('motdepasse').value;
+
+                    var searchUser=users.find(u=>u.email == emailUser && u.motdepasse == CryptoJS.SHA1(pwdlUser));
+                    if(searchUser){
+                        
+                        sessionStorage.setItem('iduserSession',searchUser.idutilisateur)
+                        //localStorage.setItem('iduser',searchUser.idutilisateur)
+                        sessionStorage.setItem('prenomSession',searchUser.prenom)
+                        sessionStorage.setItem('nomUserSession',searchUser.nom)                   
+                        sessionStorage.setItem('adresseUserSession',searchUser.adresse)
+                        sessionStorage.setItem('emailSession',searchUser.email)
+                        sessionStorage.setItem('telPortableSession',searchUser.telPortable)
+                        sessionStorage.setItem('telFixeSession',searchUser.telFixe)
+                        sessionStorage.setItem('profilSession',searchUser.profil)
+                        sessionStorage.setItem('creationBSession',searchUser.creationB)
+                        sessionStorage.setItem('passwordSession',searchUser.motdepasse)
+
+                        sessionStorage.setItem('idBoutiqueSession',searchUser.idBoutique)
+                        //localStorage.setItem('idBoutique',boutiques[i].idBoutique)
+                        
+                        sessionStorage.setItem('proprietaireSession',searchUser.proprietaire)
+                        sessionStorage.setItem('gerantSession',searchUser.gerant)
+                        sessionStorage.setItem('caissierSession',searchUser.caissier)
+                        sessionStorage.setItem('vendeurSession',searchUser.vendeur)
+                        sessionStorage.setItem('activerSession',searchUser.activer)
+
+                        //searchUser=boutiques.find(b=>b.idBoutique == sessionStorage.idBoutiqueSession);
+                        sessionStorage.setItem('nomBSession',searchUser.nomBoutique)
+                        sessionStorage.setItem('labelBSession',searchUser.labelB)
+                        sessionStorage.setItem('adresseBSession',searchUser.adresseBoutique)
+                        sessionStorage.setItem('typeSession',searchUser.type)
+                        sessionStorage.setItem('categorieSession',searchUser.categorie)
+                        sessionStorage.setItem('dateCBSession',searchUser.datecreation)
+                        sessionStorage.setItem('activerBSession',searchUser.activer)
+                        sessionStorage.setItem('caisseSession',searchUser.caisse)
+                        sessionStorage.setItem('telBoutiqueSession',searchUser.telephone)
+                        //localStorage.setItem('telephoneBoutique',searchUser.telephone)
+                        sessionStorage.setItem('RegistreComSession',searchUser.RegistreCom)
+                        sessionStorage.setItem('NineaSession',searchUser.Ninea)
+                        sessionStorage.setItem('enConfigurationSession',searchUser.enConfiguration)
+                        sessionStorage.setItem('vitrineSession',searchUser.vitrine)
+                        sessionStorage.setItem('importExpSession',searchUser.importExp);
+
+                        // date=new Date()
+                        // dateHier=formatDate(dateDhier(date))
+                        // datejour=date.toLocaleDateString("es-CL");
+                        // paniers=getPagnet()
+                        // lignes=getLigne()
+
+                        // var searchPaniers=[];
+                        // var searchLignes=[];
+                        // paniersDhier=paniers.filter(p =>p.datepagej==dateHier);
+                        // paniersDhaujourdhui=paniers.filter(p =>p.datepagej==datejour && p.verrouiller==1);
+                        // //alert(searchPaniers)
+                        // if(paniersDhier!=null){
+                            
+                        //     paniersDhierSynchronises=paniersDhier.filter(p =>p.verrouiller==1 && p.synchronise==1);
+                        //     paniersDhierNonSynchronises=paniersDhier.filter(p =>p.verrouiller==1 && p.synchronise==0);
+                        //     //alert(paniersDhierNonSynchronises.length)
+                        //     searchLignesDhaujourdhui=[] 
+                        //     if(paniersDhierSynchronises!=null){
+                        //         sauvegardePanier(paniersDhierSynchronises)
+
+                        //         for (var i = 0; i < paniersDhierSynchronises.length; i++) {
+                        //             searchLigne1=lignes.find(l =>l.idPagnet==paniersDhierSynchronises[i].idPagnet);
+                        //             searchLignes.push(searchLigne1)
+
+                        //         }
+
+                        //         sauvegardeLigne(searchLignes)
+
+                        //     }
+
+                        //     if(paniersDhierNonSynchronises.length!=0){
+                        //         //alert(1)
+                        //         if(paniersDhaujourdhui.length!=0){
+                        //             paniersDhaujourdhui.push(paniersDhierNonSynchronises)
+                        //             savePanier(paniersDhaujourdhui)
+                                    
+
+                        //             for (var i = 0; i < paniersDhaujourdhui.length; i++) {
+                        //                 searchLigne1=lignes.find(l =>l.idPagnet==paniersDhaujordhui[i].idPagnet);
+                        //                 searchLignesDhaujourdhui.push(searchLigne1)
+
+                        //             }
+
+                        //             saveLigne(searchLignesDhaujourdhui)
+                        //         }
+
+                        //     }else{
+                        //         savePanier(paniersDhaujourdhui)
+                        //         saveLigne(searchLignesDhaujourdhui)
+                        //         // if(paniersDhaujourdhui.length!=0){
+                        //         //     //paniersDhaujourdhui.push(paniersDhierNonSynchronises)
+                        //         //     savePanier(paniersDhaujourdhui)
+                        //         //     searchLignesDhaujourdhui=[] 
+
+                        //         //     for (var i = 0; i < paniersDhaujourdhui.length; i++) {
+                        //         //         searchLigne1=lignes.find(l =>l.idPagnet==paniersDhaujordhui[i].idPagnet);
+                        //         //         searchLignesDhaujourdhui.push(searchLigne1)
+
+                        //         //     }
+
+                        //         //     saveLigne(searchLignesDhaujourdhui)
+                        //         // }
+                        //     }
+                            
+                            
+                        // }
+                        if(sessionStorage.proprietaireSession==1){
+                            window.location.href="/JCaisse/offline/accueil.html";
+                        }else{
+                            window.location.href="/JCaisse/offline/insertionLigneLight.html"; 
+                        }
+                                                    
+                                                                
+                    }
+                    else{
+                
+                    //alert('Erreur!!!!')
+                        $msg_info = "Login ou Mot de passe incorrect";
+
+                        $('.msg_info').modal('show');
+    
+                        document.getElementById('email').value=''
+                        document.getElementById('motdepasse').value=''
+                        
+                    }
+                }
+            })
+
+            // $(document).on( "click", "#connexion", function (e){
+            //     if(!localStorage.idBoutique){ 
+            //         if(navigator.onLine==true){
+            //             window.location.href="/index.php"
+            //         }
+
+            //     }
+                
+            // });
+            
+            //var deconnexion=document.getElementById('deconnexion');
+            
+
+            // var auth=<div class="container" id="authentification">
+            //             <header>
+            //                 <table width="98%" align="center" border="0">
+            //                     <tr><td><center><img src="images/logojcaisse2.png"></center>
+            //                         <nav><ul><li></li></ul></nav>
+            //                     </td></tr>
+            //                 </table>	
+            //             </header>
+            //             <center>
+            //                 <section>
+            //                     <article><h3>Formulaire Authentification</h3>
+            //                         <table align="center" border="0">
+            //                             <form id="form" class="formulaire1" role="form"  method="post" action="index.php"><div class="form-group">
+            //                                 <tr><td><input type="email" class="inputbasic" placeholder="Email (*)" id="email" name="email" size="35" value="" required /></td></tr>
+            //                                 <tr><td><div class="help-block" id="helpEmail"></div></td></tr>
+            //                             </div><div class="form-group">
+            //                                 <tr><td><input type="password" class="inputbasic" placeholder="Mot de passe (*)" id="motdepasse" name="motdepasse" size="35" value="" required /></td></tr>
+            //                                 <tr><td><div class="help-block" id="helpMotdepasse"></div></td></tr>
+            //                             </div><tr><td align="center"><input type="submit" name="envoyer" value="Connexion  >>"></td></tr>
+            //                                 <tr><td align="center"><a href="inscription.php">Inscription</a><div id="apresEntre"></div>
+            //                             </form>
+            //                         </table></br>
+            //                     </article>
+            //                 </section>
+            //             </center>
+            //         </div>';
+            
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,205 @@
+<header class="noImpr" >
+
+    <div style="display:none;" >
+
+        <input type="number" id="lcd_Machine" name="lcd" value="" />
+
+    </div>
+
+    <div class="row" style="margin-bottom:2px;margin-left:2px">
+        <div class="col-sm-1 pull-center" >
+        <img class="img-thumbnail" src="images/logo.png"/>
+        </div>
+        <div class="col-sm-3 col-sm-offset-8 pull-center" style="border: 1px dotted black;border-radius: 7px;padding:14px" align="center" >
+        <span><b id="nomBoutique1"></b>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-inverse">
+    
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+
+                <span class="sr-only">Toggle navigation</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+            </button>
+            <a class="navbar-brand" href="#"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav menu">
+                <li><a href="accueil.html" data-dismiss="modal"  id="accueil"><b>ACCUEIL</b></a></li>
+                <!-- 
+                <li class="caissier"><a href="#" data-dismiss="modal" class="disabled" id="rapport"><b>RAPPORT</b></a></li><li class="dropdown">
+                    <a class="dropdown-toggle caissier" data-toggle="dropdown" href="#" id="cpt"><b>COMPTE</b><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-dismiss="modal" class="disabled"><span class="fa fa-" style="font-size:16px" id="listeoperation"></span> <b>LISTE DES OPERATIONS</b></a></li>
+                        <li><a href="#" data-dismiss="modal" class="disabled"><span class="fa fa-" style="font-size:16px" id="listecomptecompte"></span> <b>LISTE DES COMPTES</b></a></li>
+                    </ul>
+                </li> -->
+                <li class="dropdown offline">
+                    <a class="dropdown-toggl" data-toggle="dropdown" href="#"><b>CAISSE</b><span class="caret"></span></a>
+                    <ul class="dropdown-menu" >
+                        <li><a href="insertionLigneLight.html"><b>VENTES</b></a></li>
+                        <!-- <li><a href="#" data-dismiss="modal" class="caissier disabled" id="actualiser"><b>ACTUALISER</b></a></li>
+                            
+                        <li><a href="#" data-dismiss="modal" class="caissier disabled" id="journal"><b>JOURNAUX</b></a></li> -->
+                    </ul>
+                </li><li><a href="bon.html" data-dismiss="modal" class="offline"><b>CLIENTS</b></a></li> 
+                <!-- <li class="caissier"><a href="#" data-dismiss="modal" class="disabled" id="fournisseur"><b>FOURNISSEURS</b></a></li>
+                <li class="dropdown caissier" >
+                    <a class="dropdown-toggle caissier" data-toggle="dropdown" href="#"><b>STOCK</b><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-dismiss="modal" class="disabled" id="stock"><b>GESTION STOCK</b></a></li>
+                        <li><a href="#" data-dismiss="modal" class="disabled" id="inventaireI"><b>INVENTAIRE INTERMITENT</b></a></li>
+                        <li><a href="#" data-dismiss="modal" class="disabled" id="inventaireP"><b>INVENTAIRE PERMANENT</b></a></li> 
+                    </ul>
+                </li><li class="dropdown">
+                    <a class="dropdown-toggle caissier" data-toggle="dropdown" href="#"><b>CATALOGUE</b><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-dismiss="modal" class="caissier disabled" id="reference"><b>REFERENCES</b></a></li>
+                        <li><a href="#" data-dismiss="modal" class="caissier disabled" id="categorie"><b>CATEGORIES</b></a></li>
+                        <li><a href="#" data-dismiss="modal" id="initialisation"><b>INITIALISATION</b></a></li>
+                    </ul>
+                </li>				 -->
+            </ul> 
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>CONNEXION</b><span class="caret"></span></a>
+                    <ul class="dropdown-menu  menu" >
+                        <!-- <li class="caissier"><a style="background-color:#d5d8dc;">
+                            <form  method="post"  > --> 
+                                <!-- <input type="hidden" name="idBoutique"  value="74"  > -->
+                                <!-- <button type="submit" class="btn btn-success" name="btnChangerBoutique" id="btnChangerBoutique">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>   -->
+                                <!-- <button type="submit" class="btn btn-primary" name="btnChangerVitrine" id="btnChangerVitrine">
+                                    <i class="glyphicon glyphicon-globe"></i>
+                                </button>  -->
+                                <!-- <b id="nomBoutique"></b>
+                            </form>
+                        </li>   -->
+                        <!-- <li ><a href="personnel.php" class="disabled caissier" id="personnel"><span class="fa fa-group" style="font-size:16px"></span> <b>PERSONNEL</b></a></li> -->
+                        <li><a href="profile.php" id="profilUser" class="disabled"><span class="glyphicon glyphicon-user"></span> <b id ="profil"></b></a></li>
+                        
+                        <li><a href="#" id="deconnexion"><font color="red"><span class="glyphicon glyphicon-log-out"></span> <b>DECONNEXION</b></font></a>
+
+                        </li>
+                        <!-- <li><a href="#" id="onLine" data-dismiss="modal"><font color="red"><span class="glyphicon glyphicon-log-out"></span> <b>MODE CONNEXION</b></font></a>
+
+                        </li> -->
+                        
+                    </ul>
+                </li> 
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+
+<script type="text/javascript">
+    $(document).on("click", "#deconnexion", function(e) {
+        if(navigator.onLine==true){        
+            sessionStorage.clear()
+            window.location.href="/JCaisse/index.php"
+        }else{
+            sessionStorage.clear()
+            window.location.href="/JCaisse/offline/index.html"
+        }
+        // sessionStorage.clear()
+        // window.location.href="/JCaisse/offline/index.html";
+    })
+    if(!(sessionStorage.proprietaireSession)||sessionStorage.proprietaireSession==0){
+        $('#accueil').hide()
+    } 
+    if(sessionStorage.caissierSession==0){
+        $('.offline').hide()
+    }
+    //document.getElementById('nomBoutique').innerHTML=sessionStorage.nomBSession
+    document.getElementById('nomBoutique1').innerHTML=sessionStorage.nomBSession
+    document.getElementById('profil').innerHTML='PROFIL ('+sessionStorage.prenomSession+' '+sessionStorage.nomUserSession+')'
+
+    $(".menu a").each(function(){
+                
+        if($(this).hasClass("disabled")){
+        $(this).removeAttr("href");
+        }
+    });
+    
+</script>  
+
+<script type="text/javascript">
+    date = new Date();
+    sec = date.getSeconds();
+    setTimeout(()=>{
+        setInterval(()=>{
+            if(navigator.onLine){    
+                //window.location.href="loadData.html";
+                window.location.href="/JCaisse/insertionLigneLight.php";
+                // var lesPaniers=getPanier();
+                
+                // paniers= lesPaniers.filter(p =>p.offline==1 || p.offline==0); 
+                
+                    
+                // var min=paniers[0].identifiantP;
+               
+                // if(paniers!=null){
+                    
+                //     for (let i = 1; i < paniers.length; i++) {
+                //         const e = paniers[i].identifiantP;
+                //     if (parseInt(min) > parseInt(e)) {
+                            
+                //         /*if (min > e) {*/
+                //             min = e;
+                        
+                //         }
+                        
+                //     }
+                    
+                //     panier= lesPaniers.find(p =>p.identifiantP==parseInt(min));
+                //     //alert(min+' '+panier)
+                //     if(panier.offline==1){
+                //         envoiPanier(panier);
+                //     }
+                //     if(panier.offline==0){
+                //         envoiUpdatePanier(panier);
+                //     }
+
+                //     Lespaniers=getPanier();
+                //     paniers= Lespaniers.filter(p =>p.offline==1 || p.offline==0); 
+
+                //     if(paniers){
+
+                //     }else{
+                        
+                //     }
+                    
+                // }
+                
+                
+                // paniers=JSON.parse(localStorage.getItem("Panier"));
+                // idP=localStorage.getItem("IdPanier");
+                // searchPanier=paniers.find(p=>p.idPagnet==idP);
+                // if(searchPanier){
+                //     if(searchPanier.verrouiller!=0){ 
+                        //window.location.href="/JCaisse/insertionLigneLight.php";
+                    //}
+                    
+                //}
+            } 
+  
+        }, 60 * 10);
+    }, (60 - sec) * 10);
+
+</script>

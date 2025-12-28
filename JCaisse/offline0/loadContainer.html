@@ -1,0 +1,124 @@
+<script>
+    date=new Date();
+    datejour=date.toLocaleDateString("es-CL");
+    document.getElementById('datejour').innerHTML ="Journal de caisse du : "+datejour;
+    //var val=totalVente();
+
+    // if(val!=undefined){
+     
+    //     document.getElementById('total').innerHTML ='<div class="panel-group">'+
+
+    //         '<div class="panel" style="background:#cecbcb;">'+
+
+    //             '<div class="panel-heading" >'+
+
+    //                 '<h4 class="panel-title">'+
+
+    //                 '<a data-toggle="collapse" href="#collapse1" id="totalV">Total opérations : '+val+',00 F CFA'+'   </a>'+
+
+    //                 '</h4>'+
+
+    //             '</div>'+
+
+    //         '</div>'+
+
+    //     '</div>';
+    // }
+    // else{
+    //     document.getElementById('total').innerHTML ='<div class="panel-group">'+
+
+    //     '<div class="panel" style="background:#cecbcb;">'+
+
+    //         '<div class="panel-heading" >'+
+
+    //             '<h4 class="panel-title">'+
+
+    //             '<a data-toggle="collapse" href="#collapse1" id="totalV">Total opérations : '+0+',00 F CFA'+'   </a>'+
+
+    //             '</h4>'+
+
+    //         '</div>'+
+
+    //     '</div>'+
+
+    //     '</div>';
+    // }
+    if(sessionStorage.proprietaireSession==0){
+        $('#produitVenduB').hide()
+    }
+</script>
+
+   <div class="jumbotron">
+
+        <div class="col-sm-2 pull-right" >
+
+            <form name="formulaireInfo" id="formulaireInfo" method="post" action="ajax/designationInfo.php">
+
+                    <div class="form-group" >
+
+                        <input type="text" class="form-control" placeholder="Recherche Prix..." id="designationInfo" name="designation" size="100"/>
+
+                        <div id="reponseS"></div>
+
+                        <div id="resultatS"></div>
+
+                    </div>
+
+            </form>
+
+        </div>
+
+        <h2 id="datejour"></h2>
+        <div id="total"></div>
+
+    </div>
+
+
+
+<!--*******************************Debut Rechercher Produit****************************************-->
+
+                     
+
+    <!--*******************************Debut Rechercher Produit****************************************-->
+
+    
+        <form  class="pull-right form-inline" id="searchProdForm" method="post" name="searchProdForm" >
+
+            <div class="form-group">
+
+                <img src="images/loading-gif3.gif" class="img-load-search form-group" style="height: 30px;width: 30px; display:none;" alt="GIF" srcset=""> 
+
+            </div>    
+
+            <div class="form-group">
+
+                <input type="text" size="45" class="form-control form-group" name="produit" placeholder="Rechercher produit vendu..."  id="produitVenduB" autocomplete="off" />
+
+            </div>    
+
+        </form>
+
+    
+    <!--*******************************Fin Rechercher Produit****************************************-->
+
+    
+    <!--*******************************Fin Rechercher Produit****************************************-->
+
+    <form name="formulairePagnet" method="post" >
+
+        <button type="button" class="btn btn-success noImpr addPanier" id="addPanier" name="btnSavePagnetVente">
+
+            <i class="glyphicon glyphicon-plus"></i>Ajouter un Panier
+
+            <img src="images/loading-gif3.gif" class="img-load" style="height: 30px;width: 30px; display:none;" alt="GIF" srcset="">                    
+
+        </button>
+
+    </form>
+
+
+    <br>
+
+
+
+

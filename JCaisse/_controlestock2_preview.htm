@@ -1,0 +1,227 @@
+<?php
+session_start();
+if(!$_SESSION['iduser']){
+	header('Location:index.php');
+}
+require('connection.php');
+require('declarationVariables.php');
+require('entetehtml.php');
+
+if (isset($_POST['btnCorriger1'])) {
+	echo'bonjour';
+	//je récupére les l'ensemble des id des Références, dans la table TotalStock de la boutique en question, que je mets dans tab1.
+	$sql1="select * from `".$nomtableTotalStock."` WHERE `quantiteEnStocke` !=0";
+	$res1=mysql_query($sql1);
+	//echo $sql1;
+	while($tab1=mysql_fetch_array($res1)){   
+			//pour chaqu'une des id des Références, je récupére la désignation dans tab2. 
+			$sql2="select * from `".$nomtableDesignation."` where designation ='".$tab1['designation']."'";
+			$res2=mysql_query($sql2);
+			//echo $tab1['designation'];
+			if($tab2=mysql_fetch_array($res2)){
+				//pour chaqu'une des id des Références
+				//je récupére aussi la quantité en stock totale(correspondant à la quatité du stock théorique) dans $QEnStock.
+				$idDesignation=$tab2['idDesignation'];
+				$QEnStock=$tab1['quantiteEnStocke'];
+				echo $QEnStock;
+				//je récupére le stock réel ($nbrEnArticleTotal) donné dans le formulaire de controle de stock.
+				$i=$tab2['idDesignation'];
+				//echo $_POST['nbrEnArticleTotal-'.$i]; 
+				echo "bien";
+				$nbrEnArticleTotal1 =$_POST['nbrEnArticleTotal-'.$i];
+				echo $nbrEnArticleTotal1 ;  echo "Tbien";								
+				//je calcule la variable $pointControle et je l'insert comme une nouvelle ligne dans le stock.
+				$pointControle=$QEnStock-$nbrEnArticleTotal1;
+				echo $pointControle;   echo "encore";
+				if ($pointControle!=0){
+					echo "je suis la !";
+					//$sql4="INSERT INTO `".$nomtableStock."`(designation,quantiteStockinitial,prixunitaire,uniteStock,nbreArticleUniteStock,dateStockage,quantiteStockCourant,pointControle) VALUES('".$tab1['designation']."',".$pointControle.",".$tab2['prix'].",'Article',1,'".$dateString2."',".$pointControle.",".$pointControle.")";
+					//$res4=@mysql_query($sql4) or die ("insertion stock 2 impossible".mysql_error()) ;
+				}
+				// Ce qui permet d'ajuster les quantités de stocks dans la table TotalStock de chaque boutique en fonction des controles de stocks.
+			}
+	}
+}
+if (isset($_POST['btnCorriger2'])) {
+	echo'bonsoir';
+	//je récupére les l'ensemble des id des Références, dans la table TotalStock de la boutique en question, que je mets dans tab1.
+	$sql1="select * from `".$nomtableTotalStock."` WHERE `quantiteEnStocke` !=0";
+	$res1=mysql_query($sql1);
+	while($tab1=mysql_fetch_array($res1)){
+			//pour chaqu'une des id des Références, je récupére la désignation dans tab2. 
+			$sql2="select * from `".$nomtableDesignation."` where idDesignation ='".$tab1['idDesignation']."'";
+			$res2=mysql_query($sql2);
+			if($tab2=mysql_fetch_array($res2)){
+				//pour chaqu'une des id des Références
+				//je récupére aussi la quantité en stock totale(correspondant à la quatité du stock théorique) dans $QEnStock.		
+				$designation=$tab2['designation'];
+				$sql3="select * from `".$nomtableTotalStock."` where designation ='".$designation."'";
+				$res3=mysql_query($sql3);
+				if($tab3=mysql_fetch_array($res3)){
+							$QEnUniteStock=$tab3['quantiteEnStocke'];
+							$QEnArticleStock=$tab3['quantiteEnStocke'];
+					}
+			}
+			//je récupére le stock réel ($nbrEnArticleTotal) donné dans le formulaire de controle de stock.		
+			$nbrEnUniteStock =@$_POST["nbrEnUniteStock-".$tab1['idDesignation']];
+			$nbrArticle      =@$_POST["nbrArticle-".$tab1['idDesignation']];
+			//je calcule la variable $pointControle et je l'insert comme une nouvelle ligne dans le stock.		 
+			 $pointControleUnite=$QEnUniteStock-$nbrEnUniteStock;
+			 $pointControleArticle=$QEnArticleStock-$nbrArticle;
+			 if ($pointControleUnite!=0){
+					  //$sql4="INSERT INTO `".$nomtableStock."`(designation,quantiteStockinitial,prixunitaire,uniteStock,nbreArticleUniteStock,dateStockage,quantiteStockCourant,pointControle) VALUES('".$designation."',".$pointControle.",'".$tab2['prix']."','".$tab2['uniteStock']."',"1",'".$dateString2."',".$pointControle."',".$pointControle.")";
+				 // $res4=@mysql_query($sql4) or die ("insertion stock 2 impossible".mysql_error()) ;
+			 }
+			 if ($pointControleArticle!=0){
+					  //$sql4="INSERT INTO `".$nomtableStock."`(designation,quantiteStockinitial,prixunitaire,uniteStock,nbreArticleUniteStock,dateStockage,quantiteStockCourant,pointControle) VALUES('".$designation."',".$pointControle.",'".$tab2['prix']."',"Article","1",'".$dateString2."',".$pointControle."',".$pointControle.")";
+				//$res4=@mysql_query($sql4) or die ("insertion stock 2 impossible".mysql_error()) ;
+			   }
+				// Ce qui permet d'ajuster les quantités de stocks dans la table TotalStock de chaque boutique en fonction des controles de stocks.		 
+	}
+}
+?>
+
+<body>
+
+		<?php
+		  require('header.php');
+			
+			echo'<div class="container">
+      <ul class="nav nav-tabs">';
+      		echo'<li class="active"><a data-toggle="tab" href="#PRODUIT">CONTROLE DE STOCKS TYPE 1</a></li>';
+      		echo'<li><a data-toggle="tab" href="#SERVICE">CONTROLE DE STOCKS TYPE 2</a></li>'.
+			'</ul>';
+      echo'<div class="tab-content">';
+		
+		 
+?>
+
+
+  <div class="tab-pane fade in active" id="TOTALSTOCK">
+    <form class="" id="formulaire1" method="post" action="controlestock2.php">    
+     <table id="exemple2" class="display" border="1" class="table table-bordered table-striped table-condensed">	 
+				<thead>
+					<tr>
+						<th>REFERENCE</th>
+						<th>QUANTITE ARTICLE </th>
+					</tr>
+				</thead>
+        <tfoot>
+					<tr>
+						<th>REFERENCE</th>
+						<th>QUANTITE ARTICLE </th>
+					</tr>
+				</tfoot>							
+    						 				
+<?php
+$nbre1=0; $nbre2=0; $affiche="";
+$sql="select * from `".$nomtableTotalStock."` WHERE `quantiteEnStocke` !=0";
+//echo $sql;
+$res=mysql_query($sql);
+if(mysql_num_rows($res))
+    while($tab=mysql_fetch_array($res)){
+		$sql2="select * from `".$nomtableDesignation."` where designation ='".$tab["designation"]."'";
+		$res2=mysql_query($sql2);
+    //echo $sql2;
+    if($tab2=mysql_fetch_array($res2)){
+  		//echo $tab2["uniteStock"];
+  		//echo $tab["designation"];
+  		//echo $tab2["nbreArticleUniteStock"].' - ';
+		if ($tab2["uniteStock"]!='Article'){
+			  $nbre1=(int)($tab["quantiteEnStocke"]/$tab2["nbreArticleUniteStock"]);
+				$nbre2=$tab["quantiteEnStocke"]%$tab2["nbreArticleUniteStock"];
+				//echo $nbre1."-"; 
+				//echo $nbre2;
+				//$affiche1=$nbre1." ".$tab2["uniteStock"]."(s)";
+				//$affiche2=$nbre2." Article(s)";
+				$idDesignation=$tab2['idDesignation'];
+        echo'<tr><td>'.$tab["designation"].'</td>'.
+				'<td><input type="text" name="nbrEnArticleTotal-'.$idDesignation.'" id="nbrEnArticleTotal-'.$idDesignation.'" size="3" value="'.$tab["quantiteEnStocke"].'"/>Article(s)</br> nbrEnArticleTotal-'.$tab2['idDesignation'].'</td></tr>';
+}
+		else{
+				//$affiche3="0 ".$tab2["uniteStock"];
+				//$affiche4=$tab["quantiteEnStocke"]." Article(s)";		
+				$idDesignation=$tab2['idDesignation'];																				
+				echo'<tr><td>'.$tab["designation"].'</td>'.
+        '<td><input type="hidden" name="designation" value="'.htmlspecialchars($tab['designation']).'" >'.
+        '<input type="text" name="nbrEnArticleTotal-'.$idDesignation.'" id="nbrEnArticleTotal-'.$idDesignation.'" size="3" value="'.$tab["quantiteEnStocke"].'"/>Article(s)</br> nbrEnArticleTotal-'.$tab2['idDesignation'].'</td></tr>';
+	}
+}}																		
+?>																		
+					</table>
+  		
+  			 <center>	
+  				<button type="submit" name="btnCorriger1" class="btn btn-success" data-toggle="modal" data-target="#Corriger">
+  													<i class="glyphicon glyphicon-plus"></i>Corriger
+  						</button>
+  						<button type="submit" name="btnAnnuler1" class="btn btn-danger" data-toggle="modal" data-target="#Annuler">
+  														<i class="glyphicon glyphicon-plus"></i>Annuler
+  						</button>
+  						</center>	
+  						
+  						</br></br>
+         </form> <br /></div>
+													
+																										
+													
+         <div id="UNITESTOCK" class="tab-pane fade in active">				
+ 		 			<form class="" id="" method="post" action="controlestock2.php">
+					<table id="exemple3" class="display" border="1" class="table table-bordered table-striped table-condensed">	 
+              <thead>
+              	<tr>
+              		<th>REFERENCE</th>
+              		<th colspan="3">QUANTITE UNITE STOCK</th>
+              	</tr>
+              </thead>
+                  <tfoot>
+              	<tr>
+              		<th>REFERENCE</th>
+              		<th colspan="3">QUANTITE UNITE STOCK</th>
+              	</tr>
+              </tfoot>								
+<?php
+$nbre1=0; $nbre2=0; $affiche="";
+$sql="select * from `".$nomtableTotalStock."` WHERE `quantiteEnStocke` !=0";
+$res=mysql_query($sql);
+if(mysql_num_rows($res))
+    while($tab=mysql_fetch_array($res)){
+		$sql2="select * from `".$nomtableDesignation."` where designation ='".$tab["designation"]."'";
+		$res2=mysql_query($sql2);
+		//echo $sql2;
+    if($tab2=mysql_fetch_array($res2)){
+		//echo $tab2["uniteStock"];
+		//echo $tab["designation"];
+		//echo $tab2["nbreArticleUniteStock"];
+		if ($tab2["uniteStock"]!='Article'){
+			  $nbre1=(int)($tab["quantiteEnStocke"]/$tab2["nbreArticleUniteStock"]);
+				$nbre2=$tab["quantiteEnStocke"]%$tab2["nbreArticleUniteStock"];
+				//echo $nbre1."-"; 
+				//echo $nbre2;
+				//$affiche1=$nbre1." ".$tab2["uniteStock"]."(s)";
+				//$affiche2=$nbre2." Article(s)";
+        echo'<tr><td>'.$tab["designation"].'</td>'.
+        '<td><input type="text" name="nbrEnUniteStock" id="nbrEnUniteStock-'.$tab2['idDesignation'].'" size="3" value="'.$nbre1.'"/>'.$tab2["uniteStock"].'(s)</br> nbrEnUniteStock-'.$tab2['idDesignation'].'</td><td> + </td><td><input type="text" name="nbrArticle" id="nbrArticle-'.$tab2['idDesignation'].'" size="3" value="'.$nbre2.'"/>Article(s)</br> nbrArticle-'.$tab2['idDesignation'].'</td>';
+		}
+		else{
+				//$affiche3="0 ".$tab2["uniteStock"];
+				//$affiche4=$tab["quantiteEnStocke"]." Article(s)";																						
+				echo'<tr><td>'.$tab["designation"].'</td>'.
+        '<td><input type="text" name="nbrEnUniteStock" id="nbrEnUniteStock-'.$tab2['idDesignation'].'" size="3" value="0" disabled=""/></br> nbrEnUniteStock-'.$tab2['idDesignation'].'</td><td> + </td><td><input type="text" name="nbrArticle" id="nbrArticle-'.$tab2['idDesignation'].'" size="3" value="'.$tab["quantiteEnStocke"].'"/>Article(s)</br>nbrArticle-'.$tab2['idDesignation'].'</td>';																										
+	 }
+}}																		
+?>																		
+				</table>
+			
+			 <center>	
+							<button type="submit" name="btnCorriger2" class="btn btn-success" data-toggle="modal" data-target="#addClient">
+																	<i class="glyphicon glyphicon-plus"></i>Corriger
+							</button>
+							<button type="submit" name="btnAnnuler2" class="btn btn-danger" data-toggle="modal" data-target="#addClient">
+																		<i class="glyphicon glyphicon-plus"></i>Annuler
+							</button>
+			</center>	
+			</br></br>
+    </form><br /></div>
+</div></div>
+</body>
+</html>

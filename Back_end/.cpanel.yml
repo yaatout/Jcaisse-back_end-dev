@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/sdru1621/public_html/back_end
+    - /bin/cp -r * $DEPLOYPATH
